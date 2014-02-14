@@ -170,17 +170,17 @@ example: "年"
 * type: string
 * default: "li"
 
-years, months, days item element tag.
+years, months, days items element tag.
 
 #### activeClass
 
 * type: string
-* default: "dui-selected"
+* default: "datepicker-selected"
 
 #### disableClass
 
 * type: string
-* default: "dui-disabled"
+* default: "datepicker-disabled"
 
 #### isDisable
 
