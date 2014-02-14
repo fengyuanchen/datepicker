@@ -101,90 +101,91 @@ $.fn.distpicker.setDefaults({
 ### Options
 
 #### autoClose
-type: boolean
-default: false
+
+* type: boolean
+* default: false
 
 Close the picker when a date was selected.
 
 #### dateFormat
 
-type: string
-default: "mm/dd/yyyy"
+* type: string
+* default: "mm/dd/yyyy"
+
 example: "yyyy-mm-dd", "yy.m.d"
 
 #### viewStart
 
-type: number
-options: 0, 1, 2
-default: 0
+* type: number
+* default: 0
 
 0 for "days", 1 for "months", 2 for "years".
 
 #### weekStart
 
-type: number
-options: 0, 1, 2, 3, 4, 5, 6
-default: 0
+* type: number
+* default: 0
 
 0 for Sunday, 1 for Monday, 3 for Tuesday, 4 for Thursday, 5 for Friday, 6 for Saturday.
 
 #### showMonthAfterYear
 
-type: boolean
-default: false
+* type: boolean
+* default: false
 
 #### yearSuffix
 
-type: string
-default: ""
+* type: string
+* default: ""
+
 example: "年"
 
 #### months
 
-type: array
-default: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+* type: array
+* default: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
 #### monthsShort
 
-type: array
-default: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+* type: array
+* default: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 #### days
 
-type: array
-default: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+* type: array
+* default: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
 #### daysShort
 
-type: array
-default: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+* type: array
+* default: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
 #### daysMin
 
-type: array
-default: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
+* type: array
+* default: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
 
 #### itemTag
 
-type: string
-default: "li"
+* type: string
+* default: "li"
 
 years, months, days item element tag.
 
 #### activeClass
 
-type: string
-default: "dui-selected"
+* type: string
+* default: "dui-selected"
 
 #### disableClass
 
-type: string
-default: "dui-disabled"
+* type: string
+* default: "dui-disabled"
 
 #### isDisable
 
-type: function
-default:
+* type: function
+* default:
 
 ```javascript
 function() {
@@ -192,8 +193,8 @@ function() {
 }
 ```
 
-param: date object
-return: boolean
+* param: date object
+* return: boolean
 
 example:
 
@@ -209,8 +210,8 @@ $(".datepicker").datepicker({
 
 #### template
 
-type: string
-default: 
+* type: string
+* default: 
 
 ```javascript
 [
