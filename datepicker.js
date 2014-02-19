@@ -1,4 +1,4 @@
-/*!
+/*
  * Datepicker v0.1.0
  * https://github.com/fengyuanchen/datepicker
  *
@@ -10,7 +10,7 @@
     if (typeof define === "function" && define.amd) {
         define(["jquery"], fn);
     } else {
-        fn(window.jQuery);
+        fn(jQuery);
     }
 }(function($) {
 
@@ -23,7 +23,7 @@
             this.$element = $(element);
             this.defaults = $.extend({}, Datepicker.defaults, this.$element.data(), options);
             this.init();
-            console.log(this);
+            // console.log(this);
         };
 
     Datepicker.prototype = {
@@ -46,7 +46,7 @@
             this.enable();
         },
         
-        enable: function(){
+        enable: function() {
             
             if (this.enabled) {
                 return;
@@ -71,7 +71,7 @@
             this.enabled = true;
         },
 
-        disable: function(){
+        disable: function() {
 
             if (!this.enabled) {
                 return;
@@ -146,7 +146,7 @@
             }
         },
 
-        hideView: function(){
+        hideView: function() {
             if (this.defaults.autoClose) {
                 this.hide();
             }
@@ -380,15 +380,14 @@
 
         click: function(e) {
             var $target = $(e.target),
-                viewYear = this.viewDate.getFullYear(),
-                viewMonth = this.viewDate.getMonth(),
-                viewDay = this.viewDate.getDate(),
                 yearRegex = /^\d{2,4}$/,
                 isYear = false,
+                viewYear,
+                viewMonth,
+                viewDay,
                 year,
                 type;
 
-            console.log(e.target);
             e.stopPropagation();
             e.preventDefault();
 
@@ -396,6 +395,9 @@
                 return;
             }
 
+            viewYear = this.viewDate.getFullYear();
+            viewMonth = this.viewDate.getMonth();
+            viewDay = this.viewDate.getDate();
             type = $target.data().type;
 
             switch (type) {
@@ -535,12 +537,12 @@
         },
 
         parseFormat: function(format) {
-            var separator = format.match(/[.\/\-\s].*?/),
+            var separator = format.match(/[.\/\-\s].*?/) || "/",
                 parts = format.split(/\W+/),
                 length,
                 i;
-
-            if (!separator || !parts || parts.length === 0) {
+            
+            if (!parts || parts.length === 0) {
                 throw new Error("Invalid date format.");
             }
 
@@ -582,7 +584,7 @@
                 val,
                 i;
 
-            parts = typeof date === "string" ? date.split(format.separator) : [];
+            parts = typeof date === "string" && date.length > 0 ? date.split(format.separator) : [];
             length = format.parts.length;
 
             date = new Date();
@@ -644,23 +646,22 @@
     };
 
     Datepicker.defaults = {
+        activeClass: "datepicker-selected",
         autoClose: false,
         dateFormat: "mm/dd/yyyy",
-        viewStart: 0, // 0 for "days", 1 for "months", 2 for "years"
-        weekStart: 0,
-        showMonthAfterYear: false,
-        yearSuffix: "",
-        months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-        monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
         daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
         daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
-        itemTag: "li",
-        activeClass: "datepicker-selected",
         disableClass: "datepicker-disabled",
+        
         isDisabled: function( /* date */ ) {
             return false;
         },
+
+        itemTag: "li",
+        months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        showMonthAfterYear: false,
         template: [
             '<div class="datepicker-container" data-type="datepicker">',
                 '<div class="datepicker-arrow"></div>',
@@ -692,7 +693,11 @@
                     '</div>',
                 '</div>',
             '</div>'
-        ].join("")
+        ].join(""),
+        trigger: undefined,
+        viewStart: 0, // 0 for "days", 1 for "months", 2 for "years"
+        weekStart: 0, // 0 for Sunday, 1 for Monday, 2 for Tuesday, 3 for Wednesday, 4 for Thursday, 5 for Friday, 6 for Saturday
+        yearSuffix: ""
     };
 
     Datepicker.setDefaults = function(options) {
@@ -723,13 +728,10 @@
     };
 
     $.fn.datepicker.Constructor = Datepicker;
-
-    $.fn.datepicker.setDefaults = function(options) {
-        Datepicker.setDefaults(options);
-    };
+    $.fn.datepicker.setDefaults = Datepicker.setDefaults;
 
     $(function(){
-        $("*[datepicker").datepicker();
+        $("[datepicker]").datepicker();
     });
 
 }));

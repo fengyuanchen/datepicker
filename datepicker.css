@@ -1,4 +1,12 @@
-.datepicker-container {
+/*
+ * Datepicker v0.1.0
+ * https://github.com/fengyuanchen/datepicker
+ *
+ * Copyright 2014 Fenngyuan Chen
+ * Released under the MIT license
+ */
+
+ .datepicker-container {
     font-size: 12px;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 30px;
@@ -30,6 +38,9 @@
     border-top-color: #9CF;
     box-shadow: 0 0 3px #CCC;
     width: 210px;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
 }
 .datepicker-container .datepicker-prev,
 .datepicker-container .datepicker-next {
