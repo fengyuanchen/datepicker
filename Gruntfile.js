@@ -7,7 +7,8 @@ module.exports = function(grunt) {
 
 	grunt.initConfig({
 		pkg: pkg,
-		banner: "/*! <%= pkg.name %> v<%= pkg.version %> | (c) 2014 <%= pkg.author %> */",
+		name: pkg.name.substr(0,1).toUpperCase() + pkg.name.substring(1),
+		banner: "/*! <%= name %> v<%= pkg.version %> | (c) 2014 <%= pkg.author %> */",
 		clean: ["dist", "build/<%= pkg.version %>"],
 		jshint: {
 			options: {

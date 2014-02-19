@@ -28,7 +28,7 @@ Or
 
 #### Method 2:
 
-Init with the jQuery method `distpicker`.
+Init with the jQuery method `datepicker`.
 
 ```html
 <input class="datepicker" type="text">
@@ -41,7 +41,7 @@ Or
 ```
 
 ```javascript
-$(".datepicker").distpicker();
+$(".datepicker").datepicker();
 ```
 
 #### Method 3:
@@ -59,7 +59,7 @@ Or
 ```
 
 ```javascript
-$(".datepicker").distpicker();
+$(".datepicker").datepicker();
 ```
 
 #### Method 4:
@@ -71,7 +71,7 @@ Init with options.
 ```
 
 ```javascript
-$(".datepicker").distpicker({
+$(".datepicker").datepicker({
 	dateFormat: "yyyy-mm-dd"
 });
 ```
@@ -84,7 +84,7 @@ Example:
 
 ```javascript
 // for Chinese (zh-CN)
-$.fn.distpicker.setDefaults({
+$.fn.datepicker.setDefaults({
 	dateFormat: "yyyy-mm-dd",
 	viewStart: 0,
 	weekStart: 1,
