@@ -1,12 +1,12 @@
-/*
+/*!
  * Datepicker v0.1.0
  * https://github.com/fengyuanchen/datepicker
  *
- * Copyright 2014 Fenngyuan Chen
+ * Copyright 2014 Fengyuan Chen
  * Released under the MIT license
  */
 
- .datepicker-container {
+.datepicker-container {
     font-size: 12px;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 30px;

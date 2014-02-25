@@ -1,4 +1,6 @@
-A simple, lightweight, customize datepicker.
+# Datepicker
+
+A simple, lightweight, customizable jQuery datepicker plugin.
 
 ## Installation
 
@@ -172,12 +174,12 @@ example: "年"
 
 years, months, days items element tag.
 
-#### activeClass
+#### selectedClass
 
 * type: string
 * default: "datepicker-selected"
 
-#### disableClass
+#### disabledClass
 
 * type: string
 * default: "datepicker-disabled"
@@ -248,4 +250,4 @@ $(".datepicker").datepicker({
 ].join("")
 ```
 
-/!\ All the `data-type` attributes must be set when custom setup.
+/!\ All the `data-type` attributes must be set when custom the template.

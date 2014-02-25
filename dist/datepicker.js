@@ -1,8 +1,8 @@
-/*
+/*!
  * Datepicker v0.1.0
  * https://github.com/fengyuanchen/datepicker
  *
- * Copyright 2014 Fenngyuan Chen
+ * Copyright 2014 Fengyuan Chen
  * Released under the MIT license
  */
 
@@ -23,7 +23,6 @@
             this.$element = $(element);
             this.defaults = $.extend({}, Datepicker.defaults, this.$element.data(), options);
             this.init();
-            // console.log(this);
         };
 
     Datepicker.prototype = {
@@ -34,9 +33,9 @@
 
             this.$trigger = trigger ? $(trigger) : this.$element;
             this.$picker = $(this.defaults.template);
-            this.$years = this.$picker.find("*[data-type='years picker']");
-            this.$months = this.$picker.find("*[data-type='months picker']");
-            this.$days = this.$picker.find("*[data-type='days picker']");
+            this.$years = this.$picker.find("[data-type='years picker']");
+            this.$months = this.$picker.find("[data-type='months picker']");
+            this.$days = this.$picker.find("[data-type='days picker']");
             this.$picker.appendTo("body");
             this.place();
             this.hide();
@@ -102,8 +101,8 @@
             if (format.year || format.month || format.day) {
                 switch (type) {
                     
-                    // Show years
                     case 2:
+                    case "years":
                         this.$months.hide();
                         this.$days.hide();
 
@@ -116,8 +115,8 @@
 
                         break;
 
-                    // Show months
                     case 1:
+                    case "months":
                         this.$years.hide();
                         this.$days.hide();
 
@@ -130,8 +129,8 @@
 
                         break;
 
-                    // Show days
                     // case 0:
+                    // case "days":
                     default:
                         this.$years.hide();
                         this.$months.hide();
@@ -216,8 +215,8 @@
 
             return [
                 '<' + this.defaults.itemTag + ' ',
-                (defaults.selected ? 'class="' + this.defaults.activeClass + '"' :
-                defaults.disabled ? 'class="' + this.defaults.disableClass + '"' : ''),
+                (defaults.selected ? 'class="' + this.defaults.selectedClass + '"' :
+                defaults.disabled ? 'class="' + this.defaults.disabledClass + '"' : ''),
                 (defaults.type ? ' data-type="' + defaults.type + '"' : ''),
                 '>',
                 defaults.text,
@@ -246,14 +245,14 @@
                 isCurrent = (viewYear + i) === year;
                 items.push(this.template({
                     text: viewYear + i,
-                    type: isCurrent ? "year active" : "year",
+                    type: isCurrent ? "year selected" : "year",
                     selected: isCurrent,
                     disabled: i === -5 || i === 6
                 }));
             }
 
-            this.$picker.find("*[data-type='years current']").html(title);
-            this.$picker.find("*[data-type='years']").empty().html(items.join(""));
+            this.$picker.find("[data-type='years current']").html(title);
+            this.$picker.find("[data-type='years']").empty().html(items.join(""));
         },
 
         fillMonths: function() {
@@ -273,13 +272,13 @@
 
                 items.push(this.template({
                     text: options[i],
-                    type: isCurrent ? "month active" : "month",
+                    type: isCurrent ? "month selected" : "month",
                     selected: isCurrent
                 }));
             }
 
-            this.$picker.find("*[data-type='year current']").html(title);
-            this.$picker.find("*[data-type='months']").empty().html(items.join(""));
+            this.$picker.find("[data-type='year current']").html(title);
+            this.$picker.find("[data-type='months']").empty().html(items.join(""));
         },
 
         fillWeek: function() {
@@ -296,7 +295,7 @@
                 }));
             }
 
-            this.$picker.find("*[data-type='week']").empty().html(items.join(""));
+            this.$picker.find("[data-type='week']").empty().html(items.join(""));
         },
 
         fillDays: function() {
@@ -363,7 +362,7 @@
 
                 currentItems.push(this.template({
                     text: i,
-                    type: isDisabled ? "day disable" : isCurrent ? "day active" : "day",
+                    type: isDisabled ? "day disabled" : isCurrent ? "day selected" : "day",
                     selected: isCurrent,
                     disabled: isDisabled
                 }));
@@ -374,8 +373,8 @@
             $.merge(items, currentItems);
             $.merge(items, nextItems);
 
-            this.$picker.find("*[data-type='month current']").html(title);
-            this.$picker.find("*[data-type='days']").empty().html(items.join(""));
+            this.$picker.find("[data-type='month current']").html(title);
+            this.$picker.find("[data-type='days']").empty().html(items.join(""));
         },
 
         click: function(e) {
@@ -437,7 +436,7 @@
 
                     break;
 
-                case "year active":
+                case "year selected":
 
                     if (this.format.month) {
                         this.showView(1);
@@ -476,7 +475,7 @@
 
                     break;
 
-                case "month active":
+                case "month selected":
 
                     if (this.format.day) {
                         this.showView(0);
@@ -516,8 +515,8 @@
                     this.output();
                     break;
 
-                case "day disable":
-                case "day active":
+                case "day disabled":
+                case "day selected":
                     this.hideView();
                     break;
 
@@ -646,13 +645,12 @@
     };
 
     Datepicker.defaults = {
-        activeClass: "datepicker-selected",
         autoClose: false,
         dateFormat: "mm/dd/yyyy",
         days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
         daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
         daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
-        disableClass: "datepicker-disabled",
+        disabledClass: "datepicker-disabled",
         
         isDisabled: function( /* date */ ) {
             return false;
@@ -661,6 +659,7 @@
         itemTag: "li",
         months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
         monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        selectedClass: "datepicker-selected",
         showMonthAfterYear: false,
         template: [
             '<div class="datepicker-container" data-type="datepicker">',
@@ -701,13 +700,7 @@
     };
 
     Datepicker.setDefaults = function(options) {
-        var option;
-
-        for (option in options) {
-            if (options.hasOwnProperty(option) && typeof Datepicker.defaults[option] !== "undefined") {
-                Datepicker.defaults[option] = options[option];
-            }
-        }
+        $.extend(Datepicker.defaults, options);
     };
 
     // Define as a jquery method
@@ -730,7 +723,7 @@
     $.fn.datepicker.Constructor = Datepicker;
     $.fn.datepicker.setDefaults = Datepicker.setDefaults;
 
-    $(function(){
+    $(function() {
         $("[datepicker]").datepicker();
     });
 
