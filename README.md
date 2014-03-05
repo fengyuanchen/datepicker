@@ -1,4 +1,4 @@
-# Datepicker
+# [Datepicker](http://fengyuanchen.github.io/datepicker)
 
 A simple, lightweight, customizable jQuery datepicker plugin.
 
@@ -184,7 +184,7 @@ years, months, days items element tag.
 * type: string
 * default: "datepicker-disabled"
 
-#### isDisable
+#### isDisabled
 
 * type: function
 * default:
@@ -213,7 +213,7 @@ $(".datepicker").datepicker({
 #### template
 
 * type: string
-* default: 
+* default:
 
 ```javascript
 [
@@ -250,4 +250,4 @@ $(".datepicker").datepicker({
 ].join("")
 ```
 
-/!\ All the `data-type` attributes must be set when custom the template.
+/!\ All the data-type="" attributes must be set when you customize it.

@@ -6,11 +6,13 @@
  * Released under the MIT license
  */
 
-(function(fn, undefined) {
+(function(factory) {
     if (typeof define === "function" && define.amd) {
-        define(["jquery"], fn);
+        // AMD. Register as anonymous module.
+        define(["jquery"], factory);
     } else {
-        fn(jQuery);
+        // Browser globals.
+        factory(jQuery);
     }
 }(function($) {
 
@@ -703,7 +705,7 @@
         $.extend(Datepicker.defaults, options);
     };
 
-    // Define as a jquery method
+    // Register as jQuery plugin
     $.fn.datepicker = function(options) {
         return this.each(function() {
             var $this = $(this),
