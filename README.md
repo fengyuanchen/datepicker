@@ -2,6 +2,10 @@
 
 A simple, lightweight, customizable jQuery datepicker plugin.
 
+
+# Getting started
+
+
 ## Installation
 
 Include files:
@@ -12,93 +16,54 @@ Include files:
 <script src="/path/to/datepicker.js"></script>
 ```
 
+
 ## Usage
 
-#### Method 1:
+### Initialize with `datepicker` attribute
 
-Auto init by add the `datepicker` attribute to the element.
+#### Basic:
 
 ```html
 <input datepicker type="text">
 ```
 
-Or
+#### Add options with `data-*` attribute
 
 ```html
-<div datepicker></div>
+<input type="text" datepicker data-date-format="dd/mm/yy" data-auto-close="true">
 ```
 
-#### Method 2:
+### Initialize with `$.fn.datepicker` method
 
-Init with the jQuery method `datepicker`.
+#### Basic:
 
 ```html
 <input class="datepicker" type="text">
 ```
 
-Or
-
-```html
-<div class="datepicker"></div>
-```
-
 ```javascript
 $(".datepicker").datepicker();
 ```
 
-#### Method 3:
-
-Init with data attributes.
+#### Add options
 
 ```html
-<input class="datepicker" type="text" value="2020-02-20" data-date-format="yyyy-mm-dd">
-```
-
-Or
-
-```html
-<div class="datepicker" data-date-format="yyyy-mm-dd">2020-02-20</div>
+<input id="datepicker-add-options" type="text">
 ```
 
 ```javascript
-$(".datepicker").datepicker();
-```
-
-#### Method 4:
-
-Init with options.
-
-```html
-<input class="datepicker" type="text" value="2020-02-20">
-```
-
-```javascript
-$(".datepicker").datepicker({
-	dateFormat: "yyyy-mm-dd"
+$("#datepicker-add-options").datepicker({
+    dateFormat: "yyyy.m.d",
+    weekStart: 1
 });
 ```
 
-## Setup
 
-### Set defaults
+## Configure
 
-Example:
+### Setup
 
-```javascript
-// for Chinese (zh-CN)
-$.fn.datepicker.setDefaults({
-	dateFormat: "yyyy-mm-dd",
-	viewStart: 0,
-	weekStart: 1,
-	showMonthAfterYear: true,
-	yearSuffix: "年",
-	months: ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
-	monthsShort: ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],
-	days: ["星期日","星期一","星期二","星期三","星期四","星期五","星期六"],
-	daysShort: ["周日","周一","周二","周三","周四","周五","周六"],
-	daysMin: ["日","一","二","三","四","五","六"]
-});
-```
+Setup with `$("#target").datepicker(options)`, or global setup with `$.fn.datepicker.setDefaults(options)`.
 
 ### Options
 
@@ -187,18 +152,11 @@ years, months, days items element tag.
 #### isDisabled
 
 * type: function
-* default:
-
-```javascript
-function() {
-	return false;
-}
-```
-
+* default: `function() { return false; }`
 * param: date object
 * return: boolean
 
-example:
+For example:
 
 ```javascript
 var now = Date.now();
@@ -251,3 +209,34 @@ $(".datepicker").datepicker({
 ```
 
 /!\ All the data-type="" attributes must be set when you customize it.
+
+
+## Methods
+
+* show - Show the datepicker
+* hide - Hide the datepicker
+* enable - Enable the datepicker
+* disable - Disable the datepicker
+* update - Update the datepicker
+
+
+## I18n
+
+For example:
+
+```javascript
+// For Chinese (zh-CN)
+$.fn.datepicker.setDefaults({
+    autoClose: false,
+    dateFormat: "yyyy-mm-dd",
+    days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"],
+    daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
+    daysMin: ["日", "一", "二", "三", "四", "五", "六"],
+    months: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+    monthsShort: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+    showMonthAfterYear: true,
+    viewStart: 0,
+    weekStart: 1,
+    yearSuffix: "年"
+});
+```

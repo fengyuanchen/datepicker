@@ -6,11 +6,11 @@
  * Released under the MIT license
  */
 
-(function(fn, undefined) {
+(function(factory) {
     if (typeof define === "function" && define.amd) {
-        define(["jquery"], fn);
+        define(["jquery"], factory);
     } else {
-        fn(window.jQuery);
+        factory(jQuery);
     }
 }(function($) {
 
