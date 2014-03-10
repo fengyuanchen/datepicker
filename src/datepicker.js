@@ -188,12 +188,13 @@
         },
 
         output: function() {
-            var date = Datepicker.fn.formatDate(this.date, this.format);
+            var $element = this.$element,
+                date = Datepicker.fn.formatDate(this.date, this.format);
 
-            if (this.$element.is("input")) {
-                this.$element.prop("value", date);
+            if ($element.is("input")) {
+                $element.prop("value", date).trigger("change");
             } else {
-                this.$element.text(date);
+                $element.text(date);
             }
         },
 
@@ -509,8 +510,12 @@
                     this.output();
                     break;
 
-                case "day disabled":
                 case "day selected":
+                    this.hideView();
+                    this.output();
+                    break;
+
+                case "day disabled":
                     this.hideView();
                     break;
 
