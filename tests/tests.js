@@ -6,13 +6,10 @@
         var $element = $('<input type="text">');
 
         $element.appendTo("body");
-        
-        if (typeof fn === "function") {
-            fn($element);
-        }
+        $.isFunction(fn) && fn($element);
 
         $element.datepicker(options).hide();
-        
+
         return $element.data("datepicker") || {};
     };
 
@@ -75,11 +72,11 @@
             }),
             viewDate;
 
-        datepicker.$years.find("[data-type='year active']").next().trigger("click"); // next year: 2021
-        datepicker.$months.find("[data-type='month active']").next().trigger("click"); // next month: 3
-        datepicker.$days.find("[data-type='day active']").next().trigger("click"); // next day: 16
+        datepicker.$years.find("[data-type='year selected']").next().trigger("click"); // next year: 2021
+        datepicker.$months.find("[data-type='month selected']").next().trigger("click"); // next month: 3
+        datepicker.$days.find("[data-type='day selected']").next().trigger("click"); // next day: 16
         viewDate = datepicker.viewDate;
-        
+
         equal(viewDate.getFullYear(), 2021);
         equal(viewDate.getMonth(), 2); // March
         equal(viewDate.getDate(), 16);
@@ -91,12 +88,12 @@
             datepicker = $element.appendTo("body").datepicker().hide().data("datepicker"),
             viewDate;
 
-        datepicker.$years.find("[data-type='year active']").next().trigger("click"); // next year: 2021
-        datepicker.$months.find("[data-type='month active']").next().trigger("click"); // next month: 3
-        datepicker.$days.find("[data-type='day active']").next().trigger("click"); // next day: 16
+        datepicker.$years.find("[data-type='year selected']").next().trigger("click"); // next year: 2021
+        datepicker.$months.find("[data-type='month selected']").next().trigger("click"); // next month: 3
+        datepicker.$days.find("[data-type='day selected']").next().trigger("click"); // next day: 16
         viewDate = datepicker.viewDate;
         $element.hide();
-        
+
         equal(viewDate.getFullYear(), 2021);
         equal(viewDate.getMonth(), 2); // March
         equal(viewDate.getDate(), 16);
