@@ -98,6 +98,13 @@ module.exports = function(grunt) {
                 dest: "../fengyuanchen.github.io/dist/",
                 filter: "isFile"
             },
+            i18n: {
+                expand: true,
+                cwd: "i18n/",
+                src: "**",
+                dest: "../fengyuanchen.github.io/i18n/",
+                filter: "isFile"
+            },
             docs: {
                 expand: true,
                 cwd: "docs/",
@@ -119,6 +126,6 @@ module.exports = function(grunt) {
     require("load-grunt-tasks")(grunt);
 
     grunt.registerTask("release", ["clean:release", "copy:release"]);
-    grunt.registerTask("docs", ["clean:docs", "copy:sync", "copy:docs"]);
+    grunt.registerTask("docs", ["clean:docs", "copy:sync", "copy:i18n", "copy:docs"]);
     grunt.registerTask("default", ["clean:dist", "clean:build", "jshint", "uglify", "copy:dist", "autoprefixer", "csscomb", "csslint", "cssmin", "usebanner", "copy:build"]);
 };
