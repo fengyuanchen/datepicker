@@ -1,4 +1,4 @@
-(function(factory) {
+(function (factory) {
     if (typeof define === "function" && define.amd) {
         // AMD. Register as anonymous module.
         define(["jquery"], factory);
@@ -6,23 +6,22 @@
         // Browser globals.
         factory(jQuery);
     }
-}(function($) {
+})(function ($) {
 
     "use strict";
 
     var $window = $(window),
         $document = $(document),
-        Datepicker = function(element, options) {
-            options = $.isPlainObject(options) ? options : {};
+        Datepicker = function (element, options) {
             this.$element = $(element);
-            this.defaults = $.extend({}, Datepicker.defaults, this.$element.data(), options);
+            this.defaults = $.extend({}, Datepicker.defaults, this.$element.data(), $.isPlainObject(options) ? options : {});
             this.init();
         };
 
     Datepicker.prototype = {
-        construstor: Datepicker,
+        constructor: Datepicker,
 
-        init: function() {
+        init: function () {
             var trigger = this.defaults.trigger;
 
             this.$trigger = trigger ? $(trigger) : this.$element;
@@ -38,9 +37,8 @@
             this.fillWeek();
             this.enable();
         },
-        
-        enable: function() {
-            
+
+        enable: function () {
             if (this.enabled) {
                 return;
             }
@@ -64,8 +62,7 @@
             this.enabled = true;
         },
 
-        disable: function() {
-
+        disable: function () {
             if (!this.enabled) {
                 return;
             }
@@ -84,17 +81,17 @@
                 click: this.click,
                 mousedown: this.mousedown
             });
-            
+
             this.hide();
             this.enabled = false;
         },
 
-        showView: function(type) {
+        showView: function (type) {
             var format = this.format;
 
             if (format.year || format.month || format.day) {
                 switch (type) {
-                    
+
                     case 2:
                     case "years":
                         this.$months.hide();
@@ -139,13 +136,13 @@
             }
         },
 
-        hideView: function() {
+        hideView: function () {
             if (this.defaults.autoClose) {
                 this.hide();
             }
         },
 
-        place: function() {
+        place: function () {
             var offset = this.$trigger.offset(),
                 height = this.$trigger.outerHeight();
 
@@ -155,7 +152,7 @@
             });
         },
 
-        show: function() {
+        show: function () {
             if (!this.enabled) {
                 return;
             }
@@ -168,18 +165,18 @@
             this.showView(this.defaults.viewStart);
         },
 
-        hide: function() {
+        hide: function () {
             this.$picker.hide();
             $window.off("resize", this.place);
             $document.off("mousedown", this.hide);
         },
 
-        mousedown: function(e) {
+        mousedown: function (e) {
             e.stopPropagation();
             e.preventDefault();
         },
 
-        update: function() {
+        update: function () {
             var viewDate = this.$element.is("input") ? this.$element.prop("value") : this.$element.text();
 
             this.date = Datepicker.fn.parseDate(viewDate, this.format);
@@ -187,7 +184,7 @@
             this.fillAll();
         },
 
-        output: function() {
+        output: function () {
             var $element = this.$element,
                 date = Datepicker.fn.formatDate(this.date, this.format);
 
@@ -198,7 +195,7 @@
             }
         },
 
-        template: function(options) {
+        template: function (options) {
             var defaults = {
                 text: "",
                 type: "",
@@ -219,13 +216,13 @@
             ].join("");
         },
 
-        fillAll: function() {
+        fillAll: function () {
             this.fillYears();
             this.fillMonths();
             this.fillDays();
         },
 
-        fillYears: function() {
+        fillYears: function () {
             var title = "",
                 items = [],
                 suffix = this.defaults.yearSuffix || "",
@@ -250,7 +247,7 @@
             this.$picker.find("[data-type='years']").empty().html(items.join(""));
         },
 
-        fillMonths: function() {
+        fillMonths: function () {
             var title = "",
                 items = [],
                 options = this.defaults.monthsShort,
@@ -276,7 +273,7 @@
             this.$picker.find("[data-type='months']").empty().html(items.join(""));
         },
 
-        fillWeek: function() {
+        fillWeek: function () {
             var items = [],
                 options = this.defaults.daysMin,
                 weekStart = parseInt(this.defaults.weekStart, 10) % 7,
@@ -293,7 +290,7 @@
             this.$picker.find("[data-type='week']").empty().html(items.join(""));
         },
 
-        fillDays: function() {
+        fillDays: function () {
             var title = "",
                 items = [],
                 prevItems = [],
@@ -372,7 +369,7 @@
             this.$picker.find("[data-type='days']").empty().html(items.join(""));
         },
 
-        click: function(e) {
+        click: function (e) {
             var $target = $(e.target),
                 yearRegex = /^\d{2,4}$/,
                 isYear = false,
@@ -526,20 +523,20 @@
 
     // Common methods
     Datepicker.fn = {
-        isLeapYear: function(year) {
+        isLeapYear: function (year) {
             return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
         },
 
-        getDaysInMonth: function(year, month) {
+        getDaysInMonth: function (year, month) {
             return [31, (this.isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
         },
 
-        parseFormat: function(format) {
+        parseFormat: function (format) {
             var separator = format.match(/[.\/\-\s].*?/) || "/",
                 parts = format.split(/\W+/),
                 length,
                 i;
-            
+
             if (!parts || parts.length === 0) {
                 throw new Error("Invalid date format.");
             }
@@ -573,7 +570,7 @@
             return format;
         },
 
-        parseDate: function(date, format) {
+        parseDate: function (date, format) {
             var parts,
                 length,
                 year,
@@ -621,7 +618,7 @@
             return new Date(year, month, day, 0, 0, 0, 0);
         },
 
-        formatDate: function(date, format) {
+        formatDate: function (date, format) {
             var val = {
                     d: date.getDate(),
                     m: date.getMonth() + 1,
@@ -649,16 +646,16 @@
         days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
         daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
         daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
-        disabledClass: "datepicker-disabled",
-        
-        isDisabled: function( /* date */ ) {
+        disabledClass: "disabled",
+
+        isDisabled: function ( /* date */ ) {
             return false;
         },
 
         itemTag: "li",
         months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
         monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        selectedClass: "datepicker-selected",
+        selectedClass: "selected",
         showMonthAfterYear: false,
         template: [
             '<div class="datepicker-container" data-type="datepicker">',
@@ -698,32 +695,31 @@
         yearSuffix: ""
     };
 
-    Datepicker.setDefaults = function(options) {
+    Datepicker.setDefaults = function (options) {
         $.extend(Datepicker.defaults, options);
     };
 
     // Register as jQuery plugin
-    $.fn.datepicker = function(options) {
-        return this.each(function() {
+    $.fn.datepicker = function (options) {
+        return this.each(function () {
             var $this = $(this),
                 data = $this.data("datepicker");
-            
+
             if (!data) {
                 data = new Datepicker(this, options);
                 $this.data("datepicker", data);
             }
-            
+
             if (typeof options === "string" && $.isFunction(data[options])) {
                 data[options]();
             }
         });
     };
 
-    $.fn.datepicker.Constructor = Datepicker;
+    $.fn.datepicker.constructor = Datepicker;
     $.fn.datepicker.setDefaults = Datepicker.setDefaults;
 
-    $(function() {
+    $(function () {
         $("[datepicker]").datepicker();
     });
-
-}));
+});

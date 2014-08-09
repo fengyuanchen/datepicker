@@ -2,6 +2,8 @@
 
 A simple, lightweight, customizable jQuery datepicker plugin.
 
+- [Documentation](http://fengyuanchen.github.io/datepicker)
+
 
 # Getting started
 
@@ -12,7 +14,7 @@ Include files:
 
 ```html
 <script src="/path/to/jquery.js"></script><!-- jQuery is required -->
-<link rel="stylesheet" href="/path/to/datepicker.css">
+<link  href="/path/to/datepicker.css" rel="stylesheet">
 <script src="/path/to/datepicker.js"></script>
 ```
 
@@ -59,13 +61,9 @@ $("#datepicker-add-options").datepicker({
 ```
 
 
-## Configure
-
-### Setup
+## Options
 
 Setup with `$("#target").datepicker(options)`, or global setup with `$.fn.datepicker.setDefaults(options)`.
-
-### Options
 
 #### autoClose
 
@@ -74,12 +72,14 @@ Setup with `$("#target").datepicker(options)`, or global setup with `$.fn.datepi
 
 Close the picker when a date was selected.
 
+
 #### dateFormat
 
 * type: string
 * default: "mm/dd/yyyy"
 
 example: "yyyy-mm-dd", "yy.m.d"
+
 
 #### viewStart
 
@@ -88,6 +88,7 @@ example: "yyyy-mm-dd", "yy.m.d"
 
 0 for "days", 1 for "months", 2 for "years".
 
+
 #### weekStart
 
 * type: number
@@ -95,10 +96,12 @@ example: "yyyy-mm-dd", "yy.m.d"
 
 0 for Sunday, 1 for Monday, 3 for Tuesday, 4 for Thursday, 5 for Friday, 6 for Saturday.
 
+
 #### showMonthAfterYear
 
 * type: boolean
 * default: false
+
 
 #### yearSuffix
 
@@ -107,30 +110,36 @@ example: "yyyy-mm-dd", "yy.m.d"
 
 example: "年"
 
+
 #### months
 
 * type: array
 * default: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
 
 #### monthsShort
 
 * type: array
 * default: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
+
 #### days
 
 * type: array
 * default: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
 
 #### daysShort
 
 * type: array
 * default: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
+
 #### daysMin
 
 * type: array
 * default: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
+
 
 #### itemTag
 
@@ -139,15 +148,18 @@ example: "年"
 
 years, months, days items element tag.
 
+
 #### selectedClass
 
 * type: string
 * default: "datepicker-selected"
 
+
 #### disabledClass
 
 * type: string
 * default: "datepicker-disabled"
+
 
 #### isDisabled
 
@@ -167,6 +179,7 @@ $(".datepicker").datepicker({
 	}
 })
 ```
+
 
 #### template
 
@@ -211,6 +224,7 @@ $(".datepicker").datepicker({
 /!\ All the data-type="" attributes must be set when you customize it.
 
 
+
 ## Methods
 
 * show - Show the datepicker
@@ -218,6 +232,7 @@ $(".datepicker").datepicker({
 * enable - Enable the datepicker
 * disable - Disable the datepicker
 * update - Update the datepicker
+
 
 
 ## I18n
@@ -240,3 +255,19 @@ $.fn.datepicker.setDefaults({
     yearSuffix: "年"
 });
 ```
+
+
+## Browser Support
+
+- IE 6+
+- Chrome 33+
+- Firefox 27+
+- Safari 5.1+
+- Opera 19+
+
+As a jQuery plugin, you can reference to the [jQuery Browser Support](http://jquery.com/browser-support/).
+
+
+## [License](https://github.com/fengyuanchen/datepicker/blob/master/LICENSE.md)
+
+Released under the [MIT](http://opensource.org/licenses/mit-license.html) license.

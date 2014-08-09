@@ -6,13 +6,13 @@
  * Released under the MIT license
  */
 
-(function(factory) {
+(function (factory) {
     if (typeof define === "function" && define.amd) {
         define(["jquery"], factory);
     } else {
         factory(jQuery);
     }
-}(function($) {
+})(function ($) {
 
     "use strict";
 
@@ -29,4 +29,4 @@
         weekStart: 0, // Sunday
         yearSuffix: ""
     });
-}));
+});
