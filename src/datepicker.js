@@ -318,9 +318,10 @@
             length = viewMonth === 0 ? Datepicker.fn.getDaysInMonth(viewYear - 1, 11) : Datepicker.fn.getDaysInMonth(viewYear, viewMonth - 1);
 
             for (i = 1; i <= length; i++) {
+                isDisabled = this.defaults.isDisabled(new Date(viewYear, viewMonth - 1, i));
                 prevItems.push(this.template({
                     text: i,
-                    type: "day prev",
+                    type: "day prev" + (isDisabled ? " disabled" : ""),
                     disabled: true
                 }));
             }
@@ -334,9 +335,10 @@
             length = viewMonth === 11 ? Datepicker.fn.getDaysInMonth(viewYear + 1, 0) : Datepicker.fn.getDaysInMonth(viewYear, viewMonth + 1);
 
             for (i = 1; i <= length; i++) {
+                isDisabled = this.defaults.isDisabled(new Date(viewYear, viewMonth + 1, i));
                 nextItems.push(this.template({
                     text: i,
-                    type: "day next",
+                    type: "day next" + (isDisabled ? " disabled" : ""),
                     disabled: true
                 }));
             }
