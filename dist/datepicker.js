@@ -338,13 +338,15 @@
             n = n > 0 ? n : 7;
             prevItems = prevItems.slice((length - n));
 
-            // Days of prev month next
+            // Days of next month
             length = viewMonth === 11 ? Datepicker.fn.getDaysInMonth(viewYear + 1, 0) : Datepicker.fn.getDaysInMonth(viewYear, viewMonth + 1);
 
             for (i = 1; i <= length; i++) {
+                var nextViewMonth = (viewMonth + 1 === 12 ? 0 : viewMonth + 1);
+                isDisabled = this.defaults.isDisabled(new Date(viewYear, nextViewMonth, i));
                 nextItems.push(this.template({
                     text: i,
-                    type: "day next",
+                    type: "day next" + (isDisabled ? " disabled" : ""),
                     disabled: true
                 }));
             }
