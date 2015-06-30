@@ -326,9 +326,11 @@
             length = viewMonth === 0 ? Datepicker.fn.getDaysInMonth(viewYear - 1, 11) : Datepicker.fn.getDaysInMonth(viewYear, viewMonth - 1);
 
             for (i = 1; i <= length; i++) {
+                var prevViewMonth = (viewMonth - 1 === -1 ? 11 : viewMonth - 1);
+                isDisabled = this.defaults.isDisabled(new Date(viewYear, prevViewMonth, i));
                 prevItems.push(this.template({
                     text: i,
-                    type: "day prev",
+                    type: "day prev" + (isDisabled ? " disabled" : ""),
                     disabled: true
                 }));
             }
