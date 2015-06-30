@@ -2,7 +2,7 @@
  * Datepicker v0.1.0
  * https://github.com/fengyuanchen/datepicker
  *
- * Copyright 2014 Fengyuan Chen
+ * Copyright 2015 Fengyuan Chen
  * Released under the MIT license
  */
 
