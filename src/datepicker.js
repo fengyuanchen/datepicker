@@ -520,10 +520,6 @@
                     this.output();
                     break;
 
-                case "day disabled":
-                    this.hideView();
-                    break;
-
                 // No default
             }
         }
