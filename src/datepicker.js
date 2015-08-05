@@ -146,6 +146,10 @@
             var offset = this.$trigger.offset(),
                 height = this.$trigger.outerHeight();
 
+            if (offset.left + this.$picker.outerWidth() > $(window).width()) {
+              offset.left = ($(window).width() - this.$picker.outerWidth())
+            }
+
             this.$picker.css({
                 top: offset.top + height,
                 left: offset.left
