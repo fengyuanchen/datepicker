@@ -1,10 +1,6 @@
 # Files to ignore
 
 node_modules
-release
-build
-tests
-assets
-docs
-workspace
-CHANGELOG.md
+bower_components
+dist/*.map
+/_*
