@@ -37,7 +37,7 @@ Three quick start options are available:
 
 - [Download the latest release](https://github.com/fengyuanchen/datepicker/archive/master.zip).
 - Clone the repository: `git clone https://github.com/fengyuanchen/datepicker.git`.
-- Install with [NPM](http://npmjs.org): `npm install fengyuanchen@datepicker`.
+- Install with [NPM](http://npmjs.org): `npm install @fengyuanchen/datepicker`.
 
 
 ### Installation
