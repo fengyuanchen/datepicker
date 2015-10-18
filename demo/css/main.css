@@ -1,0 +1,145 @@
+/* Basic style
+ * -------------------------------------------------------------------------- */
+
+/* Header */
+
+.docs-header {
+  margin-bottom: 0;
+}
+
+.navbar-toggle:hover,
+.navbar-toggle:focus {
+  border-color: #337ab7;
+}
+
+.navbar-toggle .icon-bar {
+  background-color: #337ab7;
+}
+
+.docs-jumbotron {
+  background-color: #3f51b5;
+  color: #fff;
+}
+
+.docs-jumbotron .version {
+  font-size: 14px;
+  color: #fff;
+  filter: alpha(opacity=50);
+  opacity: 0.5;
+}
+
+.docs-header {
+  position: relative;
+}
+
+.docs-header > small {
+  position: absolute;
+  right: 0;
+  bottom: 10px;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+
+/* Content */
+
+.docs-datepicker-container {
+  display: none;
+  position: relative;
+  min-height: 160px;
+  margin: 10px auto;
+  border: 1px dashed #eee;
+}
+
+.docs-datepicker-container:before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  margin-top: -10px;
+  margin-left: -82px;
+  font-size: 12px;
+  line-height: 20px;
+  color: #ccc;
+  content: "Container for inline datepicker";
+}
+
+.docs-datepicker-container > .datepicker-container {
+  margin: 10px auto;
+}
+
+.docs-options > .input-group {
+  margin-bottom: 10px;
+}
+
+.docs-options > .input-group > .input-group-addon {
+  min-width: 100px;
+}
+
+.docs-actions > .input-group,
+.docs-actions > .btn-group,
+.docs-actions > .btn {
+  margin-bottom: 5px;
+}
+
+.docs-actions .input-group-btn {
+  width: 50%;
+}
+
+.docs-actions .input-group-btn .btn {
+  width: 100%;
+}
+
+
+/* Footer */
+
+.docs-footer {
+  overflow: hidden;
+}
+
+.hearts {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #ddd;
+  font-size: 18px;
+  line-height: 30px;
+  text-align: center;
+}
+
+.hearts:hover {
+  color: #ff4136;
+}
+
+.hearts:before {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  display: block;
+  height: 0;
+  border-top: 1px solid #eee;
+  content: " ";
+}
+
+.hearts:after {
+  position: relative;
+  z-index: 1;
+  padding-left: 8px;
+  padding-right: 8px;
+  background-color: #fff;
+  content: "♥";
+}
+
+
+/* Google Code Prettify
+ * -------------------------------------------------------------------------- */
+
+.prettyprint {
+  margin-bottom: 0;
+  padding: 15px !important;
+  border: 1px solid #ddd !important;
+}
