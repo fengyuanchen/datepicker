@@ -1,0 +1,46 @@
+{
+  "name": "datepicker",
+  "description": "A simple jQuery datepicker plugin.",
+  "main": [
+    "dist/datepicker.js",
+    "dist/datepicker.css"
+  ],
+  "keywords": [
+    "date",
+    "picker",
+    "datepicker",
+    "jquery",
+    "plugin",
+    "html",
+    "css",
+    "javascript",
+    "front-end",
+    "web",
+    "development"
+  ],
+  "homepage": "https://github.com/fengyuanchen/datepicker",
+  "authors": [
+    "Fengyuan Chen"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "examples",
+    "assets",
+    "demo",
+    "docs",
+    "gulpfile.js"
+  ],
+  "dependencies": {
+    "jquery": ">= 1.9.1"
+  },
+  "devDependencies": {
+    "bootstrap": "~3.3.5",
+    "jquery": "~1.11.3",
+    "qunit": "~1.19.0"
+  }
+}
