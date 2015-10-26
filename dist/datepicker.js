@@ -1,11 +1,11 @@
 /*!
- * Datepicker v0.2.0
+ * Datepicker v0.2.1
  * https://github.com/fengyuanchen/datepicker
  *
  * Copyright (c) 2014-2015 Fengyuan Chen
  * Released under the MIT license
  *
- * Date: 2015-10-25T14:56:12.109Z
+ * Date: 2015-10-26T02:21:30.292Z
  */
 
 (function (factory) {
@@ -170,7 +170,7 @@
   Datepicker.prototype = {
     constructor: Datepicker,
 
-    version: '0.2.0',
+    version: '0.2.1',
 
     init: function () {
       var options = this.options;

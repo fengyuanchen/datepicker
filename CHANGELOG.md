@@ -1,6 +1,11 @@
 # Changelog
 
 
+## 0.2.1 (Oct 26, 2015)
+
+- Fixed the error of month picker.
+
+
 ## 0.2.0 (Oct 18, 2015)
 
 - Supports custom events

@@ -1,7 +1,7 @@
 {
   "name": "@fengyuanchen/datepicker",
   "description": "A simple jQuery datepicker plugin.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "dist/datepicker.js",
   "keywords": [
     "date",
