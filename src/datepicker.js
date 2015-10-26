@@ -886,7 +886,7 @@
           break;
 
         case 'month':
-          viewMonth = $.inArray($target.text(), this.options.daysMin);
+          viewMonth = $.inArray($target.text(), this.options.monthsShort);
           this.date = new Date(viewYear, viewMonth, min(viewDay, 28));
           this.viewDate = new Date(viewYear, viewMonth, min(viewDay, 28));
 

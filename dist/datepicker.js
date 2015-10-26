@@ -5,7 +5,7 @@
  * Copyright (c) 2014-2015 Fengyuan Chen
  * Released under the MIT license
  *
- * Date: 2015-10-18T06:04:17.960Z
+ * Date: 2015-10-25T14:56:12.109Z
  */
 
 (function (factory) {
@@ -886,7 +886,7 @@
           break;
 
         case 'month':
-          viewMonth = $.inArray($target.text(), this.options.daysMin);
+          viewMonth = $.inArray($target.text(), this.options.monthsShort);
           this.date = new Date(viewYear, viewMonth, min(viewDay, 28));
           this.viewDate = new Date(viewYear, viewMonth, min(viewDay, 28));
 
