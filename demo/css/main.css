@@ -16,6 +16,9 @@
   background-color: #337ab7;
 }
 
+
+/* Jumbotron */
+
 .docs-jumbotron {
   background-color: #3f51b5;
   color: #fff;
@@ -26,18 +29,6 @@
   color: #fff;
   filter: alpha(opacity=50);
   opacity: 0.5;
-}
-
-.docs-header {
-  position: relative;
-}
-
-.docs-header > small {
-  position: absolute;
-  right: 0;
-  bottom: 10px;
-  font-size: 16px;
-  line-height: 20px;
 }
 
 
@@ -132,14 +123,4 @@
   padding-right: 8px;
   background-color: #fff;
   content: "♥";
-}
-
-
-/* Google Code Prettify
- * -------------------------------------------------------------------------- */
-
-.prettyprint {
-  margin-bottom: 0;
-  padding: 15px !important;
-  border: 1px solid #ddd !important;
 }
