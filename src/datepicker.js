@@ -696,7 +696,7 @@
 
       if (viewMonth === 11) {
         nextViewYear += 1;
-        nextViewYear = 0;
+        nextViewMonth = 0;
       } else {
         nextViewMonth += 1;
       }
