@@ -1,7 +1,7 @@
 {
   "name": "@fengyuanchen/datepicker",
   "description": "A simple jQuery datepicker plugin.",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "main": "dist/datepicker.js",
   "keywords": [
     "date",
@@ -38,14 +38,14 @@
     "gulp-csscomb": "^3.0.6",
     "gulp-csslint": "^0.2.0",
     "gulp-htmlcomb": "0.1.0",
-    "gulp-jscs": "^3.0.0",
-    "gulp-jshint": "^1.11.0",
-    "gulp-load-plugins": "^1.0.0",
-    "gulp-minify-css": "^1.2.1",
-    "gulp-qunit": "^1.2.1",
-    "gulp-rename": "^1.2.0",
-    "gulp-replace": "^0.5.3",
-    "gulp-sass": "^2.0.4",
-    "gulp-uglify": "^1.4.2"
+    "gulp-jscs": "^3.0.2",
+    "gulp-jshint": "^1.12.0",
+    "gulp-load-plugins": "^1.1.0",
+    "gulp-minify-css": "^1.2.2",
+    "gulp-qunit": "^1.3.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-sass": "^2.1.0",
+    "gulp-uglify": "^1.5.1"
   }
 }

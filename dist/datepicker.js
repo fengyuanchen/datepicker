@@ -1,11 +1,11 @@
 /*!
- * Datepicker v0.2.1
+ * Datepicker v0.2.2
  * https://github.com/fengyuanchen/datepicker
  *
  * Copyright (c) 2014-2015 Fengyuan Chen
  * Released under the MIT license
  *
- * Date: 2015-10-26T02:21:30.292Z
+ * Date: 2015-12-10T13:37:57.693Z
  */
 
 (function (factory) {
@@ -154,8 +154,14 @@
   }
 
   function Datepicker(element, options) {
+    options = $.isPlainObject(options) ? options : {};
+
+    if (options.language) {
+      options = $.extend({}, Datepicker.LANGUAGES[options.language], options);
+    }
+
     this.$element = $(element);
-    this.options = $.extend({}, Datepicker.DEFAULTS, $.isPlainObject(options) && options);
+    this.options = $.extend({}, Datepicker.DEFAULTS, options);
     this.isBuilt = false;
     this.isShown = false;
     this.isInput = false;
@@ -170,18 +176,12 @@
   Datepicker.prototype = {
     constructor: Datepicker,
 
-    version: '0.2.1',
-
     init: function () {
       var options = this.options;
       var $this = this.$element;
       var startDate = options.startDate;
       var endDate = options.endDate;
       var date = options.date;
-
-      if (options.language) {
-        $.extend(options, Datepicker.LANGUAGES[options.language]);
-      }
 
       this.$trigger = $(options.trigger || $this);
       this.isInput = $this.is('input') || $this.is('textarea');
@@ -696,7 +696,7 @@
 
       if (viewMonth === 11) {
         nextViewYear += 1;
-        nextViewYear = 0;
+        nextViewMonth = 0;
       } else {
         nextViewMonth += 1;
       }

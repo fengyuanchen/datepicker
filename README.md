@@ -2,7 +2,7 @@
 
 > A simple jQuery datepicker plugin.
 
-- [Demo](http://fengyuanchen.github.io/datepicker)
+- [Homepage](http://fengyuanchen.github.io/datepicker)
 
 
 
@@ -11,8 +11,8 @@
 - Supports [options](#options)
 - Supports [methods](#methods)
 - Supports [events](#events)
-- Supports inline
-- Supports mobile
+- Supports inline mode
+- Supports touch (mobile)
 - Cross-browser support
 
 
