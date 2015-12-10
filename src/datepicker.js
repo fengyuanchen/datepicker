@@ -154,13 +154,14 @@
   }
 
   function Datepicker(element, options) {
-    var defOpts = $.extend({}, Datepicker.DEFAULTS);
-    var langOpts = Datepicker.LANGUAGES[options.language || defOpts.language] || {};
+    options = $.isPlainObject(options) ? options : {};
 
-    $.extend(defOpts, langOpts, options);
+    if (options.language) {
+      options = $.extend({}, Datepicker.LANGUAGES[options.language], options);
+    }
 
     this.$element = $(element);
-    this.options = $.extend({}, Datepicker.DEFAULTS, $.isPlainObject(options) && options);
+    this.options = $.extend({}, Datepicker.DEFAULTS, options);
     this.isBuilt = false;
     this.isShown = false;
     this.isInput = false;
@@ -174,8 +175,6 @@
 
   Datepicker.prototype = {
     constructor: Datepicker,
-
-    version: '@VERSION',
 
     init: function () {
       var options = this.options;
