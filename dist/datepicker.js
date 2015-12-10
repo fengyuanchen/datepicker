@@ -5,7 +5,7 @@
  * Copyright (c) 2014-2015 Fengyuan Chen
  * Released under the MIT license
  *
- * Date: 2015-10-26T02:21:30.292Z
+ * Date: 2015-12-10T07:03:14.412Z
  */
 
 (function (factory) {
@@ -154,6 +154,11 @@
   }
 
   function Datepicker(element, options) {
+    var defOpts = $.extend({}, Datepicker.DEFAULTS);
+    var langOpts = Datepicker.LANGUAGES[options.language || defOpts.language] || {};
+
+    $.extend(defOpts, langOpts, options);
+
     this.$element = $(element);
     this.options = $.extend({}, Datepicker.DEFAULTS, $.isPlainObject(options) && options);
     this.isBuilt = false;
@@ -178,10 +183,6 @@
       var startDate = options.startDate;
       var endDate = options.endDate;
       var date = options.date;
-
-      if (options.language) {
-        $.extend(options, Datepicker.LANGUAGES[options.language]);
-      }
 
       this.$trigger = $(options.trigger || $this);
       this.isInput = $this.is('input') || $this.is('textarea');
