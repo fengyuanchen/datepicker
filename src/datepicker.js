@@ -1409,7 +1409,7 @@
     offset: 10,
 
     // The `z-index` of the datepicker
-    zIndex: 1,
+    zIndex: 1000,
 
     // Filter each date item (return `false` to disable a date item)
     filter: null,
