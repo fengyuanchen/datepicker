@@ -13,7 +13,7 @@
     "value",
     "title",
     "alt",
-    "aria",
-    "role"
+    "role",
+    "aria"
   ]
 }
