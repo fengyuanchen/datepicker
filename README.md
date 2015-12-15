@@ -6,6 +6,22 @@
 
 
 
+## Table of contents
+
+  - [Features](#features)
+  - [Main](#main)
+  - [Getting started](#getting-started)
+  - [Options](#options)
+  - [Methods](#methods)
+  - [Events](#events)
+  - [I18n](#i18n)
+  - [No conflict](#no-conflict)
+  - [Browser support](#browser-support)
+  - [Versioning](#versioning)
+  - [License](#license)
+
+
+
 ## Features
 
 - Supports [options](#options)
@@ -23,7 +39,7 @@
 dist/
 ├── datepicker.css     ( 4 KB)
 ├── datepicker.min.css ( 4 KB)
-├── datepicker.js      (37 KB)
+├── datepicker.js      (38 KB)
 └── datepicker.min.js  (15 KB)
 ```
 
@@ -37,7 +53,8 @@ Three quick start options are available:
 
 - [Download the latest release](https://github.com/fengyuanchen/datepicker/archive/master.zip).
 - Clone the repository: `git clone https://github.com/fengyuanchen/datepicker.git`.
-- Install with [NPM](http://npmjs.org): `npm install @fengyuanchen/datepicker`.
+- Install with [NPM](http://npmjs.org): `npm install fengyuanchen/datepicker`.
+- Install with [Bower](http://bower.io): `bower install fengyuanchen/datepicker`.
 
 
 ### Installation
@@ -64,6 +81,10 @@ Initialize with `$.fn.datepicker` method.
 ```js
 $('[data-toggle="datepicker"]').datepicker();
 ```
+
+
+[⬆ back to top](#table-of-contents)
+
 
 
 ## Options
@@ -572,6 +593,9 @@ $().datepicker('formatDate', new Date(2014, 1, 14)); // '02/14/2014'
 Destroy the datepicker and remove the instance from the target element.
 
 
+[⬆ back to top](#table-of-contents)
+
+
 
 ## Events
 
@@ -608,6 +632,9 @@ $().on('pick.datepicker', function (e) {
 ```
 
 
+[⬆ back to top](#table-of-contents)
+
+
 
 ## I18n
 
@@ -641,6 +668,8 @@ $.fn.datepicker.languages['zh-CN'] = {
 </script>
 ```
 
+[⬆ back to top](#table-of-contents)
+
 
 
 ## No conflict
@@ -670,6 +699,15 @@ As a jQuery plugin, you also need to see the [jQuery Browser Support](http://jqu
 
 
 
+## Versioning
+
+Maintained under the [Semantic Versioning guidelines](http://semver.org/).
+
+
+
 ## License
 
 [MIT](http://opensource.org/licenses/MIT) © [Fengyuan Chen](http://chenfengyuan.com)
+
+
+[⬆ back to top](#table-of-contents)

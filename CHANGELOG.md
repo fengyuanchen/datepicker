@@ -1,6 +1,13 @@
 # Changelog
 
 
+## 0.3.0 (Dec 15, 2015)
+
+- Change the default value of `zIndex` option from `1` to `1000`
+- Simplify JavaScript code
+- Optimize CSS code styles
+
+
 ## 0.2.2 (Dec 10, 2015)
 
 - Fixed the issue of options overriding (#15)

@@ -1,11 +1,11 @@
 /*!
- * Datepicker v0.2.2
+ * Datepicker v0.3.0
  * https://github.com/fengyuanchen/datepicker
  *
  * Copyright (c) 2014-2015 Fengyuan Chen
  * Released under the MIT license
  *
- * Date: 2015-12-10T13:37:57.693Z
+ * Date: 2015-12-15T05:56:23.062Z
  */
 
 (function (factory) {
@@ -26,6 +26,7 @@
   var $window = $(window);
   var document = window.document;
   var $document = $(document);
+  var Number = window.Number;
   var NAMESPACE = 'datepicker';
 
   // Events
@@ -38,31 +39,34 @@
   var EVENT_PICK = 'pick.' + NAMESPACE;
 
   // RegExps
-  var REGEXP_FORMAT = /y+|m+|d+/g;
+  var REGEXP_FORMAT = /(y|m|d)+/g;
   var REGEXP_DIGITS = /\d+/g;
   var REGEXP_YEAR = /^\d{2,4}$/;
 
   // Classes
-  var CLASS_INLINE = 'datepicker-inline';
-  var CLASS_DROPDOWN = 'datepicker-dropdown';
-  var CLASS_TOP_LEFT = 'datepicker-top-left';
-  var CLASS_TOP_RIGHT = 'datepicker-top-right';
-  var CLASS_BOTTOM_LEFT = 'datepicker-bottom-left';
-  var CLASS_BOTTOM_RIGHT = 'datepicker-bottom-right';
+  var CLASS_INLINE = NAMESPACE + '-inline';
+  var CLASS_DROPDOWN = NAMESPACE + '-dropdown';
+  var CLASS_TOP_LEFT = NAMESPACE + '-top-left';
+  var CLASS_TOP_RIGHT = NAMESPACE + '-top-right';
+  var CLASS_BOTTOM_LEFT = NAMESPACE + '-bottom-left';
+  var CLASS_BOTTOM_RIGHT = NAMESPACE + '-bottom-right';
   var CLASS_PLACEMENTS = [
         CLASS_TOP_LEFT,
         CLASS_TOP_RIGHT,
         CLASS_BOTTOM_LEFT,
         CLASS_BOTTOM_RIGHT
       ].join(' ');
-  var CLASS_HIDE = 'datepicker-hide';
+  var CLASS_HIDE = NAMESPACE + '-hide';
 
   // Maths
-  var num = Number;
   var min = Math.min;
 
   // Utilities
   var toString = Object.prototype.toString;
+
+  function typeOf(obj) {
+    return toString.call(obj).slice(8, -1).toLowerCase();
+  }
 
   function isString(str) {
     return typeof str === 'string';
@@ -77,15 +81,15 @@
   }
 
   function isDate(date) {
-    if (typeof date !== 'object' || date === null) {
-      return false;
-    }
-
-    return toString.call(date) === '[object Date]';
+    return typeOf(date) === 'date';
   }
 
   function toArray(obj, offset) {
     var args = [];
+
+    if (Array.from) {
+      return Array.from(obj).slice(offset || 0);
+    }
 
     // This is necessary for IE8
     if (isNumber(offset)) {
@@ -344,7 +348,7 @@
       var format = this.format;
 
       if (format.hasYear || format.hasMonth || format.hasDay) {
-        switch (num(view)) {
+        switch (Number(view)) {
           case 2:
           case 'years':
             $monthsPicker.addClass(CLASS_HIDE);
@@ -1078,7 +1082,7 @@
       var months = options.months;
 
       if ($.isNumeric(month)) {
-        month = num(month);
+        month = Number(month);
       } else if (isUndefined(short)) {
         short = month;
       }
@@ -1103,7 +1107,7 @@
       var days = options.days;
 
       if ($.isNumeric(day)) {
-        day = num(day);
+        day = Number(day);
       } else {
         if (isUndefined(min)) {
           min = short;
@@ -1405,7 +1409,7 @@
     offset: 10,
 
     // The `z-index` of the datepicker
-    zIndex: 1,
+    zIndex: 1000,
 
     // Filter each date item (return `false` to disable a date item)
     filter: null,

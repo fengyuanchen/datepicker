@@ -1,8 +1,15 @@
 {
   "name": "@fengyuanchen/datepicker",
   "description": "A simple jQuery datepicker plugin.",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "main": "dist/datepicker.js",
+  "license": "MIT",
+  "repository": "fengyuanchen/datepicker",
+  "homepage": "https://github.com/fengyuanchen/datepicker",
+  "author": {
+    "name": "Fengyuan Chen",
+    "url": "http://chenfengyuan.com"
+  },
   "keywords": [
     "date",
     "picker",
@@ -16,19 +23,6 @@
     "web",
     "development"
   ],
-  "author": {
-    "name": "Fengyuan Chen",
-    "url": "https://github.com/fengyuanchen"
-  },
-  "homepage": "https://github.com/fengyuanchen/datepicker",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/fengyuanchen/datepicker.git"
-  },
-  "bugs": {
-    "url": "https://github.com/fengyuanchen/datepicker/issues"
-  },
-  "license": "MIT",
   "dependencies": {
     "jquery": ">= 1.9.1"
   },
