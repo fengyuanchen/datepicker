@@ -427,6 +427,9 @@ A shortcut of the "hide.datepicker" event.
 A shortcut of the "pick.datepicker" event.
 
 
+[⬆ back to top](#table-of-contents)
+
+
 
 ## Methods
 
