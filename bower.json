@@ -5,6 +5,11 @@
     "dist/datepicker.js",
     "dist/datepicker.css"
   ],
+  "license": "MIT",
+  "homepage": "https://github.com/fengyuanchen/datepicker",
+  "authors": [
+    "Fengyuan Chen"
+  ],
   "keywords": [
     "date",
     "picker",
@@ -18,11 +23,6 @@
     "web",
     "development"
   ],
-  "homepage": "https://github.com/fengyuanchen/datepicker",
-  "authors": [
-    "Fengyuan Chen"
-  ],
-  "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
