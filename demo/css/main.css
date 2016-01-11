@@ -1,5 +1,18 @@
-/* Basic style
- * -------------------------------------------------------------------------- */
+/* Basic */
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.browserupgrade {
+  margin: 0;
+  padding: 5px 15px;
+  background-color: #ff851b;
+  color: #fff;
+  text-align: center;
+}
+
 
 /* Header */
 
@@ -9,18 +22,18 @@
 
 .navbar-toggle:hover,
 .navbar-toggle:focus {
-  border-color: #337ab7;
+  border-color: #0074d9;
 }
 
 .navbar-toggle .icon-bar {
-  background-color: #337ab7;
+  background-color: #0074d9;
 }
 
 
 /* Jumbotron */
 
 .docs-jumbotron {
-  background-color: #3f51b5;
+  background-color: #0074d9;
   color: #fff;
 }
 
@@ -88,7 +101,7 @@
   overflow: hidden;
 }
 
-.hearts {
+.heart {
   position: relative;
   display: block;
   width: 100%;
@@ -101,11 +114,11 @@
   text-align: center;
 }
 
-.hearts:hover {
+.heart:hover {
   color: #ff4136;
 }
 
-.hearts:before {
+.heart:before {
   position: absolute;
   top: 50%;
   right: 0;
@@ -116,7 +129,7 @@
   content: " ";
 }
 
-.hearts:after {
+.heart:after {
   position: relative;
   z-index: 1;
   padding-left: 8px;

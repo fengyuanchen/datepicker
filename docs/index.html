@@ -19,6 +19,10 @@
   <![endif]-->
 </head>
 <body>
+  <!--[if lt IE 8]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
   <!-- Header -->
   <header class="navbar navbar-static-top docs-header" id="top">
     <div class="container">
@@ -49,7 +53,7 @@
       <p class="lead">A simple jQuery datepicker plugin.</p>
       <div class="docs-carbonads-container">
         <div class="docs-carbonads">
-          <script type="text/javascript" id="_carbonads_js" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=fengyuanchen" async></script>
+          <script id="_carbonads_js" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=fengyuanchen" async></script>
         </div>
       </div>
     </div>
@@ -99,6 +103,7 @@
               <option value="en-GB">en-GB</option>
               <option value="zh-CN">zh-CN</option>
               <option value="pt-BR">pt-BR</option>
+              <option value="tr-TR">tr-TR</option>
             </select>
           </div>
           <div class="input-group">
@@ -250,19 +255,25 @@
   <!-- Footer -->
   <footer class="docs-footer">
     <div class="container">
-      <span class="hearts"></span>
+      <p class="heart"></p>
+      <ul class="list-inline links">
+        <li><a href="https://github.com/fengyuanchen/datepicker/releases">Releases</a></li>
+        <li><a href="https://github.com/fengyuanchen/datepicker/issues">Issues</a></li>
+        <li><a href="https://github.com/fengyuanchen/datepicker/blob/master/LICENSE">License</a></li>
+      </ul>
     </div>
   </footer>
 
   <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <script src="http://fengyuanchen.github.io/js/main.js"></script>
+  <script src="http://fengyuanchen.github.io/js/common.js"></script>
   <script src="js/datepicker.js"></script>
   <script src="js/datepicker.en-US.js"></script>
   <script src="js/datepicker.en-GB.js"></script>
   <script src="js/datepicker.zh-CN.js"></script>
   <script src="js/datepicker.pt-BR.js"></script>
+  <script src="js/datepicker.tr-TR.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
