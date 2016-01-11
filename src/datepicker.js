@@ -1211,7 +1211,7 @@
       var i;
 
       if (isDate(date)) {
-        return new Date(date);
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate());
       } else if (isString(date)) {
         parts = date.match(REGEXP_DIGITS) || [];
       }
