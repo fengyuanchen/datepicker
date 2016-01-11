@@ -29,6 +29,7 @@
 - Supports [events](#events)
 - Supports inline mode
 - Supports touch (mobile)
+- Supports internationalization
 - Cross-browser support
 
 
@@ -671,6 +672,7 @@ $.fn.datepicker.languages['zh-CN'] = {
 </script>
 ```
 
+
 [⬆ back to top](#table-of-contents)
 
 
@@ -695,6 +697,7 @@ If you have to use other plugin with the same namespace, just call the `$.fn.dat
 - Chrome (latest 2)
 - Firefox (latest 2)
 - Internet Explorer 8+
+- Edge (latest 2)
 - Opera (latest 2)
 - Safari (latest 2)
 

@@ -1,11 +1,11 @@
 /*!
- * Datepicker v0.3.0
+ * Datepicker v0.3.1
  * https://github.com/fengyuanchen/datepicker
  *
- * Copyright (c) 2014-2015 Fengyuan Chen
+ * Copyright (c) 2014-2016 Fengyuan Chen
  * Released under the MIT license
  *
- * Date: 2015-12-15T05:56:23.062Z
+ * Date: 2016-01-11T04:07:25.661Z
  */
 
 (function (factory) {
@@ -1211,7 +1211,7 @@
       var i;
 
       if (isDate(date)) {
-        return new Date(date);
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate());
       } else if (isString(date)) {
         parts = date.match(REGEXP_DIGITS) || [];
       }

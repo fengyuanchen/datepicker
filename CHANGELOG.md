@@ -1,6 +1,11 @@
 # Changelog
 
 
+## 0.3.1 (Jan 11, 2016)
+
+- Fixed the issue of `startDate` option (#20)
+
+
 ## 0.3.0 (Dec 15, 2015)
 
 - Change the default value of `zIndex` option from `1` to `1000`
