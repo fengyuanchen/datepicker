@@ -157,6 +157,38 @@
     return format;
   }
 
+  function formatDate (date, format) {
+    var format =  isString(format) ?  parseFormat(format) : format;
+    var formated = '';
+    var length;
+    var year;
+    var part;
+    var val;
+    var i;
+
+    if (isDate(date)) {
+      formated = format.source;
+      year = date.getFullYear();
+      val = {
+        d: date.getDate(),
+        m: date.getMonth() + 1,
+        yy: year.toString().substring(2),
+        yyyy: year
+      };
+
+      val.dd = (val.d < 10 ? '0' : '') + val.d;
+      val.mm = (val.m < 10 ? '0' : '') + val.m;
+      length = format.parts.length;
+
+      for (i = 0; i < length; i++) {
+        part = format.parts[i];
+        formated = formated.replace(part, val[part]);
+      }
+    }
+
+    return formated;
+  }
+
   function Datepicker(element, options) {
     options = $.isPlainObject(options) ? options : {};
 
@@ -634,9 +666,11 @@
       var year = date.getFullYear();
       var month = date.getMonth();
       var day = date.getDate();
-      var isPrevDisabled = false;
-      var isNextDisabled = false;
+      var isPrevDisabled = (options.months && options.months.disableNavigation) || false;
+      var isNextDisabled = isPrevDisabled;
       var isDisabled = false;
+      var isPrevDayDisabled = options.days && options.days.disablePrevious;
+      var isNextDayDisabled = options.days && options.days.disableNext;
       var isPicked = false;
       var prevItems = [];
       var nextItems = [];
@@ -671,15 +705,18 @@
         n += 7;
       }
 
-      if (startDate) {
+      if (!isPrevDisabled && startDate) {
         isPrevDisabled = date.getTime() <= startDate.getTime();
       }
 
+      // Days of previous month
+      // -----------------------------------------------------------------------
+
       for (i = length - (n - 1); i <= length; i++) {
         date = new Date(prevViewYear, prevViewMonth, i);
-        isDisabled = false;
+        isDisabled = isPrevDayDisabled;
 
-        if (startDate) {
+        if (!isDisabled && startDate) {
           isDisabled = date.getTime() < startDate.getTime();
         }
 
@@ -714,15 +751,15 @@
       // The last day of current month
       date = new Date(viewYear, viewMonth, length);
 
-      if (endDate) {
+      if (!isNextDisabled && endDate) {
         isNextDisabled = date.getTime() >= endDate.getTime();
       }
 
       for (i = 1; i <= n; i++) {
         date = new Date(nextViewYear, nextViewMonth, i);
-        isDisabled = false;
+        isDisabled = isNextDayDisabled;
 
-        if (endDate) {
+        if (!isDisabled && endDate) {
           isDisabled = date.getTime() > endDate.getTime();
         }
 
@@ -1260,35 +1297,7 @@
      * @return {String} (formated date)
      */
     formatDate: function (date) {
-      var format = this.format;
-      var formated = '';
-      var length;
-      var year;
-      var part;
-      var val;
-      var i;
-
-      if (isDate(date)) {
-        formated = format.source;
-        year = date.getFullYear();
-        val = {
-          d: date.getDate(),
-          m: date.getMonth() + 1,
-          yy: year.toString().substring(2),
-          yyyy: year
-        };
-
-        val.dd = (val.d < 10 ? '0' : '') + val.d;
-        val.mm = (val.m < 10 ? '0' : '') + val.m;
-        length = format.parts.length;
-
-        for (i = 0; i < length; i++) {
-          part = format.parts[i];
-          formated = formated.replace(part, val[part]);
-        }
-      }
-
-      return formated;
+        return formatDate(date, this.format);
     },
 
     // Destroy the datepicker and remove the instance from the target element
@@ -1438,13 +1447,24 @@
       var options;
       var fn;
 
-      if (!data) {
-        if (/destroy/.test(option)) {
+      if (!data && /destroy/.test(option)) {
           return;
-        }
+      }
 
-        options = $.extend({}, $this.data(), $.isPlainObject(option) && option);
-        $this.data(NAMESPACE, (data = new Datepicker(this, options)));
+      options = $.extend({}, $this.data(), $.isPlainObject(option) && option);
+      if (options && options.months && options.months.number) {
+          var date =  new Date();
+          var month = date.getMonth();
+          var year = date.getFullYear();
+          var format = options.format || Datepicker.DEFAULTS.format;
+          for (var i=0, len=options.months.number; i<len; i++) {
+              if (i > 0) {
+                  options.startDate = formatDate(new Date(year, ++month, 1), format);
+              }
+              $this.data(NAMESPACE, (data = new Datepicker(this, options)));
+          }
+      } else {
+          $this.data(NAMESPACE, (data = new Datepicker(this, options)));
       }
 
       if (isString(option) && $.isFunction(fn = data[option])) {
