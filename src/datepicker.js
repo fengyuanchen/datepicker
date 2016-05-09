@@ -984,19 +984,15 @@
       if (data) {
         for (var picker in data) {
           if (data.hasOwnProperty(picker)) {
-            data[picker].setInactive();
+            data[picker].setActive(false);
           }
         }
       }
-      this.setActive();
+      this.setActive(true);
     },
 
-    setInactive: function () {
-      this._active = false;
-    },
-
-    setActive: function () {
-      this._active = true;
+    setActive: function (bool) {
+      this._active = bool;
     },
 
     isActive: function () {
