@@ -161,6 +161,7 @@
     options = $.isPlainObject(options) ? options : {};
 
     if (options.language) {
+      // Priority: Datepicker.DEFAULTS < Datepicker.LANGUAGES < options
       options = $.extend({}, Datepicker.LANGUAGES[options.language], options);
     }
 
@@ -1421,7 +1422,13 @@
   };
 
   Datepicker.setDefaults = function (options) {
-    $.extend(Datepicker.DEFAULTS, $.isPlainObject(options) && options);
+    options = $.isPlainObject(options) ? options : {};
+
+    if (options.language) {
+      options = $.extend({}, Datepicker.LANGUAGES[options.language], options);
+    }
+
+    $.extend(Datepicker.DEFAULTS, options);
   };
 
   // Save the other datepicker
