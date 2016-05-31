@@ -64,6 +64,13 @@
   // Utilities
   var toString = Object.prototype.toString;
 
+  // init id
+  var calendarId = -1;
+
+  function calId() {
+    return 'cal-' + ++calendarId;
+  }
+
   function typeOf(obj) {
     return toString.call(obj).slice(8, -1).toLowerCase();
   }
@@ -155,6 +162,38 @@
     }
 
     return format;
+  }
+
+  function formatDate(date, format) {
+    var format = isString(format) ? parseFormat(format) : format;
+    var formated = '';
+    var length;
+    var year;
+    var part;
+    var val;
+    var i;
+
+    if (isDate(date)) {
+      formated = format.source;
+      year = date.getFullYear();
+      val = {
+        d: date.getDate(),
+        m: date.getMonth() + 1,
+        yy: year.toString().substring(2),
+        yyyy: year
+      };
+
+      val.dd = (val.d < 10 ? '0' : '') + val.d;
+      val.mm = (val.m < 10 ? '0' : '') + val.m;
+      length = format.parts.length;
+
+      for (i = 0; i < length; i++) {
+        part = format.parts[i];
+        formated = formated.replace(part, val[part]);
+      }
+    }
+
+    return formated;
   }
 
   function Datepicker(element, options) {
@@ -276,6 +315,7 @@
         $picker.addClass(CLASS_HIDE);
       }
 
+      this.setId();
       this.fillWeek();
     },
 
@@ -293,26 +333,26 @@
       var $this = this.$element;
 
       if ($.isFunction(options.show)) {
-        $this.on(EVENT_SHOW, options.show);
+        $this.on(EVENT_SHOW + '.' + options.calId, options.show);
       }
 
       if ($.isFunction(options.hide)) {
-        $this.on(EVENT_HIDE, options.hide);
+        $this.on(EVENT_HIDE + '.' + options.calId, options.hide);
       }
 
       if ($.isFunction(options.pick)) {
-        $this.on(EVENT_PICK, options.pick);
+        $this.on(EVENT_PICK + '.' + options.calId, options.pick);
       }
 
       if (this.isInput) {
-        $this.on(EVENT_KEYUP, $.proxy(this.keyup, this));
+        $this.on(EVENT_KEYUP + '.' + options.calId, $.proxy(this.keyup, this));
 
         if (!options.trigger) {
-          $this.on(EVENT_FOCUS, $.proxy(this.show, this));
+          $this.on(EVENT_FOCUS + '.' + options.calId, $.proxy(this.show, this));
         }
       }
 
-      this.$trigger.on(EVENT_CLICK, $.proxy(this.show, this));
+      this.$trigger.on(EVENT_CLICK + '.' + options.calId, $.proxy(this.show, this));
     },
 
     unbind: function () {
@@ -320,26 +360,26 @@
       var $this = this.$element;
 
       if ($.isFunction(options.show)) {
-        $this.off(EVENT_SHOW, options.show);
+        $this.off(EVENT_SHOW + '.' + options.calId, options.show);
       }
 
       if ($.isFunction(options.hide)) {
-        $this.off(EVENT_HIDE, options.hide);
+        $this.off(EVENT_HIDE + '.' + options.calId, options.hide);
       }
 
       if ($.isFunction(options.pick)) {
-        $this.off(EVENT_PICK, options.pick);
+        $this.off(EVENT_PICK + '.' + options.calId, options.pick);
       }
 
       if (this.isInput) {
-        $this.off(EVENT_KEYUP, this.keyup);
+        $this.off(EVENT_KEYUP + '.' + options.calId, this.keyup);
 
         if (!options.trigger) {
-          $this.off(EVENT_FOCUS, this.show);
+          $this.off(EVENT_FOCUS + '.' + options.calId, this.show);
         }
       }
 
-      this.$trigger.off(EVENT_CLICK, this.show);
+      this.$trigger.off(EVENT_CLICK + '.' + options.calId, this.show);
     },
 
     showView: function (view) {
@@ -437,7 +477,7 @@
 
     // A shortcut for triggering custom events
     trigger: function (type, data) {
-      var e = $.Event(type, data);
+      var e = $.Event(type + '.' + this.options.calId, data);
 
       this.$element.trigger(e);
 
@@ -635,9 +675,11 @@
       var year = date.getFullYear();
       var month = date.getMonth();
       var day = date.getDate();
-      var isPrevDisabled = false;
-      var isNextDisabled = false;
+      var isPrevDisabled = (options.months && options.months.disableNavigation) || false;
+      var isNextDisabled = isPrevDisabled;
       var isDisabled = false;
+      var isPrevDayDisabled = options.days && options.days.disablePrevious;
+      var isNextDayDisabled = options.days && options.days.disableNext;
       var isPicked = false;
       var prevItems = [];
       var nextItems = [];
@@ -672,15 +714,18 @@
         n += 7;
       }
 
-      if (startDate) {
+      if (!isPrevDisabled && startDate) {
         isPrevDisabled = date.getTime() <= startDate.getTime();
       }
 
+      // Days of previous month
+      // -----------------------------------------------------------------------
+
       for (i = length - (n - 1); i <= length; i++) {
         date = new Date(prevViewYear, prevViewMonth, i);
-        isDisabled = false;
+        isDisabled = isPrevDayDisabled;
 
-        if (startDate) {
+        if (!isDisabled && startDate) {
           isDisabled = date.getTime() < startDate.getTime();
         }
 
@@ -715,15 +760,15 @@
       // The last day of current month
       date = new Date(viewYear, viewMonth, length);
 
-      if (endDate) {
+      if (!isNextDisabled && endDate) {
         isNextDisabled = date.getTime() >= endDate.getTime();
       }
 
       for (i = 1; i <= n; i++) {
         date = new Date(nextViewYear, nextViewMonth, i);
-        isDisabled = false;
+        isDisabled = isNextDayDisabled;
 
-        if (endDate) {
+        if (!isDisabled && endDate) {
           isDisabled = date.getTime() > endDate.getTime();
         }
 
@@ -798,6 +843,8 @@
       if ($target.hasClass('disabled')) {
         return;
       }
+
+      this.toggleActive();
 
       viewYear = viewDate.getFullYear();
       viewMonth = viewDate.getMonth();
@@ -929,6 +976,30 @@
       }
     },
 
+    setId: function () {
+      this.options.calId && this.$picker.attr('data-cal-id', this.options.calId);
+    },
+
+    toggleActive: function () {
+      var data = this.$element.data();
+      if (data) {
+        for (var picker in data) {
+          if (data.hasOwnProperty(picker)) {
+            data[picker].setActive(false);
+          }
+        }
+      }
+      this.setActive(true);
+    },
+
+    setActive: function (bool) {
+      this._active = bool;
+    },
+
+    isActive: function () {
+      return this._active;
+    },
+
     clickDoc: function (e) {
       var target = e.target;
       var trigger = this.$trigger[0];
@@ -1004,12 +1075,12 @@
       }
 
       this.isShown = true;
-      this.$picker.removeClass(CLASS_HIDE).on(EVENT_CLICK, $.proxy(this.click, this));
+      this.$picker.removeClass(CLASS_HIDE).on(EVENT_CLICK + '.' + this.options.calId, $.proxy(this.click, this));
       this.showView(this.options.startView);
 
       if (!this.isInline) {
-        $window.on(EVENT_RESIZE, (this._place = proxy(this.place, this)));
-        $document.on(EVENT_CLICK, (this._clickDoc = proxy(this.clickDoc, this)));
+        $window.on(EVENT_RESIZE + '.' + this.options.calId, (this._place = proxy(this.place, this)));
+        $document.on(EVENT_CLICK + '.' + this.options.calId, (this._clickDoc = proxy(this.clickDoc, this)));
         this.place();
       }
     },
@@ -1261,35 +1332,7 @@
      * @return {String} (formated date)
      */
     formatDate: function (date) {
-      var format = this.format;
-      var formated = '';
-      var length;
-      var year;
-      var part;
-      var val;
-      var i;
-
-      if (isDate(date)) {
-        formated = format.source;
-        year = date.getFullYear();
-        val = {
-          d: date.getDate(),
-          m: date.getMonth() + 1,
-          yy: year.toString().substring(2),
-          yyyy: year
-        };
-
-        val.dd = (val.d < 10 ? '0' : '') + val.d;
-        val.mm = (val.m < 10 ? '0' : '') + val.m;
-        length = format.parts.length;
-
-        for (i = 0; i < length; i++) {
-          part = format.parts[i];
-          formated = formated.replace(part, val[part]);
-        }
-      }
-
-      return formated;
+      return formatDate(date, this.format);
     },
 
     // Destroy the datepicker and remove the instance from the target element
@@ -1377,7 +1420,7 @@
 
     // The template of the datepicker
     template: (
-      '<div class="datepicker-container">' +
+      '<div class="datepicker-container" data-cal-id="cal-0">' +
         '<div class="datepicker-panel" data-view="years picker">' +
           '<ul>' +
             '<li data-view="years prev">&lsaquo;</li>' +
@@ -1441,20 +1484,43 @@
 
     this.each(function () {
       var $this = $(this);
-      var data = $this.data(NAMESPACE);
+      var data = (function () {
+        var ret = null;
+        var data = $this.data();
+        for (var picker in data) {
+          if (data.hasOwnProperty(picker) && data[picker].isActive()) {
+            ret = data[picker];
+            break;
+          }
+        }
+        return ret;
+      })();
       var options;
       var fn;
 
-      if (!data) {
-        if (/destroy/.test(option)) {
-          return;
-        }
-
-        options = $.extend({}, $this.data(), $.isPlainObject(option) && option);
-        $this.data(NAMESPACE, (data = new Datepicker(this, options)));
+      if (!data && /destroy/.test(option)) {
+        return;
       }
 
-      if (isString(option) && $.isFunction(fn = data[option])) {
+      if (!isString(option)) {
+        options = $.extend({}, $this.data(), $.isPlainObject(option) && option);
+        if (options && options.months && options.months.number) {
+          var date = new Date();
+          var month = date.getMonth();
+          var year = date.getFullYear();
+          var format = options.format || Datepicker.DEFAULTS.format;
+          for (var i = 0, len = options.months.number; i < len; i++) {
+            if (i > 0) {
+              options.startDate = formatDate(new Date(year, ++month, 1), format);
+            }
+            options.calId = calId();
+            $this.data(NAMESPACE + '.' + options.calId, (data = new Datepicker(this, options)));
+          }
+        } else {
+          options.calId = calId();
+          $this.data(NAMESPACE + '.' + options.calId, (data = new Datepicker(this, options)));
+        }
+      } else if (data && $.isFunction(fn = data[option])) {
         result = fn.apply(data, args);
       }
     });
