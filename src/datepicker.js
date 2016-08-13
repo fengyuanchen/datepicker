@@ -1166,6 +1166,17 @@
     },
 
     /**
+     * Set the view date with a new date
+     *
+     * @param {Date} date
+     */
+    setViewDate: function (date) {
+      if (isDate(date) || isString(date)) {
+        this.viewDate = this.parseDate(date);
+      }
+    },
+
+    /**
      * Set the start view date with a new date
      *
      * @param {Date} date

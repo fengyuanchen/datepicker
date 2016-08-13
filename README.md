@@ -552,6 +552,13 @@ $().datepicker('setDate', '02/14/2014');
 ```
 
 
+### setViewDate(date)
+
+- **date**:
+  - Type: `Date` or `String`
+
+Set the view date with a new date.
+
 ### setStartDate(date)
 
 - **date**:
