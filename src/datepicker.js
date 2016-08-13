@@ -1127,13 +1127,13 @@
     /**
      * Get the current date
      *
-     * @param {Boolean} formated (optional)
+     * @param {Boolean} formatted (optional)
      * @return {Date|String} (date)
      */
-    getDate: function (formated) {
+    getDate: function (formatted) {
       var date = this.date;
 
-      return formated ? this.formatDate(date) : new Date(date);
+      return formatted ? this.formatDate(date) : new Date(date);
     },
 
     /**
@@ -1258,11 +1258,11 @@
      * Format a date object to a string with the set date format
      *
      * @param {Date} date
-     * @return {String} (formated date)
+     * @return {String} (formatted date)
      */
     formatDate: function (date) {
       var format = this.format;
-      var formated = '';
+      var formatted = '';
       var length;
       var year;
       var part;
@@ -1270,7 +1270,7 @@
       var i;
 
       if (isDate(date)) {
-        formated = format.source;
+        formatted = format.source;
         year = date.getFullYear();
         val = {
           d: date.getDate(),
@@ -1285,11 +1285,11 @@
 
         for (i = 0; i < length; i++) {
           part = format.parts[i];
-          formated = formated.replace(part, val[part]);
+          formatted = formatted.replace(part, val[part]);
         }
       }
 
-      return formated;
+      return formatted;
     },
 
     // Destroy the datepicker and remove the instance from the target element
