@@ -192,7 +192,7 @@
       this.isInput = $this.is('input') || $this.is('textarea');
       this.isInline = options.inline && (options.container || !this.isInput);
       this.format = parseFormat(options.format);
-      this.initialValue = this.getValue();
+      this.oldValue = this.initialValue = this.getValue();
       date = this.parseDate(date || this.initialValue);
 
       if (startDate) {
@@ -1035,7 +1035,14 @@
 
     // Update the datepicker with the current input value
     update: function () {
-      this.setDate(this.getValue(), true);
+      var value = this.getValue();
+
+      if (value === this.oldValue) {
+        return;
+      }
+
+      this.setDate(value, true);
+      this.oldValue = value;
     },
 
     /**
