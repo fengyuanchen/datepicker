@@ -5,7 +5,7 @@
  * Copyright (c) 2014-2016 Fengyuan Chen
  * Released under the MIT license
  *
- * Date: 2016-01-11T04:07:25.661Z
+ * Date: 2016-08-14T07:57:48.094Z
  */
 
 (function (factory) {
@@ -161,6 +161,7 @@
     options = $.isPlainObject(options) ? options : {};
 
     if (options.language) {
+      // Priority: Datepicker.DEFAULTS < Datepicker.LANGUAGES < options
       options = $.extend({}, Datepicker.LANGUAGES[options.language], options);
     }
 
@@ -1126,13 +1127,13 @@
     /**
      * Get the current date
      *
-     * @param {Boolean} formated (optional)
+     * @param {Boolean} formatted (optional)
      * @return {Date|String} (date)
      */
-    getDate: function (formated) {
+    getDate: function (formatted) {
       var date = this.date;
 
-      return formated ? this.formatDate(date) : new Date(date);
+      return formatted ? this.formatDate(date) : new Date(date);
     },
 
     /**
@@ -1161,6 +1162,17 @@
         if (this.isBuilt) {
           this.fillAll();
         }
+      }
+    },
+
+    /**
+     * Set the view date with a new date
+     *
+     * @param {Date} date
+     */
+    setViewDate: function (date) {
+      if (isDate(date) || isString(date)) {
+        this.viewDate = this.parseDate(date);
       }
     },
 
@@ -1257,11 +1269,11 @@
      * Format a date object to a string with the set date format
      *
      * @param {Date} date
-     * @return {String} (formated date)
+     * @return {String} (formatted date)
      */
     formatDate: function (date) {
       var format = this.format;
-      var formated = '';
+      var formatted = '';
       var length;
       var year;
       var part;
@@ -1269,7 +1281,7 @@
       var i;
 
       if (isDate(date)) {
-        formated = format.source;
+        formatted = format.source;
         year = date.getFullYear();
         val = {
           d: date.getDate(),
@@ -1284,11 +1296,11 @@
 
         for (i = 0; i < length; i++) {
           part = format.parts[i];
-          formated = formated.replace(part, val[part]);
+          formatted = formatted.replace(part, val[part]);
         }
       }
 
-      return formated;
+      return formatted;
     },
 
     // Destroy the datepicker and remove the instance from the target element
@@ -1421,7 +1433,13 @@
   };
 
   Datepicker.setDefaults = function (options) {
-    $.extend(Datepicker.DEFAULTS, $.isPlainObject(options) && options);
+    options = $.isPlainObject(options) ? options : {};
+
+    if (options.language) {
+      options = $.extend({}, Datepicker.LANGUAGES[options.language], options);
+    }
+
+    $.extend(Datepicker.DEFAULTS, options);
   };
 
   // Save the other datepicker
