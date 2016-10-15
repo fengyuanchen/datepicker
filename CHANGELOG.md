@@ -1,6 +1,15 @@
 # Changelog
 
 
+## 0.4.0 (Oct 15, 2016)
+
+- Rename `autoshow` option to `autoShow`.
+- Rename `autohide` option to `autoHide`.
+- Rename `autopick` option to `autoPick`.
+- Improved the priority of language options.
+- Fixed the issue of date view updating (#33).
+
+
 ## 0.3.1 (Jan 11, 2016)
 
 - Fixed the issue of `startDate` option (#20)

@@ -1,11 +1,11 @@
 /*!
- * Datepicker v0.3.1
+ * Datepicker v0.4.0
  * https://github.com/fengyuanchen/datepicker
  *
  * Copyright (c) 2014-2016 Fengyuan Chen
  * Released under the MIT license
  *
- * Date: 2016-01-11T04:07:25.661Z
+ * Date: 2016-10-15T04:28:08.752Z
  */
 
 (function (factory) {
@@ -161,6 +161,7 @@
     options = $.isPlainObject(options) ? options : {};
 
     if (options.language) {
+      // Priority: Datepicker.DEFAULTS < Datepicker.LANGUAGES < options
       options = $.extend({}, Datepicker.LANGUAGES[options.language], options);
     }
 
@@ -191,7 +192,7 @@
       this.isInput = $this.is('input') || $this.is('textarea');
       this.isInline = options.inline && (options.container || !this.isInput);
       this.format = parseFormat(options.format);
-      this.initialValue = this.getValue();
+      this.oldValue = this.initialValue = this.getValue();
       date = this.parseDate(date || this.initialValue);
 
       if (startDate) {
@@ -224,11 +225,11 @@
 
       this.bind();
 
-      if (options.autoshow || this.isInline) {
+      if (options.autoShow || this.isInline) {
         this.show();
       }
 
-      if (options.autopick) {
+      if (options.autoPick) {
         this.pick();
       }
     },
@@ -394,7 +395,7 @@
     },
 
     hideView: function () {
-      if (this.options.autohide) {
+      if (this.options.autoHide) {
         this.hide();
       }
     },
@@ -1034,7 +1035,14 @@
 
     // Update the datepicker with the current input value
     update: function () {
-      this.setDate(this.getValue(), true);
+      var value = this.getValue();
+
+      if (value === this.oldValue) {
+        return;
+      }
+
+      this.setDate(value, true);
+      this.oldValue = value;
     },
 
     /**
@@ -1126,13 +1134,13 @@
     /**
      * Get the current date
      *
-     * @param {Boolean} formated (optional)
+     * @param {Boolean} formatted (optional)
      * @return {Date|String} (date)
      */
-    getDate: function (formated) {
+    getDate: function (formatted) {
       var date = this.date;
 
-      return formated ? this.formatDate(date) : new Date(date);
+      return formatted ? this.formatDate(date) : new Date(date);
     },
 
     /**
@@ -1257,11 +1265,11 @@
      * Format a date object to a string with the set date format
      *
      * @param {Date} date
-     * @return {String} (formated date)
+     * @return {String} (formatted date)
      */
     formatDate: function (date) {
       var format = this.format;
-      var formated = '';
+      var formatted = '';
       var length;
       var year;
       var part;
@@ -1269,7 +1277,7 @@
       var i;
 
       if (isDate(date)) {
-        formated = format.source;
+        formatted = format.source;
         year = date.getFullYear();
         val = {
           d: date.getDate(),
@@ -1284,11 +1292,11 @@
 
         for (i = 0; i < length; i++) {
           part = format.parts[i];
-          formated = formated.replace(part, val[part]);
+          formatted = formatted.replace(part, val[part]);
         }
       }
 
-      return formated;
+      return formatted;
     },
 
     // Destroy the datepicker and remove the instance from the target element
@@ -1303,13 +1311,13 @@
 
   Datepicker.DEFAULTS = {
     // Show the datepicker automatically when initialized
-    autoshow: false,
+    autoShow: false,
 
     // Hide the datepicker automatically when picked
-    autohide: false,
+    autoHide: false,
 
     // Pick the initial date automatically when initialized
-    autopick: false,
+    autoPick: false,
 
     // Enable inline mode
     inline: false,
@@ -1421,7 +1429,13 @@
   };
 
   Datepicker.setDefaults = function (options) {
-    $.extend(Datepicker.DEFAULTS, $.isPlainObject(options) && options);
+    options = $.isPlainObject(options) ? options : {};
+
+    if (options.language) {
+      options = $.extend({}, Datepicker.LANGUAGES[options.language], options);
+    }
+
+    $.extend(Datepicker.DEFAULTS, options);
   };
 
   // Save the other datepicker

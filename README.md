@@ -2,23 +2,23 @@
 
 > A simple jQuery datepicker plugin.
 
-- [Homepage](http://fengyuanchen.github.io/datepicker)
+- [Website](https://fengyuanchen.github.io/datepicker)
 
 
 
 ## Table of contents
 
-  - [Features](#features)
-  - [Main](#main)
-  - [Getting started](#getting-started)
-  - [Options](#options)
-  - [Methods](#methods)
-  - [Events](#events)
-  - [I18n](#i18n)
-  - [No conflict](#no-conflict)
-  - [Browser support](#browser-support)
-  - [Versioning](#versioning)
-  - [License](#license)
+- [Features](#features)
+- [Main](#main)
+- [Getting started](#getting-started)
+- [Options](#options)
+- [Methods](#methods)
+- [Events](#events)
+- [I18n](#i18n)
+- [No conflict](#no-conflict)
+- [Browser support](#browser-support)
+- [Versioning](#versioning)
+- [License](#license)
 
 
 
@@ -41,7 +41,7 @@ dist/
 ├── datepicker.css     ( 4 KB)
 ├── datepicker.min.css ( 4 KB)
 ├── datepicker.js      (38 KB)
-└── datepicker.min.js  (15 KB)
+└── datepicker.min.js  (16 KB)
 ```
 
 
@@ -94,7 +94,7 @@ You may set datepicker options with `$().datepicker(options)`.
 If you want to change the global default options, You may use `$.fn.datepicker.setDefaults(options)`.
 
 
-### autoshow
+### autoShow
 
 - Type: `Boolean`
 - Default: `false`
@@ -102,7 +102,7 @@ If you want to change the global default options, You may use `$.fn.datepicker.s
 Show the datepicker automatically when initialized.
 
 
-### autohide
+### autoHide
 
 - Type: `Boolean`
 - Default: `false`
@@ -110,7 +110,7 @@ Show the datepicker automatically when initialized.
 Hide the datepicker automatically when picked.
 
 
-### autopick
+### autoPick
 
 - Type: `Boolean`
 - Default: `false`
