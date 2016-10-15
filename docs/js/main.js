@@ -6,16 +6,16 @@ $(function () {
   var $container = $('.docs-datepicker-container');
   var $trigger = $('.docs-datepicker-trigger');
   var options = {
-        show: function (e) {
-          console.log(e.type, e.namespace);
-        },
-        hide: function (e) {
-          console.log(e.type, e.namespace);
-        },
-        pick: function (e) {
-          console.log(e.type, e.namespace, e.view);
-        }
-      };
+    show: function (e) {
+      console.log(e.type, e.namespace);
+    },
+    hide: function (e) {
+      console.log(e.type, e.namespace);
+    },
+    pick: function (e) {
+      console.log(e.type, e.namespace, e.view);
+    }
+  };
 
   $date.on({
     'show.datepicker': function (e) {
