@@ -8,6 +8,7 @@
   "gradients": false,
   "important": false,
   "known-properties": false,
+  "order-alphabetical": false,
   "outline-none": false,
   "qualified-headings": false,
   "regex-selectors": false,

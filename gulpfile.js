@@ -94,7 +94,7 @@ gulp.task('sass', function () {
 gulp.task('csslint', ['sass'], function () {
   return gulp.src(styles.all)
     .pipe(plugins.csslint('.csslintrc'))
-    .pipe(plugins.csslint.reporter());
+    .pipe(plugins.csslint.formatter());
 });
 
 gulp.task('css', ['csslint'], function () {
