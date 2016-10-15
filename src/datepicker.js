@@ -452,16 +452,31 @@
             view: '',
             muted: false,
             picked: false,
-            disabled: false
+            disabled: false,
+            highlighted: false,
           };
+      var classes = [];
 
       $.extend(defaults, data);
 
+      if (defaults.muted) {
+        classes.push(options.mutedClass);
+      }
+
+      if (defaults.highlighted) {
+        classes.push(options.highlightedClass);
+      }
+
+      if (defaults.picked) {
+        classes.push(options.pickedClass);
+      }
+
+      if (defaults.disabled) {
+        classes.push(options.disabledClass);
+      }
+
       return (
-        '<' + itemTag + ' ' +
-        (defaults.disabled ? 'class="' + options.disabledClass + '"' :
-        defaults.picked ? 'class="' + options.pickedClass + '"' :
-        defaults.muted ? 'class="' + options.mutedClass + '"' : '') +
+        '<' + itemTag + ' class="' + classes.join(' ') + '"' +
         (defaults.view ? ' data-view="' + defaults.view + '"' : '') +
         '>' +
         defaults.text +
@@ -630,6 +645,10 @@
       var prevViewYear = viewYear;
       var prevViewMonth = viewMonth;
       var nextViewYear = viewYear;
+      var now = new Date();
+      var thisYear = now.getFullYear();
+      var thisMonth = now.getMonth();
+      var today = now.getDate();
       var nextViewMonth = viewMonth;
       var date = this.date;
       var year = date.getFullYear();
@@ -692,7 +711,8 @@
           text: i,
           view: 'day prev',
           muted: true,
-          disabled: isDisabled
+          disabled: isDisabled,
+          highlighted: prevViewYear === thisYear && prevViewMonth === thisMonth && date.getDate() === today,
         }));
       }
 
@@ -735,7 +755,8 @@
           text: i,
           view: 'day next',
           muted: true,
-          disabled: isDisabled
+          disabled: isDisabled,
+          highlighted: nextViewYear === thisYear && nextViewMonth === thisMonth && date.getDate() === today,
         }));
       }
 
@@ -763,7 +784,8 @@
           text: i,
           view: isDisabled ? 'day disabled' : isPicked ? 'day picked' : 'day',
           picked: isPicked,
-          disabled: isDisabled
+          disabled: isDisabled,
+          highlighted: viewYear === thisYear && viewMonth === thisMonth && date.getDate() === today,
         }));
       }
 
@@ -1381,6 +1403,9 @@
 
     // A class (CSS) for disabled date item
     disabledClass: 'disabled',
+
+    // A class (CSS) for highlight date item
+    highlightedClass: 'highlighted',
 
     // The template of the datepicker
     template: (

@@ -9,6 +9,12 @@
  */
 
 
+// Variables
+// -----------------------------------------------------------------------------
+
+$brand-color: #39f;
+
+
 // Container
 // -----------------------------------------------------------------------------
 
@@ -65,7 +71,7 @@
 
 .datepicker-top-left,
 .datepicker-top-right {
-  border-top-color: #39f;
+  border-top-color: $brand-color;
 
   &:before,
   &:after {
@@ -76,7 +82,7 @@
   }
 
   &:before {
-    border-bottom-color: #39f;
+    border-bottom-color: $brand-color;
   }
 
   &:after {
@@ -88,7 +94,7 @@
 
 .datepicker-bottom-left,
 .datepicker-bottom-right {
-  border-bottom-color: #39f;
+  border-bottom-color: $brand-color;
 
   &:before,
   &:after {
@@ -99,7 +105,7 @@
   }
 
   &:before {
-    border-top-color: #39f;
+    border-top-color: $brand-color;
   }
 
   &:after {
@@ -155,7 +161,7 @@
       background-color: #fff;
 
       &:hover {
-        background-color: #eee;
+        background-color: lighten($brand-color, 35%);
       }
 
       &.muted,
@@ -163,9 +169,17 @@
         color: #999;
       }
 
+      &.highlighted {
+        background-color: lighten($brand-color, 35%);
+      }
+
+      &.highlighted:hover {
+        background-color: lighten($brand-color, 30%);
+      }
+
       &.picked,
       &.picked:hover {
-        color: #39f;
+        color: $brand-color;
       }
 
       &.disabled,
@@ -174,6 +188,10 @@
 
         color: #ccc;
         background-color: #fff;
+
+        &.highlighted {
+          background-color: lighten($brand-color, 35%);
+        }
       }
 
       &[data-view='years prev'],
