@@ -13,39 +13,50 @@
 // -----------------------------------------------------------------------------
 
 .datepicker-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  width: 210px;
   font-size: 12px;
   line-height: 30px;
+
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+
+  width: 210px;
+
+  user-select: none;
+
   background-color: #fff;
+
   direction: ltr !important; // Ignore global rtl
   touch-action: none;
-  user-select: none;
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
 
   &:before,
   &:after {
     position: absolute;
+
     display: block;
-    height: 0;
+
     width: 0;
+    height: 0;
+
+    content: ' ';
+
     border: 5px solid transparent;
-    content: " ";
   }
 }
 
 .datepicker-dropdown {
   position: absolute;
   z-index: 1;
-  border: 1px solid #ccc;
-  box-shadow: 0 3px 6px #ccc;
+
   -webkit-box-sizing: content-box;
      -moz-box-sizing: content-box;
           box-sizing: content-box;
+
+  border: 1px solid #ccc;
+  box-shadow: 0 3px 6px #ccc;
 }
 
 .datepicker-inline {
@@ -60,6 +71,7 @@
   &:after {
     top: -5px;
     left: 10px;
+
     border-top: 0;
   }
 
@@ -69,6 +81,7 @@
 
   &:after {
     top: -4px;
+
     border-bottom-color: #fff;
   }
 }
@@ -81,6 +94,7 @@
   &:after {
     bottom: -5px;
     left: 10px;
+
     border-bottom: 0;
   }
 
@@ -90,6 +104,7 @@
 
   &:after {
     bottom: -4px;
+
     border-top-color: #fff;
   }
 }
@@ -98,8 +113,8 @@
 .datepicker-bottom-right {
   &:before,
   &:after {
-    left: auto;
     right: 10px;
+    left: auto;
   }
 }
 
@@ -111,7 +126,8 @@
   > ul:before,
   > ul:after {
     display: table;
-    content: " ";
+
+    content: ' ';
   }
 
   > ul:after {
@@ -125,14 +141,18 @@
 
     > li {
       float: left;
+
       width: 30px;
       height: 30px;
       margin: 0;
       padding: 0;
-      text-align: center;
-      background-color: #fff;
+
       list-style: none;
+
       cursor: pointer;
+      text-align: center;
+
+      background-color: #fff;
 
       &:hover {
         background-color: #eee;
@@ -150,42 +170,45 @@
 
       &.disabled,
       &.disabled:hover {
+        cursor: default;
+
         color: #ccc;
         background-color: #fff;
-        cursor: default;
       }
 
-      &[data-view="years prev"],
-      &[data-view="year prev"],
-      &[data-view="month prev"],
-      &[data-view="years next"],
-      &[data-view="year next"],
-      &[data-view="month next"],
-      &[data-view="next"] {
+      &[data-view='years prev'],
+      &[data-view='year prev'],
+      &[data-view='month prev'],
+      &[data-view='years next'],
+      &[data-view='year next'],
+      &[data-view='month next'],
+      &[data-view='next'] {
         font-size: 18px;
       }
 
-      &[data-view="years current"],
-      &[data-view="year current"],
-      &[data-view="month current"] {
+      &[data-view='years current'],
+      &[data-view='year current'],
+      &[data-view='month current'] {
         width: 150px;
       }
     }
 
-    &[data-view="years"],
-    &[data-view="months"] {
+    &[data-view='years'],
+    &[data-view='months'] {
       > li {
+        line-height: 52.5px;
+
         width: 52.5px;
         height: 52.5px;
-        line-height: 52.5px;
       }
     }
 
-    &[data-view="week"] {
+    &[data-view='week'] {
       > li,
       > li:hover {
-        background-color: #fff;
         cursor: default;
+
+        background-color: #fff;
       }
     }
   }

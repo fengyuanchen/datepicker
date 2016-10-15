@@ -1,7 +1,7 @@
-QUnit.test('options.autoshow', function (assert) {
+QUnit.test('options.autoShow', function (assert) {
   var $input = window.createInput();
   var datepicker = $input.datepicker({
-        autoshow: true
+        autoShow: true
       }).data('datepicker');
 
   assert.ok(datepicker.$picker.is(':visible'));

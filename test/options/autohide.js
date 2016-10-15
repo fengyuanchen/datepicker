@@ -1,7 +1,7 @@
-QUnit.test('options.autohide', function (assert) {
+QUnit.test('options.autoHide', function (assert) {
   var $input = window.createInput();
   var datepicker = $input.datepicker({
-        autohide: true
+        autoHide: true
       }).data('datepicker');
 
   $input.datepicker('show');

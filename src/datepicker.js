@@ -225,11 +225,11 @@
 
       this.bind();
 
-      if (options.autoshow || this.isInline) {
+      if (options.autoShow || this.isInline) {
         this.show();
       }
 
-      if (options.autopick) {
+      if (options.autoPick) {
         this.pick();
       }
     },
@@ -395,7 +395,7 @@
     },
 
     hideView: function () {
-      if (this.options.autohide) {
+      if (this.options.autoHide) {
         this.hide();
       }
     },
@@ -1311,13 +1311,13 @@
 
   Datepicker.DEFAULTS = {
     // Show the datepicker automatically when initialized
-    autoshow: false,
+    autoShow: false,
 
     // Hide the datepicker automatically when picked
-    autohide: false,
+    autoHide: false,
 
     // Pick the initial date automatically when initialized
-    autopick: false,
+    autoPick: false,
 
     // Enable inline mode
     inline: false,
