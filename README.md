@@ -136,6 +136,8 @@ If the `container` option is set, will append the datepicker to the container.
 
 A element for putting the datepicker. If not set, the datepicker will be appended to `document.body` by default.
 
+> Only works when the `inline` option set to `true`.
+
 
 ### trigger
 
