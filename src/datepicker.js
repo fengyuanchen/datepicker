@@ -37,6 +37,7 @@
   var EVENT_SHOW = 'show.' + NAMESPACE;
   var EVENT_HIDE = 'hide.' + NAMESPACE;
   var EVENT_PICK = 'pick.' + NAMESPACE;
+  var EVENT_ONBLUR = 'blur.' + NAMESPACE;
 
   // RegExps
   var REGEXP_FORMAT = /(y|m|d)+/g;
@@ -306,7 +307,7 @@
 
       if (this.isInput) {
         $this.on(EVENT_KEYUP, $.proxy(this.keyup, this));
-
+        $this.on(EVENT_ONBLUR, $.proxy(this.onblur, this));
         if (!options.trigger) {
           $this.on(EVENT_FOCUS, $.proxy(this.show, this));
         }
@@ -333,7 +334,7 @@
 
       if (this.isInput) {
         $this.off(EVENT_KEYUP, this.keyup);
-
+        $this.off(EVENT_ONBLUR, this.onblur);
         if (!options.trigger) {
           $this.off(EVENT_FOCUS, this.show);
         }
@@ -968,6 +969,12 @@
       if (!ignored) {
         this.hide();
       }
+    },
+
+    // add onBlur listener to trigger hide function
+    onblur: function () {
+      // add event lister elsewhere and call this method when onblur event fires
+      this.hide();
     },
 
     keyup: function () {
