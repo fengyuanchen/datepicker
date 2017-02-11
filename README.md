@@ -40,7 +40,7 @@
 dist/
 ├── datepicker.css     ( 4 KB)
 ├── datepicker.min.css ( 4 KB)
-├── datepicker.js      (38 KB)
+├── datepicker.js      (39 KB)
 └── datepicker.min.js  (16 KB)
 ```
 
@@ -328,6 +328,14 @@ A class (CSS) for picked item.
 - Default: `'disabled'`
 
 A class (CSS) for disabled item.
+
+
+### highlightedClass
+
+- Type: `String`
+- Default: `'highlighted'`
+
+A class (CSS) for highlight date item.
 
 
 ### template

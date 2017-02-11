@@ -1,11 +1,11 @@
 /*!
- * Datepicker v0.4.0
+ * Datepicker v0.5.0
  * https://github.com/fengyuanchen/datepicker
  *
- * Copyright (c) 2014-2016 Fengyuan Chen
+ * Copyright (c) 2014-2017 Fengyuan Chen
  * Released under the MIT license
  *
- * Date: 2016-10-15T04:28:08.752Z
+ * Date: 2017-02-11T13:41:04.790Z
  */
 
 (function (factory) {
@@ -358,6 +358,7 @@
             if (format.hasYear) {
               this.fillYears();
               $yearsPicker.removeClass(CLASS_HIDE);
+              this.place();
             } else {
               this.showView(0);
             }
@@ -372,6 +373,7 @@
             if (format.hasMonth) {
               this.fillMonths();
               $monthsPicker.removeClass(CLASS_HIDE);
+              this.place();
             } else {
               this.showView(2);
             }
@@ -387,6 +389,7 @@
             if (format.hasDay) {
               this.fillDays();
               $daysPicker.removeClass(CLASS_HIDE);
+              this.place();
             } else {
               this.showView(1);
             }
@@ -452,16 +455,31 @@
             view: '',
             muted: false,
             picked: false,
-            disabled: false
+            disabled: false,
+            highlighted: false
           };
+      var classes = [];
 
       $.extend(defaults, data);
 
+      if (defaults.muted) {
+        classes.push(options.mutedClass);
+      }
+
+      if (defaults.highlighted) {
+        classes.push(options.highlightedClass);
+      }
+
+      if (defaults.picked) {
+        classes.push(options.pickedClass);
+      }
+
+      if (defaults.disabled) {
+        classes.push(options.disabledClass);
+      }
+
       return (
-        '<' + itemTag + ' ' +
-        (defaults.disabled ? 'class="' + options.disabledClass + '"' :
-        defaults.picked ? 'class="' + options.pickedClass + '"' :
-        defaults.muted ? 'class="' + options.mutedClass + '"' : '') +
+        '<' + itemTag + ' class="' + classes.join(' ') + '"' +
         (defaults.view ? ' data-view="' + defaults.view + '"' : '') +
         '>' +
         defaults.text +
@@ -630,6 +648,10 @@
       var prevViewYear = viewYear;
       var prevViewMonth = viewMonth;
       var nextViewYear = viewYear;
+      var now = new Date();
+      var thisYear = now.getFullYear();
+      var thisMonth = now.getMonth();
+      var today = now.getDate();
       var nextViewMonth = viewMonth;
       var date = this.date;
       var year = date.getFullYear();
@@ -692,7 +714,8 @@
           text: i,
           view: 'day prev',
           muted: true,
-          disabled: isDisabled
+          disabled: isDisabled,
+          highlighted: prevViewYear === thisYear && prevViewMonth === thisMonth && date.getDate() === today
         }));
       }
 
@@ -735,7 +758,8 @@
           text: i,
           view: 'day next',
           muted: true,
-          disabled: isDisabled
+          disabled: isDisabled,
+          highlighted: nextViewYear === thisYear && nextViewMonth === thisMonth && date.getDate() === today
         }));
       }
 
@@ -763,7 +787,8 @@
           text: i,
           view: isDisabled ? 'day disabled' : isPicked ? 'day picked' : 'day',
           picked: isPicked,
-          disabled: isDisabled
+          disabled: isDisabled,
+          highlighted: viewYear === thisYear && viewMonth === thisMonth && date.getDate() === today
         }));
       }
 
@@ -1381,6 +1406,9 @@
 
     // A class (CSS) for disabled date item
     disabledClass: 'disabled',
+
+    // A class (CSS) for highlight date item
+    highlightedClass: 'highlighted',
 
     // The template of the datepicker
     template: (

@@ -1,6 +1,12 @@
 # Changelog
 
 
+## 0.5.0 (Feb 11, 2017)
+
+- Added a new option `highlightedClass` for highlight today (#28).
+- Fixed the position of picker panel (#49).
+
+
 ## 0.4.0 (Oct 15, 2016)
 
 - Rename `autoshow` option to `autoShow`.
