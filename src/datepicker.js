@@ -456,7 +456,7 @@
             muted: false,
             picked: false,
             disabled: false,
-            highlighted: false,
+            highlighted: false
           };
       var classes = [];
 
@@ -715,7 +715,7 @@
           view: 'day prev',
           muted: true,
           disabled: isDisabled,
-          highlighted: prevViewYear === thisYear && prevViewMonth === thisMonth && date.getDate() === today,
+          highlighted: prevViewYear === thisYear && prevViewMonth === thisMonth && date.getDate() === today
         }));
       }
 
@@ -759,7 +759,7 @@
           view: 'day next',
           muted: true,
           disabled: isDisabled,
-          highlighted: nextViewYear === thisYear && nextViewMonth === thisMonth && date.getDate() === today,
+          highlighted: nextViewYear === thisYear && nextViewMonth === thisMonth && date.getDate() === today
         }));
       }
 
@@ -788,7 +788,7 @@
           view: isDisabled ? 'day disabled' : isPicked ? 'day picked' : 'day',
           picked: isPicked,
           disabled: isDisabled,
-          highlighted: viewYear === thisYear && viewMonth === thisMonth && date.getDate() === today,
+          highlighted: viewYear === thisYear && viewMonth === thisMonth && date.getDate() === today
         }));
       }
 
