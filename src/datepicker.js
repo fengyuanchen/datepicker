@@ -358,6 +358,7 @@
             if (format.hasYear) {
               this.fillYears();
               $yearsPicker.removeClass(CLASS_HIDE);
+              this.place();
             } else {
               this.showView(0);
             }
@@ -372,6 +373,7 @@
             if (format.hasMonth) {
               this.fillMonths();
               $monthsPicker.removeClass(CLASS_HIDE);
+              this.place();
             } else {
               this.showView(2);
             }
@@ -387,6 +389,7 @@
             if (format.hasDay) {
               this.fillDays();
               $daysPicker.removeClass(CLASS_HIDE);
+              this.place();
             } else {
               this.showView(1);
             }
