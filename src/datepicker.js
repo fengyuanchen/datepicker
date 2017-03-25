@@ -189,7 +189,7 @@
       var endDate = options.endDate;
       var date = options.date;
 
-      this.$trigger = $(options.trigger || $this);
+      this.$trigger = $(options.trigger);
       this.isInput = $this.is('input') || $this.is('textarea');
       this.isInline = options.inline && (options.container || !this.isInput);
       this.format = parseFormat(options.format);
@@ -307,14 +307,18 @@
 
       if (this.isInput) {
         $this.on(EVENT_KEYUP, $.proxy(this.keyup, this));
-
-        if (!options.trigger) {
-          $this.on(EVENT_FOCUS, $.proxy(this.show, this));
-          $this.on(EVENT_BLUR, $.proxy(this.hide, this));
-        }
       }
 
-      this.$trigger.on(EVENT_CLICK, $.proxy(this.toggle, this));
+      if (!this.isInline) {
+        if (options.trigger) {
+          this.$trigger.on(EVENT_CLICK, $.proxy(this.toggle, this));
+        } else if (this.isInput) {
+          $this.on(EVENT_FOCUS, $.proxy(this.show, this));
+          $this.on(EVENT_BLUR, $.proxy(this.hide, this));
+        } else {
+          $this.on(EVENT_CLICK, $.proxy(this.show, this));
+        }
+      }
     },
 
     unbind: function () {
@@ -335,14 +339,18 @@
 
       if (this.isInput) {
         $this.off(EVENT_KEYUP, this.keyup);
-
-        if (!options.trigger) {
-          $this.off(EVENT_FOCUS, this.show);
-          $this.off(EVENT_BLUR, this.hide);
-        }
       }
 
-      this.$trigger.off(EVENT_CLICK, this.toggle);
+      if (!this.isInline) {
+        if (options.trigger) {
+          this.$trigger.off(EVENT_CLICK, this.toggle);
+        } else if (this.isInput) {
+          $this.off(EVENT_FOCUS, this.show);
+          $this.off(EVENT_BLUR, this.hide);
+        } else {
+          $this.off(EVENT_CLICK, this.show);
+        }
+      }
     },
 
     showView: function (view) {
@@ -407,6 +415,10 @@
     },
 
     place: function () {
+      if (this.isInline) {
+        return;
+      }
+
       var options = this.options;
       var $this = this.$element;
       var $picker = this.$picker;
@@ -959,11 +971,12 @@
 
     clickDoc: function (e) {
       var target = e.target;
+      var element = this.$element[0];
       var trigger = this.$trigger[0];
       var ignored;
 
       while (target !== document) {
-        if (target === trigger) {
+        if (target === trigger || target === element) {
           ignored = true;
           break;
         }
