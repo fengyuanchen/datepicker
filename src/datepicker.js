@@ -406,7 +406,7 @@
     },
 
     hideView: function () {
-      if (this.options.autoHide) {
+      if (!this.isInline && this.options.autoHide) {
         this.hide();
       }
     },
