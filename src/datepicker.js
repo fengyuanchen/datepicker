@@ -33,7 +33,6 @@
   var EVENT_CLICK = 'click.' + NAMESPACE;
   var EVENT_KEYUP = 'keyup.' + NAMESPACE;
   var EVENT_FOCUS = 'focus.' + NAMESPACE;
-  var EVENT_BLUR = 'blur.' + NAMESPACE;
   var EVENT_RESIZE = 'resize.' + NAMESPACE;
   var EVENT_SHOW = 'show.' + NAMESPACE;
   var EVENT_HIDE = 'hide.' + NAMESPACE;
@@ -314,7 +313,6 @@
           this.$trigger.on(EVENT_CLICK, $.proxy(this.toggle, this));
         } else if (this.isInput) {
           $this.on(EVENT_FOCUS, $.proxy(this.show, this));
-          $this.on(EVENT_BLUR, $.proxy(this.hide, this));
         } else {
           $this.on(EVENT_CLICK, $.proxy(this.show, this));
         }
@@ -346,7 +344,6 @@
           this.$trigger.off(EVENT_CLICK, this.toggle);
         } else if (this.isInput) {
           $this.off(EVENT_FOCUS, this.show);
-          $this.off(EVENT_BLUR, this.hide);
         } else {
           $this.off(EVENT_CLICK, this.show);
         }
@@ -993,6 +990,13 @@
       this.update();
     },
 
+    keyupDoc: function (e) {
+      if (this.isInput && e.target !== this.$element[0] &&
+        this.isShown && (e.key === 'Tab' || e.keyCode === 9)) {
+        this.hide();
+      }
+    },
+
     getValue: function () {
       var $this = this.$element;
       var val = '';
@@ -1051,6 +1055,7 @@
       if (!this.isInline) {
         $window.on(EVENT_RESIZE, (this._place = proxy(this.place, this)));
         $document.on(EVENT_CLICK, (this._clickDoc = proxy(this.clickDoc, this)));
+        $document.on(EVENT_KEYUP, (this._keyupDoc = proxy(this.keyupDoc, this)));
         this.place();
       }
     },
@@ -1071,6 +1076,7 @@
       if (!this.isInline) {
         $window.off(EVENT_RESIZE, this._place);
         $document.off(EVENT_CLICK, this._clickDoc);
+        $document.off(EVENT_KEYUP, this._keyupDoc);
       }
     },
 
