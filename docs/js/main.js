@@ -29,6 +29,8 @@ $(function () {
     }
   }).datepicker(options);
 
+  console.log($date.data('datepicker'));
+
   $('.docs-options, .docs-toggles').on('change', function (e) {
     var target = e.target;
     var $target = $(target);

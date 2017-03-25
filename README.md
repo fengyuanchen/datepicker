@@ -40,7 +40,7 @@
 dist/
 ├── datepicker.css     ( 4 KB)
 ├── datepicker.min.css ( 4 KB)
-├── datepicker.js      (39 KB)
+├── datepicker.js      (40 KB)
 └── datepicker.min.js  (16 KB)
 ```
 
