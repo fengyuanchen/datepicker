@@ -33,6 +33,7 @@
   var EVENT_CLICK = 'click.' + NAMESPACE;
   var EVENT_KEYUP = 'keyup.' + NAMESPACE;
   var EVENT_FOCUS = 'focus.' + NAMESPACE;
+  var EVENT_BLUR = 'blur.' + NAMESPACE;
   var EVENT_RESIZE = 'resize.' + NAMESPACE;
   var EVENT_SHOW = 'show.' + NAMESPACE;
   var EVENT_HIDE = 'hide.' + NAMESPACE;
@@ -309,6 +310,7 @@
 
         if (!options.trigger) {
           $this.on(EVENT_FOCUS, $.proxy(this.show, this));
+          $this.on(EVENT_BLUR, $.proxy(this.hide, this));
         }
       }
 
@@ -336,6 +338,7 @@
 
         if (!options.trigger) {
           $this.off(EVENT_FOCUS, this.show);
+          $this.off(EVENT_BLUR, this.hide);
         }
       }
 
