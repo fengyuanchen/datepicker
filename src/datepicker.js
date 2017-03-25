@@ -314,7 +314,7 @@
         }
       }
 
-      this.$trigger.on(EVENT_CLICK, $.proxy(this.show, this));
+      this.$trigger.on(EVENT_CLICK, $.proxy(this.toggle, this));
     },
 
     unbind: function () {
@@ -342,7 +342,7 @@
         }
       }
 
-      this.$trigger.off(EVENT_CLICK, this.show);
+      this.$trigger.off(EVENT_CLICK, this.toggle);
     },
 
     showView: function (view) {
@@ -1058,6 +1058,14 @@
       if (!this.isInline) {
         $window.off(EVENT_RESIZE, this._place);
         $document.off(EVENT_CLICK, this._clickDoc);
+      }
+    },
+
+    toggle: function () {
+      if (this.isShown) {
+        this.hide();
+      } else {
+        this.show();
       }
     },
 
