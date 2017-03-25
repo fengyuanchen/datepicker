@@ -31,7 +31,6 @@
     "gulp-autoprefixer": "^3.1.1",
     "gulp-csscomb": "^3.0.8",
     "gulp-csslint": "^1.0.0",
-    "gulp-htmlcomb": "^0.1.0",
     "gulp-jscs": "^4.0.0",
     "gulp-jshint": "^2.0.4",
     "gulp-load-plugins": "^1.5.0",
