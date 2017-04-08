@@ -886,6 +886,7 @@
             this.hideView();
           }
 
+          this.pick('year');
           break;
 
         case 'year':
@@ -925,6 +926,7 @@
             this.hideView();
           }
 
+          this.pick('month');
           break;
 
         case 'month':
