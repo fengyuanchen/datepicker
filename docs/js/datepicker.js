@@ -1,11 +1,11 @@
 /*!
- * Datepicker v0.5.1
+ * Datepicker v0.5.2
  * https://github.com/fengyuanchen/datepicker
  *
  * Copyright (c) 2014-2017 Fengyuan Chen
  * Released under the MIT license
  *
- * Date: 2017-03-25T10:09:27.455Z
+ * Date: 2017-04-08T12:04:43.796Z
  */
 
 (function (factory) {
@@ -886,6 +886,7 @@
             this.hideView();
           }
 
+          this.pick('year');
           break;
 
         case 'year':
@@ -925,6 +926,7 @@
             this.hideView();
           }
 
+          this.pick('month');
           break;
 
         case 'month':

@@ -1,6 +1,11 @@
 # Changelog
 
 
+## 0.5.2 (Apr 8, 2017)
+
+- Fixed year and month picking issue.
+
+
 ## 0.5.1 (Mar 25, 2017)
 
 - Hide the picker when the target input element is blurred (#54).
