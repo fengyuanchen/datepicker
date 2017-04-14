@@ -1,6 +1,18 @@
 # Changelog
 
 
+## 0.5.2 (Apr 8, 2017)
+
+- Fixed year and month picking issue.
+
+
+## 0.5.1 (Mar 25, 2017)
+
+- Hide the picker when the target input element is blurred (#54).
+- Hide the picker when click the trigger element again.
+- Fixed some issues in inline mode.
+
+
 ## 0.5.0 (Feb 11, 2017)
 
 - Added a new option `highlightedClass` for highlight today (#28).

@@ -1,8 +1,8 @@
 /*!
  * Datepicker v0.5.2
- * https://github.com/fengyuanchen/datepicker
+ * https://github.com/hectorchow/datepicker
  *
- * Copyright (c) 2014-2017 Fengyuan Chen
+ *
  * Released under the MIT license
  *
  * Date: 2017-04-08T12:04:43.796Z
@@ -598,6 +598,7 @@
       var endDate = this.endDate;
       var viewDate = this.viewDate;
       var viewYear = viewDate.getFullYear();
+      var viewMonth = viewDate.getMonth();
       var viewDay = viewDate.getDate();
       var date = this.date;
       var year = date.getFullYear();
@@ -885,10 +886,7 @@
           } else {
             this.hideView();
           }
-<<<<<<< HEAD
-=======
 
->>>>>>> 20e3ab1158c21884013a154669752b390f4cdeb3
           this.pick('year');
           break;
 
@@ -928,10 +926,7 @@
           } else {
             this.hideView();
           }
-<<<<<<< HEAD
-=======
 
->>>>>>> 20e3ab1158c21884013a154669752b390f4cdeb3
           this.pick('month');
           break;
 

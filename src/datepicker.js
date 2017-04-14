@@ -188,7 +188,7 @@
       var endDate = options.endDate;
       var date = options.date;
 
-      this.$trigger = $(options.trigger || $this);
+      this.$trigger = $(options.trigger);
       this.isInput = $this.is('input') || $this.is('textarea');
       this.isInline = options.inline && (options.container || !this.isInput);
       this.format = parseFormat(options.format);
@@ -306,13 +306,17 @@
 
       if (this.isInput) {
         $this.on(EVENT_KEYUP, $.proxy(this.keyup, this));
-
-        if (!options.trigger) {
-          $this.on(EVENT_FOCUS, $.proxy(this.show, this));
-        }
       }
 
-      this.$trigger.on(EVENT_CLICK, $.proxy(this.show, this));
+      if (!this.isInline) {
+        if (options.trigger) {
+          this.$trigger.on(EVENT_CLICK, $.proxy(this.toggle, this));
+        } else if (this.isInput) {
+          $this.on(EVENT_FOCUS, $.proxy(this.show, this));
+        } else {
+          $this.on(EVENT_CLICK, $.proxy(this.show, this));
+        }
+      }
     },
 
     unbind: function () {
@@ -333,13 +337,17 @@
 
       if (this.isInput) {
         $this.off(EVENT_KEYUP, this.keyup);
-
-        if (!options.trigger) {
-          $this.off(EVENT_FOCUS, this.show);
-        }
       }
 
-      this.$trigger.off(EVENT_CLICK, this.show);
+      if (!this.isInline) {
+        if (options.trigger) {
+          this.$trigger.off(EVENT_CLICK, this.toggle);
+        } else if (this.isInput) {
+          $this.off(EVENT_FOCUS, this.show);
+        } else {
+          $this.off(EVENT_CLICK, this.show);
+        }
+      }
     },
 
     showView: function (view) {
@@ -398,12 +406,16 @@
     },
 
     hideView: function () {
-      if (this.options.autoHide) {
+      if (!this.isInline && this.options.autoHide) {
         this.hide();
       }
     },
 
     place: function () {
+      if (this.isInline) {
+        return;
+      }
+
       var options = this.options;
       var $this = this.$element;
       var $picker = this.$picker;
@@ -874,6 +886,7 @@
             this.hideView();
           }
 
+          this.pick('year');
           break;
 
         case 'year':
@@ -913,6 +926,7 @@
             this.hideView();
           }
 
+          this.pick('month');
           break;
 
         case 'month':
@@ -956,11 +970,12 @@
 
     clickDoc: function (e) {
       var target = e.target;
+      var element = this.$element[0];
       var trigger = this.$trigger[0];
       var ignored;
 
       while (target !== document) {
-        if (target === trigger) {
+        if (target === trigger || target === element) {
           ignored = true;
           break;
         }
@@ -975,6 +990,13 @@
 
     keyup: function () {
       this.update();
+    },
+
+    keyupDoc: function (e) {
+      if (this.isInput && e.target !== this.$element[0] &&
+        this.isShown && (e.key === 'Tab' || e.keyCode === 9)) {
+        this.hide();
+      }
     },
 
     getValue: function () {
@@ -1035,6 +1057,7 @@
       if (!this.isInline) {
         $window.on(EVENT_RESIZE, (this._place = proxy(this.place, this)));
         $document.on(EVENT_CLICK, (this._clickDoc = proxy(this.clickDoc, this)));
+        $document.on(EVENT_KEYUP, (this._keyupDoc = proxy(this.keyupDoc, this)));
         this.place();
       }
     },
@@ -1055,6 +1078,15 @@
       if (!this.isInline) {
         $window.off(EVENT_RESIZE, this._place);
         $document.off(EVENT_CLICK, this._clickDoc);
+        $document.off(EVENT_KEYUP, this._keyupDoc);
+      }
+    },
+
+    toggle: function () {
+      if (this.isShown) {
+        this.hide();
+      } else {
+        this.show();
       }
     },
 
