@@ -885,10 +885,6 @@
           } else {
             this.hideView();
           }
-<<<<<<< HEAD
-=======
-
->>>>>>> 20e3ab1158c21884013a154669752b390f4cdeb3
           this.pick('year');
           break;
 
@@ -896,7 +892,7 @@
           viewYear = parseInt($target.text(), 10);
           this.date = new Date(viewYear, viewMonth, min(viewDay, 28));
           this.viewDate = new Date(viewYear, viewMonth, min(viewDay, 28));
-
+          this.fillYears();
           if (this.format.hasMonth) {
             this.showView(1);
           } else {
@@ -928,10 +924,6 @@
           } else {
             this.hideView();
           }
-<<<<<<< HEAD
-=======
-
->>>>>>> 20e3ab1158c21884013a154669752b390f4cdeb3
           this.pick('month');
           break;
 
@@ -939,7 +931,7 @@
           viewMonth = $.inArray($target.text(), this.options.monthsShort);
           this.date = new Date(viewYear, viewMonth, min(viewDay, 28));
           this.viewDate = new Date(viewYear, viewMonth, min(viewDay, 28));
-
+          this.fillMonths();
           if (this.format.hasDay) {
             this.showView(0);
           } else {
