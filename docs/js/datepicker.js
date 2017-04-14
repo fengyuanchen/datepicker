@@ -598,6 +598,7 @@
       var endDate = this.endDate;
       var viewDate = this.viewDate;
       var viewYear = viewDate.getFullYear();
+      var viewMonth = viewDate.getMonth();
       var viewDay = viewDate.getDate();
       var date = this.date;
       var year = date.getFullYear();
@@ -633,7 +634,8 @@
           text: months[i],
           view: isDisabled ? 'month disabled' : isPicked ? 'month picked' : 'month',
           picked: isPicked,
-          disabled: isDisabled
+          disabled: isDisabled,
+          highlighted: viewYear === year && viewMonth === month
         });
       }
 
