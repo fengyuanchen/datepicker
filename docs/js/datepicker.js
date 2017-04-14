@@ -1,8 +1,8 @@
 /*!
  * Datepicker v0.5.2
- * https://github.com/fengyuanchen/datepicker
+ * https://github.com/hectorchow/datepicker
  *
- * Copyright (c) 2014-2017 Fengyuan Chen
+ *
  * Released under the MIT license
  *
  * Date: 2017-04-08T12:04:43.796Z
@@ -634,8 +634,7 @@
           text: months[i],
           view: isDisabled ? 'month disabled' : isPicked ? 'month picked' : 'month',
           picked: isPicked,
-          disabled: isDisabled,
-          highlighted: viewYear === year && viewMonth === month
+          disabled: isDisabled
         });
       }
 
