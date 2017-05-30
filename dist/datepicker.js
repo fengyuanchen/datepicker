@@ -885,7 +885,6 @@
           } else {
             this.hideView();
           }
-
           this.pick('year');
           break;
 
@@ -893,7 +892,7 @@
           viewYear = parseInt($target.text(), 10);
           this.date = new Date(viewYear, viewMonth, min(viewDay, 28));
           this.viewDate = new Date(viewYear, viewMonth, min(viewDay, 28));
-
+          this.fillYears();
           if (this.format.hasMonth) {
             this.showView(1);
           } else {
@@ -925,7 +924,6 @@
           } else {
             this.hideView();
           }
-
           this.pick('month');
           break;
 
@@ -933,7 +931,7 @@
           viewMonth = $.inArray($target.text(), this.options.monthsShort);
           this.date = new Date(viewYear, viewMonth, min(viewDay, 28));
           this.viewDate = new Date(viewYear, viewMonth, min(viewDay, 28));
-
+          this.fillMonths();
           if (this.format.hasDay) {
             this.showView(0);
           } else {

@@ -1,8 +1,8 @@
 /*!
  * Datepicker v0.5.2
- * https://github.com/fengyuanchen/datepicker
+ * https://github.com/hectorchow/datepicker
  *
- * Copyright (c) 2014-2017 Fengyuan Chen
+ *
  * Released under the MIT license
  *
  * Date: 2017-04-08T12:04:43.796Z
@@ -598,6 +598,7 @@
       var endDate = this.endDate;
       var viewDate = this.viewDate;
       var viewYear = viewDate.getFullYear();
+      var viewMonth = viewDate.getMonth();
       var viewDay = viewDate.getDate();
       var date = this.date;
       var year = date.getFullYear();
@@ -893,7 +894,7 @@
           viewYear = parseInt($target.text(), 10);
           this.date = new Date(viewYear, viewMonth, min(viewDay, 28));
           this.viewDate = new Date(viewYear, viewMonth, min(viewDay, 28));
-
+          this.fillYears();
           if (this.format.hasMonth) {
             this.showView(1);
           } else {
@@ -933,7 +934,7 @@
           viewMonth = $.inArray($target.text(), this.options.monthsShort);
           this.date = new Date(viewYear, viewMonth, min(viewDay, 28));
           this.viewDate = new Date(viewYear, viewMonth, min(viewDay, 28));
-
+          this.fillMonths();
           if (this.format.hasDay) {
             this.showView(0);
           } else {
