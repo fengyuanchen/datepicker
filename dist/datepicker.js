@@ -1,11 +1,11 @@
 /*!
- * Datepicker v0.5.2
+ * Datepicker v0.5.3
  * https://github.com/fengyuanchen/datepicker
  *
  * Copyright (c) 2014-2017 Fengyuan Chen
  * Released under the MIT license
  *
- * Date: 2017-04-08T12:04:43.796Z
+ * Date: 2017-05-30T03:33:51.775Z
  */
 
 (function (factory) {
@@ -534,6 +534,8 @@
       var viewYear = viewDate.getFullYear();
       var viewMonth = viewDate.getMonth();
       var viewDay = viewDate.getDate();
+      var now = new Date();
+      var thisYear = now.getFullYear();
       var date = this.date;
       var year = date.getFullYear();
       var isPrevDisabled = false;
@@ -577,7 +579,8 @@
           view: isDisabled ? 'year disabled' : isPicked ? 'year picked' : 'year',
           muted: isMuted,
           picked: isPicked,
-          disabled: isDisabled
+          disabled: isDisabled,
+          highlighted: date.getFullYear() === thisYear
         });
       }
 
@@ -599,6 +602,9 @@
       var viewDate = this.viewDate;
       var viewYear = viewDate.getFullYear();
       var viewDay = viewDate.getDate();
+      var now = new Date();
+      var thisYear = now.getFullYear();
+      var thisMonth = now.getMonth();
       var date = this.date;
       var year = date.getFullYear();
       var month = date.getMonth();
@@ -633,7 +639,8 @@
           text: months[i],
           view: isDisabled ? 'month disabled' : isPicked ? 'month picked' : 'month',
           picked: isPicked,
-          disabled: isDisabled
+          disabled: isDisabled,
+          highlighted: viewYear === thisYear && date.getMonth() === thisMonth
         });
       }
 
@@ -712,6 +719,7 @@
 
       for (i = length - (n - 1); i <= length; i++) {
         date = new Date(prevViewYear, prevViewMonth, i);
+        isPicked = prevViewYear === year && prevViewMonth === month && i === day;
         isDisabled = false;
 
         if (startDate) {
@@ -726,6 +734,7 @@
           text: i,
           view: 'day prev',
           muted: true,
+          picked: isPicked,
           disabled: isDisabled,
           highlighted: prevViewYear === thisYear && prevViewMonth === thisMonth && date.getDate() === today
         }));
@@ -756,6 +765,7 @@
 
       for (i = 1; i <= n; i++) {
         date = new Date(nextViewYear, nextViewMonth, i);
+        isPicked = nextViewYear === year && nextViewMonth === month && i === day;
         isDisabled = false;
 
         if (endDate) {
@@ -770,6 +780,7 @@
           text: i,
           view: 'day next',
           muted: true,
+          picked: isPicked,
           disabled: isDisabled,
           highlighted: nextViewYear === thisYear && nextViewMonth === thisMonth && date.getDate() === today
         }));
@@ -821,6 +832,7 @@
 
     click: function (e) {
       var $target = $(e.target);
+      var options = this.options;
       var viewDate = this.viewDate;
       var viewYear;
       var viewMonth;
@@ -871,7 +883,6 @@
           break;
 
         case 'year current':
-
           if (this.format.hasYear) {
             this.showView(2);
           }
@@ -879,10 +890,12 @@
           break;
 
         case 'year picked':
-
           if (this.format.hasMonth) {
             this.showView(1);
           } else {
+            $target.addClass(options.pickedClass)
+              .siblings()
+                .removeClass(options.pickedClass);
             this.hideView();
           }
 
@@ -892,11 +905,14 @@
         case 'year':
           viewYear = parseInt($target.text(), 10);
           this.date = new Date(viewYear, viewMonth, min(viewDay, 28));
-          this.viewDate = new Date(viewYear, viewMonth, min(viewDay, 28));
 
           if (this.format.hasMonth) {
+            this.viewDate = new Date(viewYear, viewMonth, min(viewDay, 28));
             this.showView(1);
           } else {
+            $target.addClass(options.pickedClass)
+              .siblings()
+                .removeClass(options.pickedClass);
             this.hideView();
           }
 
@@ -911,7 +927,6 @@
           break;
 
         case 'month current':
-
           if (this.format.hasMonth) {
             this.showView(1);
           }
@@ -919,10 +934,12 @@
           break;
 
         case 'month picked':
-
           if (this.format.hasDay) {
             this.showView(0);
           } else {
+            $target.addClass(options.pickedClass)
+              .siblings()
+                .removeClass(options.pickedClass);
             this.hideView();
           }
 
@@ -930,13 +947,16 @@
           break;
 
         case 'month':
-          viewMonth = $.inArray($target.text(), this.options.monthsShort);
+          viewMonth = $.inArray($target.text(), options.monthsShort);
           this.date = new Date(viewYear, viewMonth, min(viewDay, 28));
-          this.viewDate = new Date(viewYear, viewMonth, min(viewDay, 28));
 
           if (this.format.hasDay) {
+            this.viewDate = new Date(viewYear, viewMonth, min(viewDay, 28));
             this.showView(0);
           } else {
+            $target.addClass(options.pickedClass)
+              .siblings()
+                .removeClass(options.pickedClass);
             this.hideView();
           }
 
@@ -949,8 +969,9 @@
           viewMonth = view === 'day prev' ? viewMonth - 1 : view === 'day next' ? viewMonth + 1 : viewMonth;
           viewDay = parseInt($target.text(), 10);
           this.date = new Date(viewYear, viewMonth, viewDay);
-          this.viewDate = new Date(viewYear, viewMonth, viewDay);
-          this.fillDays();
+          $target.addClass(options.pickedClass)
+            .siblings()
+              .removeClass(options.pickedClass);
 
           if (view === 'day') {
             this.hideView();
@@ -960,6 +981,9 @@
           break;
 
         case 'day picked':
+          $target.addClass(options.pickedClass)
+            .siblings()
+              .removeClass(options.pickedClass);
           this.hideView();
           this.pick('day');
           break;

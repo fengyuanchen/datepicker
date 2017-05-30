@@ -1,6 +1,12 @@
 # Changelog
 
 
+## 0.5.3 (May 30, 2017)
+
+- Highlight the current year and month.
+- Highlight the picked year and month.
+
+
 ## 0.5.2 (Apr 8, 2017)
 
 - Fixed year and month picking issue.
