@@ -10,8 +10,9 @@
     factory(jQuery);
   }
 })(function ($) {
+
   'use strict';
-  
+
   $.fn.datepicker.languages['ca-ES'] = {
     format: 'dd/mm/yyyy',
     days: ['diumenge', 'dilluns', 'dimarts', 'dimecres', 'dijous', 'divendres', 'dissabte'],
