@@ -158,11 +158,12 @@
   }
 
   function Datepicker(element, options) {
+    var ln = Datepicker.DEFAULTS.language || options.language;
     options = $.isPlainObject(options) ? options : {};
 
-    if (options.language) {
+    if (ln) {
       // Priority: Datepicker.DEFAULTS < Datepicker.LANGUAGES < options
-      options = $.extend({}, Datepicker.LANGUAGES[options.language], options);
+      options = $.extend({}, Datepicker.LANGUAGES[ln], options);
     }
 
     this.$element = $(element);
