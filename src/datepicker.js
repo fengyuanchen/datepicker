@@ -58,6 +58,13 @@
       ].join(' ');
   var CLASS_HIDE = NAMESPACE + '-hide';
 
+  // Views
+  var VIEWS = {
+    DAYS: 0,
+    MONTHS: 1,
+    YEARS: 2
+  };
+
   // Maths
   var min = Math.min;
 
@@ -368,7 +375,7 @@
               $yearsPicker.removeClass(CLASS_HIDE);
               this.place();
             } else {
-              this.showView(0);
+              this.showView(VIEWS.DAYS);
             }
 
             break;
@@ -383,7 +390,7 @@
               $monthsPicker.removeClass(CLASS_HIDE);
               this.place();
             } else {
-              this.showView(2);
+              this.showView(VIEWS.YEARS);
             }
 
             break;
@@ -399,7 +406,7 @@
               $daysPicker.removeClass(CLASS_HIDE);
               this.place();
             } else {
-              this.showView(1);
+              this.showView(VIEWS.MONTHS);
             }
         }
       }
@@ -869,7 +876,7 @@
           this.fillYears();
 
           if (isYear) {
-            this.showView(1);
+            this.showView(VIEWS.MONTHS);
             this.pick('year');
           }
 
@@ -884,14 +891,14 @@
 
         case 'year current':
           if (this.format.hasYear) {
-            this.showView(2);
+            this.showView(VIEWS.YEARS);
           }
 
           break;
 
         case 'year picked':
           if (this.format.hasMonth) {
-            this.showView(1);
+            this.showView(VIEWS.MONTHS);
           } else {
             $target.addClass(options.pickedClass)
               .siblings()
@@ -908,7 +915,7 @@
 
           if (this.format.hasMonth) {
             this.viewDate = new Date(viewYear, viewMonth, min(viewDay, 28));
-            this.showView(1);
+            this.showView(VIEWS.MONTHS);
           } else {
             $target.addClass(options.pickedClass)
               .siblings()
@@ -928,14 +935,14 @@
 
         case 'month current':
           if (this.format.hasMonth) {
-            this.showView(1);
+            this.showView(VIEWS.MONTHS);
           }
 
           break;
 
         case 'month picked':
           if (this.format.hasDay) {
-            this.showView(0);
+            this.showView(VIEWS.DAYS);
           } else {
             $target.addClass(options.pickedClass)
               .siblings()
@@ -952,7 +959,7 @@
 
           if (this.format.hasDay) {
             this.viewDate = new Date(viewYear, viewMonth, min(viewDay, 28));
-            this.showView(0);
+            this.showView(VIEWS.DAYS);
           } else {
             $target.addClass(options.pickedClass)
               .siblings()
