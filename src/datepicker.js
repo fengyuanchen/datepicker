@@ -365,7 +365,7 @@
 
       if (format.hasYear || format.hasMonth || format.hasDay) {
         switch (Number(view)) {
-          case 2:
+          case VIEWS.YEARS:
           case 'years':
             $monthsPicker.addClass(CLASS_HIDE);
             $daysPicker.addClass(CLASS_HIDE);
@@ -380,7 +380,7 @@
 
             break;
 
-          case 1:
+          case VIEWS.MONTHS:
           case 'months':
             $yearsPicker.addClass(CLASS_HIDE);
             $daysPicker.addClass(CLASS_HIDE);
@@ -395,7 +395,7 @@
 
             break;
 
-          // case 0:
+          // case VIEWS.DAYS:
           // case 'days':
           default:
             $yearsPicker.addClass(CLASS_HIDE);

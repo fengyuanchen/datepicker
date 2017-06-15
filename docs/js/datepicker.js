@@ -5,7 +5,7 @@
  * Copyright (c) 2014-2017 Fengyuan Chen
  * Released under the MIT license
  *
- * Date: 2017-06-15T10:54:54.864Z
+ * Date: 2017-06-15T11:00:53.003Z
  */
 
 (function (factory) {
@@ -365,7 +365,7 @@
 
       if (format.hasYear || format.hasMonth || format.hasDay) {
         switch (Number(view)) {
-          case 2:
+          case VIEWS.YEARS:
           case 'years':
             $monthsPicker.addClass(CLASS_HIDE);
             $daysPicker.addClass(CLASS_HIDE);
@@ -380,7 +380,7 @@
 
             break;
 
-          case 1:
+          case VIEWS.MONTHS:
           case 'months':
             $yearsPicker.addClass(CLASS_HIDE);
             $daysPicker.addClass(CLASS_HIDE);
@@ -395,7 +395,7 @@
 
             break;
 
-          // case 0:
+          // case VIEWS.DAYS:
           // case 'days':
           default:
             $yearsPicker.addClass(CLASS_HIDE);
