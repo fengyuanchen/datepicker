@@ -976,9 +976,8 @@
           viewMonth = view === 'day prev' ? viewMonth - 1 : view === 'day next' ? viewMonth + 1 : viewMonth;
           viewDay = parseInt($target.text(), 10);
           this.date = new Date(viewYear, viewMonth, viewDay);
-          $target.addClass(options.pickedClass)
-            .siblings()
-              .removeClass(options.pickedClass);
+          this.viewDate = new Date(viewYear, viewMonth, viewDay);
+          this.fillDays();
 
           if (view === 'day') {
             this.hideView();
@@ -988,9 +987,6 @@
           break;
 
         case 'day picked':
-          $target.addClass(options.pickedClass)
-            .siblings()
-              .removeClass(options.pickedClass);
           this.hideView();
           this.pick('day');
           break;
