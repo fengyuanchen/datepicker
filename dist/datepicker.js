@@ -541,6 +541,7 @@
       var viewYear = viewDate.getFullYear();
       var viewMonth = viewDate.getMonth();
       var viewDay = viewDate.getDate();
+      var view = 2;
       var now = new Date();
       var thisYear = now.getFullYear();
       var date = this.date;
@@ -578,7 +579,7 @@
         }
 
         if (!isDisabled && filter) {
-          isDisabled = filter.call(this.$element, date) === false;
+          isDisabled = filter.call(this.$element, date, view) === false;
         }
 
         list += this.createItem({
@@ -609,6 +610,7 @@
       var viewDate = this.viewDate;
       var viewYear = viewDate.getFullYear();
       var viewDay = viewDate.getDate();
+      var view = 1;
       var now = new Date();
       var thisYear = now.getFullYear();
       var thisMonth = now.getMonth();
@@ -638,7 +640,7 @@
         }
 
         if (!isDisabled && filter) {
-          isDisabled = filter.call(this.$element, date) === false;
+          isDisabled = filter.call(this.$element, date, view) === false;
         }
 
         list += this.createItem({
@@ -671,6 +673,7 @@
       var viewDate = this.viewDate;
       var viewYear = viewDate.getFullYear();
       var viewMonth = viewDate.getMonth();
+      var view = 0;
       var prevViewYear = viewYear;
       var prevViewMonth = viewMonth;
       var nextViewYear = viewYear;
@@ -734,7 +737,7 @@
         }
 
         if (!isDisabled && filter) {
-          isDisabled = filter.call(this.$element, date) === false;
+          isDisabled = filter.call(this.$element, date, view) === false;
         }
 
         prevItems.push(this.createItem({
@@ -780,7 +783,7 @@
         }
 
         if (!isDisabled && filter) {
-          isDisabled = filter.call(this.$element, date) === false;
+          isDisabled = filter.call(this.$element, date, view) === false;
         }
 
         nextItems.push(this.createItem({
@@ -810,7 +813,7 @@
         }
 
         if (!isDisabled && filter) {
-          isDisabled = filter.call(this.$element, date) === false;
+          isDisabled = filter.call(this.$element, date, view) === false;
         }
 
         items.push(this.createItem({
@@ -980,10 +983,7 @@
             .siblings()
               .removeClass(options.pickedClass);
 
-          if (view === 'day') {
-            this.hideView();
-          }
-
+          this.hideView();
           this.pick('day');
           break;
 

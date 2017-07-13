@@ -1,11 +1,11 @@
 /*!
- * Datepicker v@VERSION
+ * Datepicker v0.5.3
  * https://github.com/fengyuanchen/datepicker
  *
- * Copyright (c) 2014-@YEAR Fengyuan Chen
+ * Copyright (c) 2014-2017 Fengyuan Chen
  * Released under the MIT license
  *
- * Date: @DATE
+ * Date: 2017-06-15T11:00:53.003Z
  */
 
 (function (factory) {
@@ -541,6 +541,7 @@
       var viewYear = viewDate.getFullYear();
       var viewMonth = viewDate.getMonth();
       var viewDay = viewDate.getDate();
+      var view = 2;
       var now = new Date();
       var thisYear = now.getFullYear();
       var date = this.date;
@@ -578,7 +579,7 @@
         }
 
         if (!isDisabled && filter) {
-          isDisabled = filter.call(this.$element, date) === false;
+          isDisabled = filter.call(this.$element, date, view) === false;
         }
 
         list += this.createItem({
@@ -609,6 +610,7 @@
       var viewDate = this.viewDate;
       var viewYear = viewDate.getFullYear();
       var viewDay = viewDate.getDate();
+      var view = 1;
       var now = new Date();
       var thisYear = now.getFullYear();
       var thisMonth = now.getMonth();
@@ -638,7 +640,7 @@
         }
 
         if (!isDisabled && filter) {
-          isDisabled = filter.call(this.$element, date) === false;
+          isDisabled = filter.call(this.$element, date, view) === false;
         }
 
         list += this.createItem({
@@ -671,6 +673,7 @@
       var viewDate = this.viewDate;
       var viewYear = viewDate.getFullYear();
       var viewMonth = viewDate.getMonth();
+      var view = 0;
       var prevViewYear = viewYear;
       var prevViewMonth = viewMonth;
       var nextViewYear = viewYear;
@@ -734,7 +737,7 @@
         }
 
         if (!isDisabled && filter) {
-          isDisabled = filter.call(this.$element, date) === false;
+          isDisabled = filter.call(this.$element, date, view) === false;
         }
 
         prevItems.push(this.createItem({
@@ -780,7 +783,7 @@
         }
 
         if (!isDisabled && filter) {
-          isDisabled = filter.call(this.$element, date) === false;
+          isDisabled = filter.call(this.$element, date, view) === false;
         }
 
         nextItems.push(this.createItem({
@@ -810,7 +813,7 @@
         }
 
         if (!isDisabled && filter) {
-          isDisabled = filter.call(this.$element, date) === false;
+          isDisabled = filter.call(this.$element, date, view) === false;
         }
 
         items.push(this.createItem({
@@ -976,17 +979,18 @@
           viewMonth = view === 'day prev' ? viewMonth - 1 : view === 'day next' ? viewMonth + 1 : viewMonth;
           viewDay = parseInt($target.text(), 10);
           this.date = new Date(viewYear, viewMonth, viewDay);
-          this.viewDate = new Date(viewYear, viewMonth, viewDay);
-          this.fillDays();
+          $target.addClass(options.pickedClass)
+            .siblings()
+              .removeClass(options.pickedClass);
 
-          if (view === 'day') {
-            this.hideView();
-          }
-
+          this.hideView();
           this.pick('day');
           break;
 
         case 'day picked':
+          $target.addClass(options.pickedClass)
+            .siblings()
+              .removeClass(options.pickedClass);
           this.hideView();
           this.pick('day');
           break;
