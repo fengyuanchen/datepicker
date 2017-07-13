@@ -983,10 +983,7 @@
             .siblings()
               .removeClass(options.pickedClass);
 
-          if (view === 'day') {
-            this.hideView();
-          }
-
+          this.hideView();
           this.pick('day');
           break;
 
