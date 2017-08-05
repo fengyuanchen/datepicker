@@ -1,6 +1,11 @@
 # Changelog
 
 
+## 0.5.4 (Aug 5, 2017)
+
+- Fix the issue of date repicking (#75).
+
+
 ## 0.5.3 (May 30, 2017)
 
 - Highlight the current year and month.

@@ -1,11 +1,11 @@
 /*!
- * Datepicker v0.5.3
+ * Datepicker v0.5.4
  * https://github.com/fengyuanchen/datepicker
  *
  * Copyright (c) 2014-2017 Fengyuan Chen
  * Released under the MIT license
  *
- * Date: 2017-06-15T11:00:53.003Z
+ * Date: 2017-08-05T07:14:03.474Z
  */
 
 (function (factory) {
@@ -976,9 +976,8 @@
           viewMonth = view === 'day prev' ? viewMonth - 1 : view === 'day next' ? viewMonth + 1 : viewMonth;
           viewDay = parseInt($target.text(), 10);
           this.date = new Date(viewYear, viewMonth, viewDay);
-          $target.addClass(options.pickedClass)
-            .siblings()
-              .removeClass(options.pickedClass);
+          this.viewDate = new Date(viewYear, viewMonth, viewDay);
+          this.fillDays();
 
           if (view === 'day') {
             this.hideView();
@@ -988,9 +987,6 @@
           break;
 
         case 'day picked':
-          $target.addClass(options.pickedClass)
-            .siblings()
-              .removeClass(options.pickedClass);
           this.hideView();
           this.pick('day');
           break;

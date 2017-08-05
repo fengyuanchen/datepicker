@@ -2,6 +2,7 @@
 
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
+var cssnext = require('postcss-cssnext');
 var pkg = require('./package');
 var scripts = {
   name: 'datepicker.js',
@@ -72,22 +73,24 @@ gulp.task('js', ['jshint', 'jscs'], function () {
     .pipe(gulp.dest(scripts.docs))
     .pipe(plugins.rename(scripts.min))
     .pipe(plugins.uglify({
-      preserveComments: 'license'
+      output: {
+        comments: 'some'
+      }
     }))
     .pipe(gulp.dest(scripts.dest))
     .pipe(gulp.dest(scripts.docs));
 });
 
-gulp.task('sass', function () {
+gulp.task('postcss', function () {
   return gulp.src(styles.src)
-    .pipe(plugins.sass({
-      outputStyle: 'expanded'
-    }))
+    .pipe(plugins.postcss([
+      cssnext()
+    ]))
     .pipe(gulp.dest(styles.dest))
     .pipe(gulp.dest(styles.docs));
 });
 
-gulp.task('csslint', ['sass'], function () {
+gulp.task('csslint', ['postcss'], function () {
   return gulp.src(styles.all)
     .pipe(plugins.csslint('.csslintrc'))
     .pipe(plugins.csslint.formatter());
@@ -134,7 +137,7 @@ gulp.task('release', ['test', 'docs']);
 
 gulp.task('watch', function () {
   gulp.watch(scripts.src, ['jscopy']);
-  gulp.watch(styles.src, ['sass']);
+  gulp.watch(styles.src, ['postcss']);
 });
 
 gulp.task('default', ['watch']);
