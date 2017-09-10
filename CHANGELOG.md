@@ -1,6 +1,11 @@
 # Changelog
 
 
+## 0.5.5 (Sep 10, 2017)
+
+- Fix the issue of date range limits (#89).
+
+
 ## 0.5.4 (Aug 5, 2017)
 
 - Fix the issue of date repicking (#75).

@@ -1,11 +1,11 @@
 /*!
- * Datepicker v0.5.4
+ * Datepicker v0.5.5
  * https://github.com/fengyuanchen/datepicker
  *
  * Copyright (c) 2014-2017 Fengyuan Chen
  * Released under the MIT license
  *
- * Date: 2017-08-05T07:14:03.474Z
+ * Date: 2017-09-10T09:16:17.133Z
  */
 
 (function (factory) {
@@ -539,8 +539,6 @@
       var endDate = this.endDate;
       var viewDate = this.viewDate;
       var viewYear = viewDate.getFullYear();
-      var viewMonth = viewDate.getMonth();
-      var viewDay = viewDate.getDate();
       var now = new Date();
       var thisYear = now.getFullYear();
       var date = this.date;
@@ -556,7 +554,7 @@
       var i;
 
       for (i = start; i <= end; i++) {
-        date = new Date(viewYear + i, viewMonth, viewDay);
+        date = new Date(viewYear + i, 1, 1);
         isMuted = i === start || i === end;
         isPicked = (viewYear + i) === year;
         isDisabled = false;
@@ -608,7 +606,6 @@
       var endDate = this.endDate;
       var viewDate = this.viewDate;
       var viewYear = viewDate.getFullYear();
-      var viewDay = viewDate.getDate();
       var now = new Date();
       var thisYear = now.getFullYear();
       var thisMonth = now.getMonth();
@@ -623,7 +620,7 @@
       var i;
 
       for (i = 0; i <= 11; i++) {
-        date = new Date(viewYear, i, viewDay);
+        date = new Date(viewYear, i, 1);
         isPicked = viewYear === year && i === month;
         isDisabled = false;
 
@@ -635,6 +632,7 @@
         if (!isDisabled && endDate) {
           isNextDisabled = date.getFullYear() === endDate.getFullYear();
           isDisabled = isNextDisabled && date.getMonth() > endDate.getMonth();
+          console.log(isNextDisabled, date, endDate)
         }
 
         if (!isDisabled && filter) {
