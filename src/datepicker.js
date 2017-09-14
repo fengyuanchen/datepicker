@@ -1147,6 +1147,7 @@
 
       if (this.isInput) {
         $this.trigger('change');
+        $this.trigger('input');
       }
     },
 
