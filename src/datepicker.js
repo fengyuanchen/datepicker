@@ -435,8 +435,12 @@
       var offsets = $this.offset();
       var left = offsets.left;
       var top = offsets.top;
-      var offset = parseFloat(options.offset) || 10;
+      var offset = parseFloat(options.offset);
       var placement = CLASS_TOP_LEFT;
+
+      if (isNaN(offset)) {
+        offset = 10;
+      }
 
       if (top > height && top + elementHeight + height > containerHeight) {
         top -= height + offset;
