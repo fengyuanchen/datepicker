@@ -1,13 +1,3 @@
-/*!
- * Datepicker v@VERSION
- * https://github.com/fengyuanchen/datepicker
- *
- * Copyright (c) 2014-@YEAR Fengyuan Chen
- * Released under the MIT license
- *
- * Date: @DATE
- */
-
 :root {
   --brand-color: #39f;
 }
@@ -27,10 +17,10 @@
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
 
-  &:before,
-  &:after {
+  &::before,
+  &::after {
     border: 5px solid transparent;
-    content: ' ';
+    content: " ";
     display: block;
     height: 0;
     position: absolute;
@@ -54,18 +44,18 @@
 .datepicker-top-right {
   border-top-color: var(--brand-color);
 
-  &:before,
-  &:after {
+  &::before,
+  &::after {
     border-top: 0;
     left: 10px;
     top: -5px;
   }
 
-  &:before {
+  &::before {
     border-bottom-color: var(--brand-color);
   }
 
-  &:after {
+  &::after {
     border-bottom-color: #fff;
     top: -4px;
   }
@@ -75,18 +65,18 @@
 .datepicker-bottom-right {
   border-bottom-color: var(--brand-color);
 
-  &:before,
-  &:after {
+  &::before,
+  &::after {
     border-bottom: 0;
     bottom: -5px;
     left: 10px;
   }
 
-  &:before {
+  &::before {
     border-top-color: var(--brand-color);
   }
 
-  &:after {
+  &::after {
     border-top-color: #fff;
     bottom: -4px;
   }
@@ -94,16 +84,12 @@
 
 .datepicker-top-right,
 .datepicker-bottom-right {
-  &:before,
-  &:after {
+  &::before,
+  &::after {
     left: auto;
     right: 10px;
   }
 }
-
-
-// Panels
-// -----------------------------------------------------------------------------
 
 .datepicker-panel {
   & > ul {
@@ -111,13 +97,13 @@
     padding: 0;
     width: 102%;
 
-    &:before,
-    &:after {
-      content: ' ';
+    &::before,
+    &::after {
+      content: " ";
       display: table;
     }
 
-    &:after {
+    &::after {
       clear: both;
     }
 
@@ -133,7 +119,7 @@
       width: 30px;
 
       &:hover {
-        background-color: lighten(var(--brand-color), 35%);
+        background-color: lighten(var(--brand-color) 35%);
       }
 
       &.muted,
@@ -142,10 +128,10 @@
       }
 
       &.highlighted {
-        background-color: lighten(var(--brand-color), 35%);
+        background-color: lighten(var(--brand-color) 35%);
 
         &:hover {
-          background-color: lighten(var(--brand-color), 30%);
+          background-color: lighten(var(--brand-color) 30%);
         }
       }
 
@@ -161,29 +147,29 @@
         cursor: default;
 
         &.highlighted {
-          background-color: lighten(var(--brand-color), 35%);
+          background-color: lighten(var(--brand-color) 35%);
         }
       }
 
-      &[data-view='years prev'],
-      &[data-view='year prev'],
-      &[data-view='month prev'],
-      &[data-view='years next'],
-      &[data-view='year next'],
-      &[data-view='month next'],
-      &[data-view='next'] {
+      &[data-view="years prev"],
+      &[data-view="year prev"],
+      &[data-view="month prev"],
+      &[data-view="years next"],
+      &[data-view="year next"],
+      &[data-view="month next"],
+      &[data-view="next"] {
         font-size: 18px;
       }
 
-      &[data-view='years current'],
-      &[data-view='year current'],
-      &[data-view='month current'] {
+      &[data-view="years current"],
+      &[data-view="year current"],
+      &[data-view="month current"] {
         width: 150px;
       }
     }
 
-    &[data-view='years'],
-    &[data-view='months'] {
+    &[data-view="years"],
+    &[data-view="months"] {
       & > li {
         height: 52.5px;
         line-height: 52.5px;
@@ -191,7 +177,7 @@
       }
     }
 
-    &[data-view='week'] {
+    &[data-view="week"] {
       & > li,
       & > li:hover {
         background-color: #fff;
