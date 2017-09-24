@@ -1,0 +1,10 @@
+{
+  "extends": "airbnb-base",
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "no-param-reassign": "off",
+    "no-restricted-properties": "off"
+  }
+}
