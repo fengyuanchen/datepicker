@@ -3,8 +3,8 @@ QUnit.test('method.hide', function (assert) {
   var datepicker = $input.datepicker().data('datepicker');
 
   $input.datepicker('show');
-  assert.ok(datepicker.isShown);
+  assert.ok(datepicker.shown);
   $input.datepicker('hide');
-  assert.ok(!datepicker.isShown);
+  assert.ok(!datepicker.shown);
   assert.ok(datepicker.$picker.is(':hidden'));
 });
