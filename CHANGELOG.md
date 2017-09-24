@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.6.0 (Sep 20, 2017)
+## 0.6.0 (Sep 24, 2017)
 
 - Refactor in ES6.
 
