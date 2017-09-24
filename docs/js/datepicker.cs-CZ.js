@@ -1,15 +1,8 @@
-(function (factory) {
-  if (typeof define === 'function' && define.amd) {
-    // AMD. Register as anonymous module.
-    define('datepicker.cs-CZ', ['jquery'], factory);
-  } else if (typeof exports === 'object') {
-    // Node / CommonJS
-    factory(require('jquery'));
-  } else {
-    // Browser globals.
-    factory(jQuery);
-  }
-})(function ($) {
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jquery')) :
+  typeof define === 'function' && define.amd ? define(['jquery'], factory) :
+  (factory(global.jQuery));
+}(this, (function ($) {
 
   'use strict';
 
@@ -23,4 +16,4 @@
     // Used everywhere, but probably not grammar correct
     monthsShort: ['Led', 'Úno', 'Bře', 'Dub', 'Květ', 'Čvn', 'Čvc', 'Srp', 'Zář', 'Říj', 'Lis', 'Pro']
   };
-});
+})));
