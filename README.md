@@ -4,8 +4,6 @@
 
 - [Website](https://fengyuanchen.github.io/datepicker)
 
-
-
 ## Table of contents
 
 - [Features](#features)
@@ -20,8 +18,6 @@
 - [Versioning](#versioning)
 - [License](#license)
 
-
-
 ## Features
 
 - Supports [options](#options)
@@ -32,33 +28,25 @@
 - Supports internationalization
 - Cross-browser support
 
-
-
 ## Main
 
-```
+```text
 dist/
-├── datepicker.css     ( 4 KB)
-├── datepicker.min.css ( 4 KB)
-├── datepicker.js      (40 KB)
-└── datepicker.min.js  (16 KB)
+├── datepicker.css       ( 5 KB)
+├── datepicker.min.css   ( 4 KB)
+├── datepicker.js        (40 KB, UMD)
+├── datepicker.min.js    (18 KB, UMD, compressed)
+├── datepicker.common.js (40 KB, CommonJS, default)
+└── datepicker.esm.js    (40 KB, ES Module)
 ```
-
-
 
 ## Getting started
 
-### Quick start
+### Install
 
-Three quick start options are available:
-
-- [Download the latest release](https://github.com/fengyuanchen/datepicker/archive/master.zip).
-- Clone the repository: `git clone https://github.com/fengyuanchen/datepicker.git`.
-- Install with [NPM](http://npmjs.org): `npm install fengyuanchen/datepicker`.
-- Install with [Bower](http://bower.io): `bower install fengyuanchen/datepicker`.
-
-
-### Installation
+```shell
+npm install @fengyuanchen/datepicker
+```
 
 Include files:
 
@@ -67,7 +55,6 @@ Include files:
 <link  href="/path/to/datepicker.css" rel="stylesheet">
 <script src="/path/to/datepicker.js"></script>
 ```
-
 
 ### Usage
 
@@ -83,16 +70,12 @@ Initialize with `$.fn.datepicker` method.
 $('[data-toggle="datepicker"]').datepicker();
 ```
 
-
 [⬆ back to top](#table-of-contents)
-
-
 
 ## Options
 
 You may set datepicker options with `$().datepicker(options)`.
 If you want to change the global default options, You may use `$.fn.datepicker.setDefaults(options)`.
-
 
 ### autoShow
 
@@ -101,7 +84,6 @@ If you want to change the global default options, You may use `$.fn.datepicker.s
 
 Show the datepicker automatically when initialized.
 
-
 ### autoHide
 
 - Type: `Boolean`
@@ -109,14 +91,12 @@ Show the datepicker automatically when initialized.
 
 Hide the datepicker automatically when picked.
 
-
 ### autoPick
 
 - Type: `Boolean`
 - Default: `false`
 
 Pick the initial date automatically when initialized.
-
 
 ### inline
 
@@ -128,7 +108,6 @@ Enable inline mode.
 If the element is not an input element, will append the datepicker to the element.
 If the `container` option is set, will append the datepicker to the container.
 
-
 ### container
 
 - Type: `Element` or `String`(selector)
@@ -138,14 +117,12 @@ A element for putting the datepicker. If not set, the datepicker will be appende
 
 > Only works when the `inline` option set to `true`.
 
-
 ### trigger
 
 - Type: `Element` or `String`(selector)
 - Default: `null`
 
 A element for triggering the datepicker.
-
 
 ### language
 
@@ -159,7 +136,6 @@ $().datepicker({
   language: 'en-GB'
 });
 ```
-
 
 ### format
 
@@ -178,7 +154,6 @@ $().datepicker({
 });
 ```
 
-
 ### date
 
 - Type: `Date` or `String`
@@ -192,7 +167,6 @@ $().datepicker({
 });
 ```
 
-
 ### startDate
 
 - Type: `Date` or `String`
@@ -200,14 +174,12 @@ $().datepicker({
 
 The start view date. All the dates before this date will be disabled.
 
-
 ### endDate
 
 - Type: `Date` or `String`
 - Default: `null`
 
 The end view date. All the dates after this date will be disabled.
-
 
 ### startView
 
@@ -219,7 +191,6 @@ The end view date. All the dates after this date will be disabled.
   - `2`: years
 
 The start view when initialized.
-
 
 ### weekStart
 
@@ -236,14 +207,12 @@ The start view when initialized.
 
 The start day of the week.
 
-
 ### yearFirst
 
 - Type: `Boolean`
 - Default: `false`
 
 Show year before month on the datepicker header
-
 
 ### yearSuffix
 
@@ -265,14 +234,12 @@ $().datepicker({
 
 Days' name of the week.
 
-
 ### daysShort
 
 - Type: `Array`
 - Default: `['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']`
 
 Shorter days' name.
-
 
 ### daysMin
 
@@ -281,14 +248,12 @@ Shorter days' name.
 
 Shortest days' name.
 
-
 ### months
 
 - Type: `Array`
 - Default: `['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']`
 
 Months' name.
-
 
 ### monthsShort
 
@@ -297,14 +262,12 @@ Months' name.
 
 Shorter months' name.
 
-
 ### itemTag
 
 - Type: `String`
 - Default: `'li'`
 
 A element tag for each item of years, months and days.
-
 
 ### mutedClass
 
@@ -313,14 +276,12 @@ A element tag for each item of years, months and days.
 
 A class (CSS) for muted item.
 
-
 ### pickedClass
 
 - Type: `String`
 - Default: `'picked'`
 
 A class (CSS) for picked item.
-
 
 ### disabledClass
 
@@ -329,14 +290,12 @@ A class (CSS) for picked item.
 
 A class (CSS) for disabled item.
 
-
 ### highlightedClass
 
 - Type: `String`
 - Default: `'highlighted'`
 
 A class (CSS) for highlight date item.
-
 
 ### template
 
@@ -377,7 +336,6 @@ The template of the datepicker.
 
 **Note:** All the `data-view` attributes must be set when you customize it.
 
-
 ### offset
 
 - Type: `Number`
@@ -385,14 +343,12 @@ The template of the datepicker.
 
 The offset top or bottom of the datepicker from the element.
 
-
 ### zIndex
 
 - Type: `Number`
 - Default: `1`
 
 The CSS `z-index` style for the datepicker.
-
 
 ### filter
 
@@ -413,14 +369,12 @@ $().datepicker({
 });
 ```
 
-
 ### show
 
 - Type: `Function`
 - Default: `null`
 
 A shortcut of the "show.datepicker" event.
-
 
 ### hide
 
@@ -429,7 +383,6 @@ A shortcut of the "show.datepicker" event.
 
 A shortcut of the "hide.datepicker" event.
 
-
 ### pick
 
 - Type: `Function`
@@ -437,10 +390,7 @@ A shortcut of the "hide.datepicker" event.
 
 A shortcut of the "pick.datepicker" event.
 
-
 [⬆ back to top](#table-of-contents)
-
-
 
 ## Methods
 
@@ -450,31 +400,25 @@ Common usage:
 $().datepicker('method', argument1, , argument2, ..., argumentN);
 ```
 
-
 ### show()
 
 Show the datepicker.
-
 
 ### hide()
 
 Hide the datepicker.
 
-
 ### update()
 
 Update the datepicker with the value or text of the current element.
-
 
 ### pick()
 
 Pick the current date to the element.
 
-
 ### reset()
 
 Reset the datepicker.
-
 
 ### getMonthName([month[, short]])
 
@@ -498,7 +442,6 @@ $().datepicker('getMonthName', true); // 'Jan'
 $().datepicker('getMonthName', 11); // 'December'
 $().datepicker('getMonthName', 11, true); // 'Dec'
 ```
-
 
 ### getDayName([day[, short[, min]])
 
@@ -530,7 +473,6 @@ $().datepicker('getDayName', 6, true); // 'Sat'
 $().datepicker('getDayName', 6, true, true); // 'Sa'
 ```
 
-
 ### getDate([formatted])
 
 - **formatted** (optional):
@@ -548,7 +490,6 @@ $().datepicker('getDate'); // date object
 $().datepicker('getDate', true); // '02/14/2014'
 ```
 
-
 ### setDate(date)
 
 - **date**:
@@ -561,7 +502,6 @@ $().datepicker('setDate', new Date(2014, 1, 14));
 $().datepicker('setDate', '02/14/2014');
 ```
 
-
 ### setStartDate(date)
 
 - **date**:
@@ -569,14 +509,12 @@ $().datepicker('setDate', '02/14/2014');
 
 Set the start view date with a new date.
 
-
 ### setEndDate(date)
 
 - **date**:
   - Type: `Date` or `String`
 
 Set the end view date with a new date.
-
 
 ### parseDate(date)
 
@@ -589,7 +527,6 @@ Parse a date string with the set date format.
 $().datepicker('parseDate', '02/14/2014'); // date object
 ```
 
-
 ### formatDate(date)
 
 - **date**:
@@ -601,15 +538,11 @@ Format a date object to a string with the set date format.
 $().datepicker('formatDate', new Date(2014, 1, 14)); // '02/14/2014'
 ```
 
-
 ### destroy()
 
 Destroy the datepicker and remove the instance from the target element.
 
-
 [⬆ back to top](#table-of-contents)
-
-
 
 ## Events
 
@@ -617,11 +550,9 @@ Destroy the datepicker and remove the instance from the target element.
 
 This event fires when starts to show the datepicker.
 
-
 ### hide.datepicker
 
 This event fires when starts to hide the datepicker.
-
 
 ### pick.datepicker
 
@@ -645,14 +576,9 @@ $().on('pick.datepicker', function (e) {
 });
 ```
 
-
 [⬆ back to top](#table-of-contents)
 
-
-
 ## I18n
-
-### Config
 
 ```js
 // datepicker.zh-CN.js
@@ -670,8 +596,6 @@ $.fn.datepicker.languages['zh-CN'] = {
 };
 ```
 
-### Usage
-
 ```html
 <script src="/path/to/datepicker.js"></script>
 <script src="/path/to/datepicker.zh-CN.js"></script>
@@ -682,10 +606,7 @@ $.fn.datepicker.languages['zh-CN'] = {
 </script>
 ```
 
-
 [⬆ back to top](#table-of-contents)
-
-
 
 ## No conflict
 
@@ -700,8 +621,6 @@ If you have to use other plugin with the same namespace, just call the `$.fn.dat
 </script>
 ```
 
-
-
 ## Browser support
 
 - Chrome (latest 2)
@@ -713,17 +632,12 @@ If you have to use other plugin with the same namespace, just call the `$.fn.dat
 
 As a jQuery plugin, you also need to see the [jQuery Browser Support](http://jquery.com/browser-support/).
 
-
-
 ## Versioning
 
 Maintained under the [Semantic Versioning guidelines](http://semver.org/).
 
-
-
 ## License
 
 [MIT](http://opensource.org/licenses/MIT) © [Fengyuan Chen](http://chenfengyuan.com)
-
 
 [⬆ back to top](#table-of-contents)

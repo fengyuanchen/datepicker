@@ -7,13 +7,7 @@
  *
  * Date: 2017-09-24T11:42:13.421Z
  */
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jquery')) :
-	typeof define === 'function' && define.amd ? define(['jquery'], factory) :
-	(factory(global.jQuery));
-}(this, (function ($) { 'use strict';
-
-$ = $ && $.hasOwnProperty('default') ? $['default'] : $;
+import $ from 'jquery';
 
 var DEFAULTS = {
   // Show the datepicker automatically when initialized
@@ -1513,5 +1507,3 @@ $.fn.datepicker.noConflict = function noConflict() {
   $.fn.datepicker = AnotherDatepicker;
   return this;
 };
-
-})));
