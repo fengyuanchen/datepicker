@@ -119,7 +119,7 @@
       width: 30px;
 
       &:hover {
-        background-color: lighten(var(--brand-color) 35%);
+        background-color: color(var(--brand-color) lightness(95%));
       }
 
       &.muted,
@@ -128,10 +128,10 @@
       }
 
       &.highlighted {
-        background-color: lighten(var(--brand-color) 35%);
+        background-color: color(var(--brand-color) lightness(95%));
 
         &:hover {
-          background-color: lighten(var(--brand-color) 30%);
+          background-color: color(var(--brand-color) lightness(90%));
         }
       }
 
@@ -147,7 +147,7 @@
         cursor: default;
 
         &.highlighted {
-          background-color: lighten(var(--brand-color) 35%);
+          background-color: color(var(--brand-color) lightness(95%));
         }
       }
 
