@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.1 (Sep 25, 2017)
+
+- Fix color function error in the CSS.
+
 ## 0.6.0 (Sep 24, 2017)
 
 - Refactor in ES6.
