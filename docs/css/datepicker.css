@@ -5,7 +5,7 @@
  * Copyright (c) 2014-2017 Fengyuan Chen
  * Released under the MIT license
  * 
- * Date: 2017-09-24T09:15:59.642Z
+ * Date: 2017-09-25T13:42:07.254Z
  */
 .datepicker-container {
   background-color: #fff;
@@ -138,7 +138,7 @@
 }
 
 .datepicker-panel > ul > li:hover {
-  background-color: lighten(#39f 35%);
+  background-color: rgb(229, 242, 255);
 }
 
 .datepicker-panel > ul > li.muted,
@@ -147,11 +147,11 @@
 }
 
 .datepicker-panel > ul > li.highlighted {
-  background-color: lighten(#39f 35%);
+  background-color: rgb(229, 242, 255);
 }
 
 .datepicker-panel > ul > li.highlighted:hover {
-  background-color: lighten(#39f 30%);
+  background-color: rgb(204, 229, 255);
 }
 
 .datepicker-panel > ul > li.picked,
@@ -168,7 +168,7 @@
 
 .datepicker-panel > ul > li.disabled.highlighted,
 .datepicker-panel > ul > li.disabled:hover.highlighted {
-  background-color: lighten(#39f 35%);
+  background-color: rgb(229, 242, 255);
 }
 
 .datepicker-panel > ul > li[data-view="years prev"],

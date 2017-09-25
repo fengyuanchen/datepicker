@@ -96,5 +96,5 @@ $(function () {
   });
 
   $('[data-toggle="datepicker"]').datepicker();
-
+  $('[data-toggle="tooltip"]').tooltip();
 });
