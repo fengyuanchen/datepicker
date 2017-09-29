@@ -37,6 +37,8 @@ export function isLeapYear(year) {
 }
 
 export function getDaysInMonth(year, month) {
+  month = (month + 12) % 12;
+
   return [31, (isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
 }
 
