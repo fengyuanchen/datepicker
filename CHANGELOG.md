@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.3 (Sep 29, 2017)
+
+- Update view year when the month over the current year.
+
 ## 0.6.2 (Sep 29, 2017)
 
 - Fix the issue of days of month computing (#94).
