@@ -1,0 +1,220 @@
+/* Basic */
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.browserupgrade {
+  margin: 0;
+  padding: .5rem 1rem;
+  background-color: #fcfcfc;
+  text-align: center;
+}
+
+
+/* Header */
+
+.docs-header {
+  margin-bottom: 0;
+}
+
+.navbar-toggle:hover,
+.navbar-toggle:focus {
+  border-color: #0074d9;
+}
+
+.navbar-toggle .icon-bar {
+  background-color: #0074d9;
+}
+
+
+/* Jumbotron */
+
+.docs-jumbotron {
+  color: #fff;
+  background-color: #0074d9;
+}
+
+.docs-jumbotron .version {
+  font-size: 14px;
+
+  opacity: .5;
+  color: #fff;
+
+  filter: alpha(opacity=50);
+}
+
+.docs-carbonads-container {
+  position: relative;
+}
+
+.docs-carbonads {
+  overflow: hidden;
+
+  max-width: 350px;
+  padding: 15px;
+
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.carbon-wrap {
+  overflow: hidden;
+}
+
+.carbon-img {
+  display: block;
+  float: left;
+  clear: left;
+}
+
+.carbon-text,
+.carbon-poweredby {
+  display: block;
+
+  margin-left: 140px;
+}
+
+.carbon-text,
+.carbon-text:hover,
+.carbon-text:focus {
+  text-decoration: none;
+
+  color: #fff;
+}
+
+.carbon-poweredby,
+.carbon-poweredby:hover,
+.carbon-poweredby:focus {
+  text-decoration: none;
+
+  color: #ddd;
+}
+
+@media (min-width: 992px) {
+  .docs-carbonads {
+    position: absolute;
+    right: 0;
+    bottom: 5px;
+  }
+}
+
+
+/* Content */
+
+.docs-datepicker-container {
+  position: relative;
+
+  display: none;
+
+  min-height: 160px;
+  margin: 10px auto;
+
+  border: 1px dashed #eee;
+}
+
+.docs-datepicker-container:before {
+  font-size: 12px;
+  line-height: 20px;
+
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+
+  margin-top: -10px;
+  margin-left: -82px;
+
+  content: 'Container for inline datepicker';
+
+  color: #ccc;
+}
+
+.docs-datepicker-container > .datepicker-container {
+  margin: 10px auto;
+}
+
+.docs-options > .input-group {
+  margin-bottom: 10px;
+}
+
+.docs-options > .input-group > .input-group-addon {
+  min-width: 100px;
+}
+
+.docs-actions > .input-group,
+.docs-actions > .btn-group,
+.docs-actions > .btn {
+  margin-bottom: 5px;
+}
+
+.docs-actions .input-group-btn {
+  width: 50%;
+}
+
+.docs-actions .input-group-btn .btn {
+  width: 100%;
+}
+
+
+/* Footer */
+
+.docs-footer {
+  overflow: hidden;
+}
+
+.links {
+  margin-bottom: 30px;
+
+  text-align: center;
+}
+
+.heart {
+  font-size: 18px;
+  line-height: 30px;
+
+  position: relative;
+
+  display: block;
+
+  width: 100%;
+  height: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  text-align: center;
+
+  color: #ddd;
+}
+
+.heart:hover {
+  color: #ff4136;
+}
+
+.heart:before {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+
+  display: block;
+
+  height: 0;
+
+  content: ' ';
+
+  border-top: 1px solid #eee;
+}
+
+.heart:after {
+  position: relative;
+  z-index: 1;
+
+  padding-right: 8px;
+  padding-left: 8px;
+
+  content: '♥';
+
+  background-color: #fff;
+}
