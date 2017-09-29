@@ -1,11 +1,11 @@
 /*!
- * Datepicker v0.6.2
+ * Datepicker v0.6.3
  * https://github.com/fengyuanchen/datepicker
  *
  * Copyright (c) 2014-2017 Fengyuan Chen
  * Released under the MIT license
  *
- * Date: 2017-09-29T13:39:40.959Z
+ * Date: 2017-09-29T14:28:06.767Z
  */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jquery')) :
@@ -175,8 +175,6 @@ function isLeapYear(year) {
 }
 
 function getDaysInMonth(year, month) {
-  month = (month + 12) % 12;
-
   return [31, isLeapYear(year) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
 }
 
@@ -646,6 +644,15 @@ var handlers = {
       case 'month prev':
       case 'month next':
         viewMonth = view === 'month prev' ? viewMonth - 1 : viewMonth + 1;
+
+        if (viewMonth < 0) {
+          viewYear -= 1;
+          viewMonth += 12;
+        } else if (viewMonth > 11) {
+          viewYear += 1;
+          viewMonth -= 12;
+        }
+
         this.viewDate = new Date(viewYear, viewMonth, getMinDay(viewYear, viewMonth, viewDay));
         this.renderDays();
         break;
