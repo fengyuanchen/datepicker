@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.2 (Sep 29, 2017)
+
+- Fix the issue of days of month computing (#94).
+
 ## 0.6.1 (Sep 25, 2017)
 
 - Fix color function error in the CSS.

@@ -1,11 +1,11 @@
 /*!
- * Datepicker v0.6.1
+ * Datepicker v0.6.2
  * https://github.com/fengyuanchen/datepicker
  *
  * Copyright (c) 2014-2017 Fengyuan Chen
  * Released under the MIT license
  *
- * Date: 2017-09-25T13:44:49.877Z
+ * Date: 2017-09-29T13:39:40.959Z
  */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jquery')) :
@@ -175,6 +175,8 @@ function isLeapYear(year) {
 }
 
 function getDaysInMonth(year, month) {
+  month = (month + 12) % 12;
+
   return [31, isLeapYear(year) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
 }
 
