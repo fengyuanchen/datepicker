@@ -75,6 +75,19 @@ export default {
       case 'month prev':
       case 'month next':
         viewMonth = view === 'month prev' ? viewMonth - 1 : viewMonth + 1;
+
+        if (view === 'month prev' && viewMonth == -1)
+        {
+            viewMonth = 11;
+            viewYear = viewYear - 1;
+        }
+
+        if (view === 'month next' && viewMonth == 12)
+        {
+            viewMonth = 0;
+            viewYear = viewYear + 1;
+        }
+
         this.viewDate = new Date(viewYear, viewMonth, getMinDay(viewYear, viewMonth, viewDay));
         this.renderDays();
         break;
