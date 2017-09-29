@@ -1,4 +1,4 @@
-# Datepicker
+# Datepicker [![Build Status Images](https://travis-ci.org/fengyuanchen/datepicker.svg)](https://travis-ci.org/fengyuanchen/datepicker)
 
 > A simple jQuery datepicker plugin.
 
