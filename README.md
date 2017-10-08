@@ -1,4 +1,4 @@
-# Datepicker [![Build Status Images](https://travis-ci.org/fengyuanchen/datepicker.svg)](https://travis-ci.org/fengyuanchen/datepicker)
+# Datepicker [![Build Status](https://travis-ci.org/fengyuanchen/datepicker.svg)](https://travis-ci.org/fengyuanchen/datepicker)
 
 > A simple jQuery datepicker plugin.
 
@@ -32,12 +32,12 @@
 
 ```text
 dist/
-├── datepicker.css       ( 5 KB)
-├── datepicker.min.css   ( 4 KB)
-├── datepicker.js        (40 KB, UMD)
-├── datepicker.min.js    (18 KB, UMD, compressed)
-├── datepicker.common.js (40 KB, CommonJS, default)
-└── datepicker.esm.js    (40 KB, ES Module)
+├── datepicker.css
+├── datepicker.min.css   (compressed)
+├── datepicker.js        (UMD)
+├── datepicker.min.js    (UMD, compressed)
+├── datepicker.common.js (CommonJS, default)
+└── datepicker.esm.js    (ES Module)
 ```
 
 ## Getting started
