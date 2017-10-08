@@ -45,5 +45,6 @@ module.exports = {
  * Released under the ${pkg.license} license
  *
  * Date: ${now.toISOString()}
- */`,
+ */
+`,
 };
