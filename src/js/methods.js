@@ -17,9 +17,6 @@ import {
   proxy,
 } from './utilities';
 
-const { document } = window;
-const $window = $(window);
-const $document = $(document);
 const REGEXP_DIGITS = /\d+/g;
 
 export default {
@@ -42,9 +39,9 @@ export default {
     this.showView(this.options.startView);
 
     if (!this.inline) {
-      $window.on(EVENT_RESIZE, (this.onResize = proxy(this.place, this)));
-      $document.on(EVENT_CLICK, (this.onGlobalClick = proxy(this.globalClick, this)));
-      $document.on(EVENT_KEYUP, (this.onGlobalKeyup = proxy(this.globalKeyup, this)));
+      $(window).on(EVENT_RESIZE, (this.onResize = proxy(this.place, this)));
+      $(document).on(EVENT_CLICK, (this.onGlobalClick = proxy(this.globalClick, this)));
+      $(document).on(EVENT_KEYUP, (this.onGlobalKeyup = proxy(this.globalKeyup, this)));
       this.place();
     }
   },
@@ -63,9 +60,9 @@ export default {
     this.$picker.addClass(CLASS_HIDE).off(EVENT_CLICK, this.click);
 
     if (!this.inline) {
-      $window.off(EVENT_RESIZE, this.onResize);
-      $document.off(EVENT_CLICK, this.onGlobalClick);
-      $document.off(EVENT_KEYUP, this.onGlobalKeyup);
+      $(window).off(EVENT_RESIZE, this.onResize);
+      $(document).off(EVENT_CLICK, this.onGlobalClick);
+      $(document).off(EVENT_KEYUP, this.onGlobalKeyup);
     }
   },
 

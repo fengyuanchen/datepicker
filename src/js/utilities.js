@@ -1,4 +1,7 @@
 import $ from 'jquery';
+import {
+  WINDOW,
+} from './constants';
 
 const { toString } = Object.prototype;
 
@@ -10,7 +13,7 @@ export function isString(value) {
   return typeof value === 'string';
 }
 
-export const isNaN = Number.isNaN || window.isNaN;
+export const isNaN = Number.isNaN || WINDOW.isNaN;
 
 export function isNumber(value) {
   return typeof value === 'number' && !isNaN(value);

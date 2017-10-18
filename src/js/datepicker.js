@@ -21,9 +21,6 @@ import {
   selectorOf,
 } from './utilities';
 
-const { document } = window;
-const $document = $(document);
-
 // Classes
 const CLASS_TOP_LEFT = `${NAMESPACE}-top-left`;
 const CLASS_TOP_RIGHT = `${NAMESPACE}-top-right`;
@@ -284,8 +281,8 @@ class Datepicker {
     }
 
     const { $element: $this, options, $picker } = this;
-    const containerWidth = $document.outerWidth();
-    const containerHeight = $document.outerHeight();
+    const containerWidth = $(document).outerWidth();
+    const containerHeight = $(document).outerHeight();
     const elementWidth = $this.outerWidth();
     const elementHeight = $this.outerHeight();
     const width = $picker.width();
@@ -381,6 +378,8 @@ class Datepicker {
   }
 }
 
-$.extend(Datepicker.prototype, render, handlers, methods);
+if ($.extend) {
+  $.extend(Datepicker.prototype, render, handlers, methods);
+}
 
 export default Datepicker;

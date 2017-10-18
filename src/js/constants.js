@@ -1,3 +1,4 @@
+export const WINDOW = typeof window !== 'undefined' ? window : {};
 export const NAMESPACE = 'datepicker';
 export const EVENT_CLICK = `click.${NAMESPACE}`;
 export const EVENT_FOCUS = `focus.${NAMESPACE}`;
