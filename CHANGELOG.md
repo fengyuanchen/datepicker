@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.4 (Nov 24, 2017)
+
+- Support to load in node environment.
+- Add 3 new languages for i18n.
+- Add example for using datepicker in modal.
+
 ## 0.6.3 (Sep 29, 2017)
 
 - Update view year when the month over the current year.

@@ -1,12 +1,13 @@
 /*!
- * Datepicker v0.6.3
+ * Datepicker v0.6.4
  * https://github.com/fengyuanchen/datepicker
  *
- * Copyright (c) 2014-2017 Fengyuan Chen
+ * Copyright (c) 2014-2017 Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2017-09-29T14:28:06.767Z
+ * Date: 2017-11-24T14:38:23.820Z
  */
+
 import $ from 'jquery';
 
 var DEFAULTS = {
@@ -105,6 +106,7 @@ var DEFAULTS = {
   pick: null
 };
 
+var WINDOW = typeof window !== 'undefined' ? window : {};
 var NAMESPACE = 'datepicker';
 var EVENT_CLICK = 'click.' + NAMESPACE;
 var EVENT_FOCUS = 'focus.' + NAMESPACE;
@@ -132,7 +134,7 @@ function isString(value) {
   return typeof value === 'string';
 }
 
-var isNaN = Number.isNaN || window.isNaN;
+var isNaN = Number.isNaN || WINDOW.isNaN;
 
 function isNumber(value) {
   return typeof value === 'number' && !isNaN(value);
@@ -215,11 +217,6 @@ function parseFormat(format) {
   return format;
 }
 
-var _window$1 = window;
-var document$2 = _window$1.document;
-
-var $window = $(window);
-var $document$1 = $(document$2);
 var REGEXP_DIGITS = /\d+/g;
 
 var methods = {
@@ -242,9 +239,9 @@ var methods = {
     this.showView(this.options.startView);
 
     if (!this.inline) {
-      $window.on(EVENT_RESIZE, this.onResize = proxy(this.place, this));
-      $document$1.on(EVENT_CLICK, this.onGlobalClick = proxy(this.globalClick, this));
-      $document$1.on(EVENT_KEYUP, this.onGlobalKeyup = proxy(this.globalKeyup, this));
+      $(window).on(EVENT_RESIZE, this.onResize = proxy(this.place, this));
+      $(document).on(EVENT_CLICK, this.onGlobalClick = proxy(this.globalClick, this));
+      $(document).on(EVENT_KEYUP, this.onGlobalKeyup = proxy(this.globalKeyup, this));
       this.place();
     }
   },
@@ -264,9 +261,9 @@ var methods = {
     this.$picker.addClass(CLASS_HIDE).off(EVENT_CLICK, this.click);
 
     if (!this.inline) {
-      $window.off(EVENT_RESIZE, this.onResize);
-      $document$1.off(EVENT_CLICK, this.onGlobalClick);
-      $document$1.off(EVENT_KEYUP, this.onGlobalKeyup);
+      $(window).off(EVENT_RESIZE, this.onResize);
+      $(document).off(EVENT_CLICK, this.onGlobalClick);
+      $(document).off(EVENT_KEYUP, this.onGlobalKeyup);
     }
   },
   toggle: function toggle() {
@@ -1070,11 +1067,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var _window = window;
-var document$1 = _window.document;
-
-var $document = $(document$1);
-
 // Classes
 var CLASS_TOP_LEFT = NAMESPACE + '-top-left';
 var CLASS_TOP_RIGHT = NAMESPACE + '-top-right';
@@ -1201,7 +1193,7 @@ var Datepicker = function () {
       if (this.inline) {
         $(options.container || $this).append($picker.addClass(NAMESPACE + '-inline'));
       } else {
-        $(document$1.body).append($picker.addClass(NAMESPACE + '-dropdown'));
+        $(document.body).append($picker.addClass(NAMESPACE + '-dropdown'));
         $picker.addClass(CLASS_HIDE);
       }
 
@@ -1355,8 +1347,8 @@ var Datepicker = function () {
           options = this.options,
           $picker = this.$picker;
 
-      var containerWidth = $document.outerWidth();
-      var containerHeight = $document.outerHeight();
+      var containerWidth = $(document).outerWidth();
+      var containerHeight = $(document).outerHeight();
       var elementWidth = $this.outerWidth();
       var elementHeight = $this.outerHeight();
       var width = $picker.width();
@@ -1471,48 +1463,52 @@ var Datepicker = function () {
   return Datepicker;
 }();
 
-$.extend(Datepicker.prototype, render, handlers, methods);
+if ($.extend) {
+  $.extend(Datepicker.prototype, render, handlers, methods);
+}
 
-var AnotherDatepicker = $.fn.datepicker;
+if ($.fn) {
+  var AnotherDatepicker = $.fn.datepicker;
 
-$.fn.datepicker = function jQueryDatepicker(option) {
-  for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-    args[_key - 1] = arguments[_key];
-  }
-
-  var result = void 0;
-
-  this.each(function each() {
-    var $this = $(this);
-    var data = $this.data('datepicker');
-
-    if (!data) {
-      if (/destroy/.test(option)) {
-        return;
-      }
-
-      var options = $.extend({}, $this.data(), $.isPlainObject(option) && option);
-
-      data = new Datepicker(this, options);
-      $this.data('datepicker', data);
+  $.fn.datepicker = function jQueryDatepicker(option) {
+    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
     }
 
-    if (typeof option === 'string') {
-      var fn = data[option];
+    var result = void 0;
 
-      if ($.isFunction(fn)) {
-        result = fn.apply(data, args);
+    this.each(function (i, element) {
+      var $element = $(element);
+      var data = $element.data(NAMESPACE);
+
+      if (!data) {
+        if (/destroy/.test(option)) {
+          return;
+        }
+
+        var options = $.extend({}, $element.data(), $.isPlainObject(option) && option);
+
+        data = new Datepicker(element, options);
+        $element.data(NAMESPACE, data);
       }
-    }
-  });
 
-  return typeof result !== 'undefined' ? result : this;
-};
+      if (isString(option)) {
+        var fn = data[option];
 
-$.fn.datepicker.Constructor = Datepicker;
-$.fn.datepicker.languages = LANGUAGES;
-$.fn.datepicker.setDefaults = Datepicker.setDefaults;
-$.fn.datepicker.noConflict = function noConflict() {
-  $.fn.datepicker = AnotherDatepicker;
-  return this;
-};
+        if ($.isFunction(fn)) {
+          result = fn.apply(data, args);
+        }
+      }
+    });
+
+    return isUndefined(result) ? this : result;
+  };
+
+  $.fn.datepicker.Constructor = Datepicker;
+  $.fn.datepicker.languages = LANGUAGES;
+  $.fn.datepicker.setDefaults = Datepicker.setDefaults;
+  $.fn.datepicker.noConflict = function noConflict() {
+    $.fn.datepicker = AnotherDatepicker;
+    return this;
+  };
+}
