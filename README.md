@@ -1,4 +1,6 @@
-# Datepicker [![Build Status](https://travis-ci.org/fengyuanchen/datepicker.svg)](https://travis-ci.org/fengyuanchen/datepicker)
+# Datepicker
+
+[![Build Status](https://travis-ci.org/fengyuanchen/datepicker.svg)](https://travis-ci.org/fengyuanchen/datepicker) [![Downloads](https://img.shields.io/npm/dm/@fengyuanchen/datepicker.svg)](https://www.npmjs.com/package/@fengyuanchen/datepicker) [![Version](https://img.shields.io/npm/v/@fengyuanchen/datepicker.svg)](https://www.npmjs.com/package/@fengyuanchen/datepicker)
 
 > A simple jQuery datepicker plugin.
 
