@@ -9,9 +9,9 @@
  */
 
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jquery')) :
-	typeof define === 'function' && define.amd ? define(['jquery'], factory) :
-	(factory(global.jQuery));
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jquery')) :
+    typeof define === 'function' && define.amd ? define(['jquery'], factory) :
+    (factory(global.jQuery));
 }(this, (function ($) { 'use strict';
 
 $ = $ && $.hasOwnProperty('default') ? $['default'] : $;
@@ -31,6 +31,18 @@ var DEFAULTS = {
 
   // A element (or selector) for putting the datepicker
   container: null,
+
+  // Append datepicker to parent of caller - RUI 
+  parentAppend: true,
+
+  // Positon of datepicker, top | bottom. bottom example: caravans2rent - RUI 
+  position: "top",
+
+  // Disabled dates, array - RUI 
+  disabledDates: [],
+
+  // Disabled weekend, 0=No, 1=Yes, 2=Sunday only - RUI 
+  disabledWeekend: 1,
 
   // A element (or selector) for triggering the datepicker
   trigger: null,
@@ -302,6 +314,8 @@ var methods = {
   pick: function pick(_view) {
     var $this = this.$element;
     var date = this.date;
+    var date_sumbit = moment(this.getDate(true), "DD/MM/YYYY");
+        date_sumbit = date_sumbit.format("YYYY-MM-DD");
 
 
     if (this.trigger(EVENT_PICK, {
@@ -311,9 +325,32 @@ var methods = {
       return;
     }
 
+
     date = this.formatDate(this.date);
     this.setValue(date);
 
+    
+    if($this.hasClass('range')){      
+      if(typeof $this.attr('data-range-start') !== "undefined"){
+        var next_date = moment(this.date).add(1, 'days').format("DD/MM/YYYY");
+        $this.parents('.range_holder').find('.range[data-range-end]').datepicker('setStartDate', next_date);
+      }
+      if(typeof $this.attr('data-range-end') !== "undefined"){
+        var prev_date = moment(this.date).subtract(1, 'days').format("DD/MM/YYYY");
+        $this.parents('.range_holder').find('.range[data-range-start]').datepicker('setEndDate', prev_date);
+      }
+    }        
+
+    var inpt_name = $this.attr('name');
+    var inpt_id = $this.attr('name');
+
+    if($this.next('input[name=hidden_'+inpt_name+']').length<=0){
+      var newInpt = $('<input type="date" class="hidden" name="hidden_'+inpt_name+'" id="hidden_'+inpt_id+'" value="'+date_sumbit+'" />');
+      newInpt.insertAfter($this); 
+    }else{
+      $this.next('input[id="hidden_'+inpt_id+'"]').val(date_sumbit);
+    }
+    
     if (this.isInput) {
       $this.trigger('input');
       $this.trigger('change');
@@ -904,7 +941,9 @@ var render = {
         filter = options.filter,
         monthsShort = options.monthsShort,
         weekStart = options.weekStart,
-        yearSuffix = options.yearSuffix;
+        yearSuffix = options.yearSuffix,
+        disabledDates = options.disabledDates,
+        disabledWeekend = options.disabledWeekend;
 
     var viewYear = viewDate.getFullYear();
     var viewMonth = viewDate.getMonth();
@@ -957,12 +996,27 @@ var render = {
       var prevViewDate = new Date(prevViewYear, prevViewMonth, i);
       var disabled = false;
 
+      var dateText = prevViewDate;
+      var dayNumber = prevViewDate.getDay();
+
       if (startDate) {
         disabled = prevViewDate.getTime() < startDate.getTime();
       }
 
       if (!disabled && filter) {
         disabled = filter.call($element, prevViewDate) === false;
+      }
+
+      if (!disabled && disabledDates) {
+        disabled = disabledDates.indexOf(dateText)>-1;
+      }
+
+      if (!disabled && disabledWeekend>0) {
+        if(disabledWeekend==1){
+          disabled = dayNumber === 0 || dayNumber === 6;
+        }else{
+          disabled = dayNumber === 0;
+        }
       }
 
       prevItems.push(this.createItem({
@@ -1008,12 +1062,28 @@ var render = {
       var picked = nextViewYear === year && nextViewMonth === month && i === day;
       var _disabled = false;
 
+      var dateText = date;
+      var dayNumber = date.getDay();
+
+
       if (endDate) {
         _disabled = date.getTime() > endDate.getTime();
       }
 
       if (!_disabled && filter) {
         _disabled = filter.call($element, date) === false;
+      }
+
+      if (!_disabled && disabledDates) {
+        _disabled = disabledDates.indexOf(dateText)>-1;
+      }
+
+      if (!_disabled && disabledWeekend>0) {
+        if(disabledWeekend==1){
+          _disabled = dayNumber === 0 || dayNumber === 6;
+        }else{
+          _disabled = dayNumber === 6;
+        }
       }
 
       nextItems.push(this.createItem({
@@ -1035,6 +1105,9 @@ var render = {
       var _date = new Date(viewYear, viewMonth, i);
       var _disabled2 = false;
 
+      var dateText = _date;
+      var dayNumber = _date.getDay();
+
       if (startDate) {
         _disabled2 = _date.getTime() < startDate.getTime();
       }
@@ -1045,6 +1118,19 @@ var render = {
 
       if (!_disabled2 && filter) {
         _disabled2 = filter.call($element, _date) === false;
+      }
+
+      if (!_disabled2 && disabledDates) {
+        _disabled2 = disabledDates.indexOf(dateText)>-1;
+      }
+
+      
+      if (!_disabled2 && disabledWeekend>0) {
+        if(disabledWeekend==1){
+          _disabled2 = dayNumber === 0 || dayNumber === 6;
+        }else{
+          _disabled2 = dayNumber === 6;
+        }
       }
 
       var _picked = viewYear === year && viewMonth === month && i === day;
@@ -1199,7 +1285,11 @@ var Datepicker = function () {
       if (this.inline) {
         $(options.container || $this).append($picker.addClass(NAMESPACE + '-inline'));
       } else {
-        $(document.body).append($picker.addClass(NAMESPACE + '-dropdown'));
+        if(options.parentAppend) $(this.$element).parent().append($picker.addClass(NAMESPACE + '-dropdown appendParent'));
+        else $(document.body).append($picker.addClass(NAMESPACE + '-dropdown'));
+
+        $picker.attr('id', 'datepicker-'+$this.attr('id'))
+
         $picker.addClass(CLASS_HIDE);
       }
 
@@ -1383,11 +1473,21 @@ var Datepicker = function () {
         placement = placement.replace('left', 'right');
       }
 
-      $picker.removeClass(CLASS_PLACEMENTS).addClass(placement).css({
-        top: top,
-        left: left,
-        zIndex: parseInt(options.zIndex, 10)
-      });
+      if(options.parentAppend==false){
+        $picker.removeClass(CLASS_PLACEMENTS).addClass(placement).css({
+          top: top,
+          left: left,
+          zIndex: parseInt(options.zIndex, 10)
+        });
+      }else{
+        if(options.position=="top"){
+          placement = CLASS_TOP_LEFT;
+          $picker.removeClass(CLASS_PLACEMENTS).addClass(placement).addClass('pos-top');
+        }else{
+          placement = CLASS_BOTTOM_LEFT;
+          $picker.removeClass(CLASS_PLACEMENTS).addClass(placement).addClass('pos-bottom');
+        }
+      }
     }
 
     // A shortcut for triggering custom events
@@ -1413,7 +1513,8 @@ var Datepicker = function () {
         muted: false,
         picked: false,
         disabled: false,
-        highlighted: false
+        highlighted: false,
+        date: ''
       };
       var classes = [];
 
@@ -1435,7 +1536,7 @@ var Datepicker = function () {
         classes.push(options.disabledClass);
       }
 
-      return '<' + itemTag + ' class="' + classes.join(' ') + '" data-view="' + item.view + '">' + item.text + '</' + itemTag + '>';
+      return '<' + itemTag + ' class="' + classes.join(' ') + '" data-view="' + item.view + '" data-date="' + item.date + '">' + item.text + '</' + itemTag + '>';
     }
   }, {
     key: 'getValue',
