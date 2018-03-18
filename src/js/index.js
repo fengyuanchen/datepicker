@@ -17,29 +17,34 @@ if ($.fn) {
 
     this.each((i, element) => {
       const $element = $(element);
-      let data = $element.data(NAMESPACE);
+      const isDestroy = option === 'destroy';
+      let datepicker = $element.data(NAMESPACE);
 
-      if (!data) {
-        if (/destroy/.test(option)) {
+      if (!datepicker) {
+        if (isDestroy.test(option)) {
           return;
         }
 
         const options = $.extend({}, $element.data(), $.isPlainObject(option) && option);
 
-        data = new Datepicker(element, options);
-        $element.data(NAMESPACE, data);
+        datepicker = new Datepicker(element, options);
+        $element.data(NAMESPACE, datepicker);
       }
 
       if (isString(option)) {
-        const fn = data[option];
+        const fn = datepicker[option];
 
         if ($.isFunction(fn)) {
-          result = fn.apply(data, args);
+          result = fn.apply(datepicker, args);
+
+          if (isDestroy) {
+            $element.removeData(NAMESPACE);
+          }
         }
       }
     });
 
-    return isUndefined(result) ? this : result;
+    return !isUndefined(result) ? result : this;
   };
 
   $.fn.datepicker.Constructor = Datepicker;
