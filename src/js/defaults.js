@@ -76,6 +76,9 @@ export default {
   // A class (CSS) for highlight date item
   highlightedClass: 'highlighted',
 
+  // A class (CSS) for featured date item
+  featuredClass: 'featured',
+
   // The template of the datepicker
   template: (
     '<div class="datepicker-container">' +

@@ -251,6 +251,20 @@ export default {
   },
 
   /**
+   * Sets the list of featured dates with a new list
+   *
+   * @param dates
+   */
+  setFeaturedDates(dates) {
+    dates = Array.isArray(dates) ? dates : [dates];
+    this.featuredDates = dates.map((date) => this.parseDate(date));
+
+    if (this.built) {
+      this.render();
+    }
+  },
+
+  /**
    * Parse a date string with the set date format
    *
    * @param {String} date

@@ -2,10 +2,10 @@
  * Datepicker v0.6.4
  * https://github.com/fengyuanchen/datepicker
  *
- * Copyright (c) 2014-2017 Chen Fengyuan
+ * Copyright (c) 2014-2018 Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2017-11-24T14:38:23.820Z
+ * Date: 2018-03-24T14:57:50.457Z
  */
 
 'use strict';
@@ -91,6 +91,9 @@ var DEFAULTS = {
 
   // A class (CSS) for highlight date item
   highlightedClass: 'highlighted',
+
+  // A class (CSS) for featured date item
+  featuredClass: 'featured',
 
   // The template of the datepicker
   template: '<div class="datepicker-container">' + '<div class="datepicker-panel" data-view="years picker">' + '<ul>' + '<li data-view="years prev">&lsaquo;</li>' + '<li data-view="years current"></li>' + '<li data-view="years next">&rsaquo;</li>' + '</ul>' + '<ul data-view="years"></ul>' + '</div>' + '<div class="datepicker-panel" data-view="months picker">' + '<ul>' + '<li data-view="year prev">&lsaquo;</li>' + '<li data-view="year current"></li>' + '<li data-view="year next">&rsaquo;</li>' + '</ul>' + '<ul data-view="months"></ul>' + '</div>' + '<div class="datepicker-panel" data-view="days picker">' + '<ul>' + '<li data-view="month prev">&lsaquo;</li>' + '<li data-view="month current"></li>' + '<li data-view="month next">&rsaquo;</li>' + '</ul>' + '<ul data-view="week"></ul>' + '<ul data-view="days"></ul>' + '</div>' + '</div>',
@@ -470,6 +473,25 @@ var methods = {
 
 
   /**
+   * Sets the list of featured dates with a new list
+   *
+   * @param dates
+   */
+  setFeaturedDates: function setFeaturedDates(dates) {
+    var _this = this;
+
+    dates = Array.isArray(dates) ? dates : [dates];
+    this.featuredDates = dates.map(function (date) {
+      return _this.parseDate(date);
+    });
+
+    if (this.built) {
+      this.render();
+    }
+  },
+
+
+  /**
    * Parse a date string with the set date format
    *
    * @param {String} date
@@ -777,7 +799,8 @@ var render = {
   renderYears: function renderYears() {
     var options = this.options,
         startDate = this.startDate,
-        endDate = this.endDate;
+        endDate = this.endDate,
+        featuredDates = this.featuredDates;
     var disabledClass = options.disabledClass,
         filter = options.filter,
         yearSuffix = options.yearSuffix;
@@ -796,6 +819,7 @@ var render = {
     for (i = start; i <= end; i += 1) {
       var date = new Date(viewYear + i, 1, 1);
       var disabled = false;
+      var featured = false;
 
       if (startDate) {
         disabled = date.getFullYear() < startDate.getFullYear();
@@ -817,6 +841,16 @@ var render = {
         disabled = filter.call(this.$element, date) === false;
       }
 
+      var featuredDateLowerLimit = date.getTime();
+      var featuredDateUpperLimit = new Date(viewYear + i + 1, 1, 1).getTime();
+      for (var j = 0; j < featuredDates.length; j++) {
+        var featuredDate = featuredDates[j];
+        if (featuredDate.getTime() >= featuredDateLowerLimit && featuredDate.getTime() < featuredDateUpperLimit) {
+          featured = true;
+          break;
+        }
+      }
+
       var picked = viewYear + i === year;
       var view = picked ? 'year picked' : 'year';
 
@@ -824,6 +858,7 @@ var render = {
         picked: picked,
         disabled: disabled,
         muted: i === start || i === end,
+        featured: featured,
         text: viewYear + i,
         view: disabled ? 'year disabled' : view,
         highlighted: date.getFullYear() === thisYear
@@ -839,7 +874,8 @@ var render = {
     var options = this.options,
         startDate = this.startDate,
         endDate = this.endDate,
-        viewDate = this.viewDate;
+        viewDate = this.viewDate,
+        featuredDates = this.featuredDates;
 
     var disabledClass = options.disabledClass || '';
     var months = options.monthsShort;
@@ -858,6 +894,7 @@ var render = {
     for (i = 0; i <= 11; i += 1) {
       var date = new Date(viewYear, i, 1);
       var disabled = false;
+      var featured = false;
 
       if (startDate) {
         prevDisabled = date.getFullYear() === startDate.getFullYear();
@@ -873,6 +910,16 @@ var render = {
         disabled = filter.call(this.$element, date) === false;
       }
 
+      var featuredDateLowerLimit = date.getTime();
+      var featuredDateUpperLimit = new Date(viewYear, i + 1, 1).getTime();
+      for (var j = 0; j < featuredDates.length; j++) {
+        var featuredDate = featuredDates[j];
+        if (featuredDate.getTime() >= featuredDateLowerLimit && featuredDate.getTime() < featuredDateUpperLimit) {
+          featured = true;
+          break;
+        }
+      }
+
       var picked = viewYear === year && i === month;
       var view = picked ? 'month picked' : 'month';
 
@@ -880,6 +927,7 @@ var render = {
         disabled: disabled,
         picked: picked,
         highlighted: viewYear === thisYear && date.getMonth() === thisMonth,
+        featured: featured,
         index: i,
         text: months[i],
         view: disabled ? 'month disabled' : view
@@ -897,7 +945,8 @@ var render = {
         startDate = this.startDate,
         endDate = this.endDate,
         viewDate = this.viewDate,
-        currentDate = this.date;
+        currentDate = this.date,
+        featuredDates = this.featuredDates;
     var disabledClass = options.disabledClass,
         filter = options.filter,
         monthsShort = options.monthsShort,
@@ -1032,6 +1081,7 @@ var render = {
     for (i = 1; i <= length; i += 1) {
       var _date = new Date(viewYear, viewMonth, i);
       var _disabled2 = false;
+      var featured = false;
 
       if (startDate) {
         _disabled2 = _date.getTime() < startDate.getTime();
@@ -1045,6 +1095,16 @@ var render = {
         _disabled2 = filter.call($element, _date) === false;
       }
 
+      var featuredDateLowerLimit = _date.getTime();
+      var featuredDateUpperLimit = new Date(viewYear, viewMonth, i + 1).getTime();
+      for (var j = 0; j < featuredDates.length; j++) {
+        var featuredDate = featuredDates[j];
+        if (featuredDate.getTime() >= featuredDateLowerLimit && featuredDate.getTime() < featuredDateUpperLimit) {
+          featured = true;
+          break;
+        }
+      }
+
       var _picked = viewYear === year && viewMonth === month && i === day;
       var view = _picked ? 'day picked' : 'day';
 
@@ -1052,6 +1112,7 @@ var render = {
         disabled: _disabled2,
         picked: _picked,
         highlighted: viewYear === thisYear && viewMonth === thisMonth && _date.getDate() === thisDay,
+        featured: featured,
         text: i,
         view: _disabled2 ? 'day disabled' : view
       }));
@@ -1095,17 +1156,21 @@ var Datepicker = function () {
     this.initialDate = null;
     this.startDate = null;
     this.endDate = null;
+    this.featuredDates = [];
     this.init();
   }
 
   _createClass(Datepicker, [{
     key: 'init',
     value: function init() {
+      var _this = this;
+
       var $this = this.$element,
           options = this.options;
       var startDate = options.startDate,
           endDate = options.endDate,
-          date = options.date;
+          date = options.date,
+          featuredDates = options.featuredDates;
 
 
       this.$trigger = $(options.trigger);
@@ -1141,6 +1206,14 @@ var Datepicker = function () {
         }
 
         this.endDate = endDate;
+      }
+
+      if (featuredDates) {
+        featuredDates = Array.isArray(featuredDates) ? featuredDates : [featuredDates];
+        featuredDates = featuredDates.map(function (featuredDate) {
+          return _this.parseDate(featuredDate);
+        });
+        this.featuredDates = featuredDates;
       }
 
       this.date = date;
@@ -1411,7 +1484,8 @@ var Datepicker = function () {
         muted: false,
         picked: false,
         disabled: false,
-        highlighted: false
+        highlighted: false,
+        featured: false
       };
       var classes = [];
 
@@ -1431,6 +1505,10 @@ var Datepicker = function () {
 
       if (item.disabled) {
         classes.push(options.disabledClass);
+      }
+
+      if (item.featured) {
+        classes.push(options.featuredClass);
       }
 
       return '<' + itemTag + ' class="' + classes.join(' ') + '" data-view="' + item.view + '">' + item.text + '</' + itemTag + '>';
