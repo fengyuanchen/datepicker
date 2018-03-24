@@ -151,6 +151,10 @@
         }
       }
 
+      &.featured {
+        font-weight: bold;
+      }
+
       &[data-view="years prev"],
       &[data-view="year prev"],
       &[data-view="month prev"],

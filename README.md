@@ -299,6 +299,13 @@ A class (CSS) for disabled item.
 
 A class (CSS) for highlight date item.
 
+### featuredClass
+
+- Type: `String`
+- Default: `'featured'`
+
+A class (CSS) for featured date item.
+
 ### template
 
 - Type: `String`
@@ -370,6 +377,13 @@ $().datepicker({
   }
 });
 ```
+
+### featuredDates
+
+- Type: `Array`
+- Default: `[]`
+
+A list of dates that will be emphasized in the calendar.
 
 ### show
 
@@ -517,6 +531,13 @@ Set the start view date with a new date.
   - Type: `Date` or `String`
 
 Set the end view date with a new date.
+
+### setFeaturedDates(dates)
+
+- **dates**:
+  - Type: `Array` of `Date` or `String`
+
+Set the list of featured dates with a new list.
 
 ### parseDate(date)
 
