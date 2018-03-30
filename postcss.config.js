@@ -4,7 +4,7 @@ module.exports = {
   plugins: {
     'postcss-cssnext': {},
     'postcss-header': {
-      header: rollupConfig.banner,
+      header: rollupConfig.output[0].banner,
     },
     stylefmt: {},
   },

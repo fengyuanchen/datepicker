@@ -4,40 +4,7 @@ const nodeResolve = require('rollup-plugin-node-resolve');
 const pkg = require('./package');
 
 const now = new Date();
-
-module.exports = {
-  input: 'src/js/index.js',
-  output: [
-    {
-      file: 'dist/datepicker.js',
-      format: 'umd',
-    },
-    {
-      file: 'dist/datepicker.common.js',
-      format: 'cjs',
-    },
-    {
-      file: 'dist/datepicker.esm.js',
-      format: 'es',
-    },
-    {
-      file: 'docs/js/datepicker.js',
-      format: 'umd',
-    },
-  ],
-  name: 'datepicker',
-  external: ['jquery'],
-  globals: {
-    jquery: 'jQuery',
-  },
-  plugins: [
-    nodeResolve(),
-    commonjs(),
-    babel({
-      exclude: 'node_modules/**',
-    }),
-  ],
-  banner: `/*!
+const banner = `/*!
  * Datepicker v${pkg.version}
  * https://github.com/${pkg.repository}
  *
@@ -46,5 +13,45 @@ module.exports = {
  *
  * Date: ${now.toISOString()}
  */
-`,
+`;
+
+module.exports = {
+  input: 'src/js/index.js',
+  output: [
+    {
+      banner,
+      file: 'dist/datepicker.js',
+      format: 'umd',
+      name: 'datepicker',
+      globals: {
+        jquery: 'jQuery',
+      },
+    },
+    {
+      banner,
+      file: 'dist/datepicker.common.js',
+      format: 'cjs',
+    },
+    {
+      file: 'dist/datepicker.esm.js',
+      format: 'es',
+    },
+    {
+      banner,
+      file: 'docs/js/datepicker.js',
+      format: 'umd',
+      name: 'datepicker',
+      globals: {
+        jquery: 'jQuery',
+      },
+    },
+  ],
+  external: ['jquery'],
+  plugins: [
+    nodeResolve(),
+    commonjs(),
+    babel({
+      exclude: 'node_modules/**',
+    }),
+  ],
 };
