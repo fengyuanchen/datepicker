@@ -71,7 +71,6 @@ export default {
       items.push(this.createItem({
         picked,
         disabled,
-        muted: i === start || i === end,
         text: viewYear + i,
         view: disabled ? 'year disabled' : view,
         highlighted: date.getFullYear() === thisYear,
