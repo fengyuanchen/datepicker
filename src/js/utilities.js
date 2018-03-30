@@ -1,7 +1,5 @@
 import $ from 'jquery';
-import {
-  WINDOW,
-} from './constants';
+import { WINDOW } from './constants';
 
 const { toString } = Object.prototype;
 
