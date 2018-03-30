@@ -21,7 +21,7 @@ if ($.fn) {
       let datepicker = $element.data(NAMESPACE);
 
       if (!datepicker) {
-        if (isDestroy.test(option)) {
+        if (isDestroy) {
           return;
         }
 
