@@ -118,7 +118,7 @@
   margin-bottom: 10px;
 }
 
-.docs-options > .input-group > .input-group-addon {
+.docs-options > .input-group .input-group-text {
   justify-content: center;
   min-width: 6rem;
 }

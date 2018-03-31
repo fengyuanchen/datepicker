@@ -5,11 +5,10 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="A simple jQuery datepicker plugin.">
-  <meta name="keywords" content="HTML, CSS, JS, JavaScript, jQuery plugin, datepicker, front-end, frontend, web development">
   <meta name="author" content="Chen Fengyuan">
   <title>Datepicker</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/datepicker.css">
   <link rel="stylesheet" href="css/main.css">
 </head>
@@ -46,7 +45,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md">
-        <h1>Datepicker <small class="h6">v0.6.4</small></h1>
+        <h1>Datepicker <small class="h6">v0.6.5</small></h1>
         <p class="lead">A simple jQuery datepicker plugin.</p>
         </div>
         <div class="col-md">
@@ -67,11 +66,11 @@
         <div class="docs-datepicker">
           <div class="input-group">
             <input type="text" class="form-control docs-date" name="date" placeholder="Pick a date">
-            <span class="input-group-btn">
-              <button type="button" class="btn btn-default docs-datepicker-trigger" disabled>
+            <div class="input-group-append">
+              <button type="button" class="btn btn-outline-secondary docs-datepicker-trigger" disabled>
                 <i class="fa fa-calendar" aria-hidden="true"></i>
               </button>
-            </span>
+            </div>
           </div>
           <div class="docs-datepicker-container"></div>
         </div>
@@ -80,23 +79,33 @@
         <h3 class="page-header">Options</h3>
         <div class="docs-options">
           <div class="input-group">
-            <span class="input-group-addon" id="option-date">date</span>
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="option-date">date</span>
+            </div>
             <input type="text" class="form-control" name="date" value aria-describedby="option-date" placeholder="null">
           </div>
           <div class="input-group">
-            <span class="input-group-addon" id="option-format">format</span>
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="option-format">format</span>
+            </div>
             <input type="text" class="form-control" name="format" value="mm/dd/yyyy" aria-describedby="option-format" placeholder="mm/dd/yyyy">
           </div>
           <div class="input-group">
-            <span class="input-group-addon" id="option-startDate">startDate</span>
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="option-startDate">startDate</span>
+            </div>
             <input type="text" class="form-control" name="startDate" aria-describedby="option-startDate" placeholder="null">
           </div>
           <div class="input-group">
-            <span class="input-group-addon" id="option-endDate">endDate</span>
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="option-endDate">endDate</span>
+            </div>
             <input type="text" class="form-control" name="endDate" aria-describedby="option-endDate" placeholder="null">
           </div>
           <div class="input-group">
-            <span class="input-group-addon" id="option-language">language</span>
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="option-language">language</span>
+            </div>
             <select class="form-control" id="option-language" name="language">
               <option value="ca-ES">ca-ES</option>
               <option value="cs-CZ">cs-CZ</option>
@@ -123,7 +132,9 @@
             </select>
           </div>
           <div class="input-group">
-            <span class="input-group-addon" id="option-startView">startView</span>
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="option-startView">startView</span>
+            </div>
             <select class="form-control" id="option-startView" name="startView">
               <option value="0" selected>0</option>
               <option value="1">1</option>
@@ -131,7 +142,9 @@
             </select>
           </div>
           <div class="input-group">
-            <span class="input-group-addon" id="option-weekStart">weekStart</span>
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="option-weekStart">weekStart</span>
+            </div>
             <select class="form-control" id="option-weekStart" name="weekStart">
               <option value="0" selected>0</option>
               <option value="1">1</option>
@@ -143,11 +156,15 @@
             </select>
           </div>
           <div class="input-group">
-            <span class="input-group-addon" id="option-offset">offset</span>
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="option-offset">offset</span>
+            </div>
             <input type="number" class="form-control" name="offset" value="10" aria-describedby="option-offset" placeholder="offset">
           </div>
           <div class="input-group">
-            <span class="input-group-addon" id="option-zIndex">zIndex</span>
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="option-zIndex">zIndex</span>
+            </div>
             <input type="number" class="form-control" name="zIndex" value="1000" aria-describedby="option-zIndex" placeholder="zIndex">
           </div>
         </div>
@@ -157,39 +174,46 @@
         <div class="docs-toggles">
           <ul class="list-group">
             <li class="list-group-item">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" name="container"> container
-              </label>
+              <div class="form-check">
+                <input class="form-check-input" id="container" type="checkbox" name="container">
+                <label class="form-check-label" for="container">container</label>
+              </div>
             </li>
             <li class="list-group-item">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" name="trigger"> trigger
-              </label>
+              <div class="form-check">
+                <input class="form-check-input" id="trigger" type="checkbox" name="trigger">
+                <label class="form-check-label" for="trigger">trigger</label>
+              </div>
             </li>
             <li class="list-group-item">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" name="inline"> inline
-              </label>
+              <div class="form-check">
+                <input class="form-check-input" id="inline" type="checkbox" name="inline">
+                <label class="form-check-label" for="inline">inline</label>
+              </div>
             </li>
             <li class="list-group-item">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" name="autoShow"> autoShow
-              </label>
+              <div class="form-check">
+                <input class="form-check-input" id="autoShow" type="checkbox" name="autoShow">
+                <label class="form-check-label" for="autoShow">autoShow</label>
+              </div>
             </li>
             <li class="list-group-item">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" name="autoHide"> autoHide
-              </label>
+              <div class="form-check">
+                <input class="form-check-input" id="autoHide" type="checkbox" name="autoHide">
+                <label class="form-check-label" for="autoHide">autoHide</label>
+              </div>
             </li>
             <li class="list-group-item">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" name="autoPick"> autoPick
-              </label>
+              <div class="form-check">
+                <input class="form-check-input" id="autoPick" type="checkbox" name="autoPick">
+                <label class="form-check-label" for="autoPick">autoPick</label>
+              </div>
             </li>
             <li class="list-group-item">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" name="yearFirst"> yearFirst
-              </label>
+              <div class="form-check">
+                <input class="form-check-input" id="yearFirst" type="checkbox" name="yearFirst">
+                <label class="form-check-label" for="yearFirst">yearFirst</label>
+              </div>
             </li>
           </ul>
         </div>
@@ -198,43 +222,43 @@
         <h3 class="page-header">Methods</h3>
         <div class="docs-actions">
           <div class="input-group">
-            <div class="input-group-btn">
+            <div class="input-group-prepend">
               <button type="button" class="btn btn-primary" data-method="getDate" data-target="#putDate">Get Date</button>
             </div>
             <input type="text" class="form-control" id="putDate">
           </div>
           <div class="input-group">
-            <div class="input-group-btn">
+            <div class="input-group-prepend">
               <button type="button" class="btn btn-primary" data-arguments="[true]" data-method="getDate" data-target="#putDateFormatted">Get Date (formatted)</button>
             </div>
             <input type="text" class="form-control" id="putDateFormatted">
           </div>
           <div class="input-group">
-            <div class="input-group-btn">
+            <div class="input-group-prepend">
               <button type="button" class="btn btn-primary" data-method="getMonthName" data-target="#putMonthName">Get Month Name</button>
             </div>
             <input type="text" class="form-control" id="putMonthName">
           </div>
           <div class="input-group">
-            <div class="input-group-btn">
+            <div class="input-group-prepend">
               <button type="button" class="btn btn-primary" data-arguments="[true]" data-method="getMonthName" data-target="#putMonthNameShort">Get Month Name (short)</button>
             </div>
             <input type="text" class="form-control" id="putMonthNameShort">
           </div>
           <div class="input-group">
-            <div class="input-group-btn">
+            <div class="input-group-prepend">
               <button type="button" class="btn btn-primary" data-method="getDayName" data-target="#putDayName">Get Day Name</button>
             </div>
             <input type="text" class="form-control" id="putDayName">
           </div>
           <div class="input-group">
-            <div class="input-group-btn">
+            <div class="input-group-prepend">
               <button type="button" class="btn btn-primary" data-arguments="[true]" data-method="getDayName" data-target="#putDayNameShort">Get Day Name (short)</button>
             </div>
             <input type="text" class="form-control" id="putDayNameShort">
           </div>
           <div class="input-group">
-            <div class="input-group-btn">
+            <div class="input-group-prepend">
               <button type="button" class="btn btn-primary" data-arguments="[false, true]" data-method="getDayName" data-target="#putDayNameMin">Get Day Name (min)</button>
             </div>
             <input type="text" class="form-control" id="putDayNameMin">
@@ -265,14 +289,14 @@
         <a class="nav-link" href="https://github.com/fengyuanchen/datepicker/releases">Releases</a>
         <a class="nav-link" href="https://github.com/fengyuanchen/datepicker/blob/master/LICENSE">License</a>
         <a class="nav-link" href="http://chenfengyuan.com">About</a>
-        <a class="nav-link" href="./v0.5.5">v0.5.5</a>
+        <a class="nav-link" href="v0.5.5">v0.5.5</a>
       </nav>
     </div>
   </footer>
 
   <!-- Scripts -->
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
   <script src="https://fengyuanchen.github.io/js/common.js"></script>
   <script src="js/datepicker.js"></script>
   <script src="js/datepicker.ca-ES.js"></script>

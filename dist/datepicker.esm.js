@@ -1,13 +1,3 @@
-/*!
- * Datepicker v0.6.4
- * https://github.com/fengyuanchen/datepicker
- *
- * Copyright (c) 2014-2017 Chen Fengyuan
- * Released under the MIT license
- *
- * Date: 2017-11-24T14:38:23.820Z
- */
-
 import $ from 'jquery';
 
 var DEFAULTS = {
@@ -819,7 +809,6 @@ var render = {
       items.push(this.createItem({
         picked: picked,
         disabled: disabled,
-        muted: i === start || i === end,
         text: viewYear + i,
         view: disabled ? 'year disabled' : view,
         highlighted: date.getFullYear() === thisYear
@@ -1479,29 +1468,34 @@ if ($.fn) {
 
     this.each(function (i, element) {
       var $element = $(element);
-      var data = $element.data(NAMESPACE);
+      var isDestroy = option === 'destroy';
+      var datepicker = $element.data(NAMESPACE);
 
-      if (!data) {
-        if (/destroy/.test(option)) {
+      if (!datepicker) {
+        if (isDestroy) {
           return;
         }
 
         var options = $.extend({}, $element.data(), $.isPlainObject(option) && option);
 
-        data = new Datepicker(element, options);
-        $element.data(NAMESPACE, data);
+        datepicker = new Datepicker(element, options);
+        $element.data(NAMESPACE, datepicker);
       }
 
       if (isString(option)) {
-        var fn = data[option];
+        var fn = datepicker[option];
 
         if ($.isFunction(fn)) {
-          result = fn.apply(data, args);
+          result = fn.apply(datepicker, args);
+
+          if (isDestroy) {
+            $element.removeData(NAMESPACE);
+          }
         }
       }
     });
 
-    return isUndefined(result) ? this : result;
+    return !isUndefined(result) ? result : this;
   };
 
   $.fn.datepicker.Constructor = Datepicker;

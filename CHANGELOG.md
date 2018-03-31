@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.6.5 (Mar 31, 2018)
+
+- Remove added data when destroy.
+- Remove unnecessary muted class from start and end years in years view (#130).
+
 ## 0.6.4 (Nov 24, 2017)
 
 - Support to load in node environment.
