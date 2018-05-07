@@ -125,21 +125,21 @@ export default {
    * Get the month name with given argument or the current date
    *
    * @param {Number} month (optional)
-   * @param {Boolean} short (optional)
+   * @param {Boolean} shortForm (optional)
    * @return {String} (month name)
    */
-  getMonthName(month, short) {
+  getMonthName(month, shortForm) {
     const { options } = this;
     const { monthsShort } = options;
     let { months } = options;
 
     if ($.isNumeric(month)) {
       month = Number(month);
-    } else if (isUndefined(short)) {
-      short = month;
+    } else if (isUndefined(shortForm)) {
+      shortForm = month;
     }
 
-    if (short === true) {
+    if (shortForm === true) {
       months = monthsShort;
     }
 
@@ -150,11 +150,11 @@ export default {
    * Get the day name with given argument or the current date
    *
    * @param {Number} day (optional)
-   * @param {Boolean} short (optional)
+   * @param {Boolean} shortForm (optional)
    * @param {Boolean} min (optional)
    * @return {String} (day name)
    */
-  getDayName(day, short, min) {
+  getDayName(day, shortForm, min) {
     const { options } = this;
     let { days } = options;
 
@@ -162,17 +162,17 @@ export default {
       day = Number(day);
     } else {
       if (isUndefined(min)) {
-        min = short;
+        min = shortForm;
       }
 
-      if (isUndefined(short)) {
-        short = day;
+      if (isUndefined(shortForm)) {
+        shortForm = day;
       }
     }
 
     if (min) {
       days = options.daysMin;
-    } else if (short) {
+    } else if (shortForm) {
       days = options.daysShort;
     }
 
