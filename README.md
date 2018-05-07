@@ -358,14 +358,19 @@ The CSS `z-index` style for the datepicker.
 - Default: `null`
 
 Filter each date item. If return a `false` value, the related date will be disabled.
+The function gets two parameters - the actual date that is to be filtered or not and 
+the context where this filtering is being applied. The context is a string with one 
+of the values - `day`, `month` or `year`. If for example the function is being called
+to determine whether a month should be enabled or not, the date will be the first day 
+of the month and the context will be `month`.
 
 ```js
 var now = Date.now();
 
 $().datepicker({
-  filter: function(date) {
-    if (date.getDay() === 0) {
-      return false; // Disable all Sundays
+  filter: function(date, ctx) {
+    if (date.getDay() === 0 && ctx === 'day') {
+      return false; // Disable all Sundays, but still leave months/years, whose first day is a Sunday, enabled.
     }
   }
 });
