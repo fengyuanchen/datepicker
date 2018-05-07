@@ -62,7 +62,7 @@ export default {
       }
 
       if (!disabled && filter) {
-        disabled = filter.call(this.$element, date) === false;
+        disabled = filter.call(this.$element, date, 'year') === false;
       }
 
       const picked = (viewYear + i) === year;
@@ -121,7 +121,7 @@ export default {
       }
 
       if (!disabled && filter) {
-        disabled = filter.call(this.$element, date) === false;
+        disabled = filter.call(this.$element, date, 'month') === false;
       }
 
       const picked = viewYear === year && i === month;
@@ -217,7 +217,7 @@ export default {
       }
 
       if (!disabled && filter) {
-        disabled = filter.call($element, prevViewDate) === false;
+        disabled = filter.call($element, prevViewDate, 'day') === false;
       }
 
       prevItems.push(this.createItem({
@@ -272,7 +272,7 @@ export default {
       }
 
       if (!disabled && filter) {
-        disabled = filter.call($element, date) === false;
+        disabled = filter.call($element, date, 'day') === false;
       }
 
       nextItems.push(this.createItem({
@@ -307,7 +307,7 @@ export default {
       }
 
       if (!disabled && filter) {
-        disabled = filter.call($element, date) === false;
+        disabled = filter.call($element, date, 'day') === false;
       }
 
       const picked = viewYear === year && viewMonth === month && i === day;

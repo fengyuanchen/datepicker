@@ -203,7 +203,7 @@ export default {
     if (isDate(date) || isString(date)) {
       date = this.parseDate(date);
 
-      if ($.isFunction(filter) && filter.call(this.$element, date) === false) {
+      if ($.isFunction(filter) && filter.call(this.$element, date, 'day') === false) {
         return;
       }
 
