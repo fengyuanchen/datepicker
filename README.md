@@ -264,6 +264,16 @@ Months' name.
 
 Shorter months' name.
 
+### headerMonthName
+
+- Type: `String`
+- Default: `'short'`
+- Options:
+  - `short`: Jan
+  - `full`: January
+
+Current months' full name in datepicker panel header.
+
 ### itemTag
 
 - Type: `String`
