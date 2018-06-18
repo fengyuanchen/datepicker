@@ -37,7 +37,12 @@ class Datepicker {
   constructor(element, options = {}) {
     this.$element = $(element);
     this.element = element;
-    this.options = $.extend({}, DEFAULTS, LANGUAGES[options.language], options);
+    this.options = $.extend(
+      {},
+      DEFAULTS,
+      LANGUAGES[options.language],
+      $.isPlainObject(options) && options,
+    );
     this.built = false;
     this.shown = false;
     this.isInput = false;
@@ -374,7 +379,7 @@ class Datepicker {
   }
 
   static setDefaults(options = {}) {
-    $.extend(DEFAULTS, LANGUAGES[options.language], options);
+    $.extend(DEFAULTS, LANGUAGES[options.language], $.isPlainObject(options) && options);
   }
 }
 
