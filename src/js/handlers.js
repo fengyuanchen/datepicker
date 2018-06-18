@@ -66,6 +66,7 @@ export default {
           $target.addClass(options.pickedClass)
             .siblings()
             .removeClass(options.pickedClass);
+          this.renderYears();
           this.hideView();
         }
 
@@ -119,6 +120,7 @@ export default {
           $target.addClass(options.pickedClass)
             .siblings()
             .removeClass(options.pickedClass);
+          this.renderMonths();
           this.hideView();
         }
 
