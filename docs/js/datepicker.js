@@ -1,11 +1,11 @@
 /*!
- * Datepicker v0.6.5
- * https://github.com/fengyuanchen/datepicker
+ * Datepicker v1.0.0-beta
+ * https://fengyuanchen.github.io/datepicker
  *
- * Copyright (c) 2014-2018 Chen Fengyuan
+ * Copyright 2014-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2018-03-31T06:17:11.587Z
+ * Date: 2018-06-18T13:33:29.894Z
  */
 
 (function (global, factory) {
@@ -336,10 +336,10 @@
      * Get the month name with given argument or the current date
      *
      * @param {Number} month (optional)
-     * @param {Boolean} short (optional)
+     * @param {Boolean} shortForm (optional)
      * @return {String} (month name)
      */
-    getMonthName: function getMonthName(month, short) {
+    getMonthName: function getMonthName(month, shortForm) {
       var options = this.options;
       var monthsShort = options.monthsShort;
       var months = options.months;
@@ -347,11 +347,11 @@
 
       if ($.isNumeric(month)) {
         month = Number(month);
-      } else if (isUndefined(short)) {
-        short = month;
+      } else if (isUndefined(shortForm)) {
+        shortForm = month;
       }
 
-      if (short === true) {
+      if (shortForm === true) {
         months = monthsShort;
       }
 
@@ -363,11 +363,11 @@
      * Get the day name with given argument or the current date
      *
      * @param {Number} day (optional)
-     * @param {Boolean} short (optional)
+     * @param {Boolean} shortForm (optional)
      * @param {Boolean} min (optional)
      * @return {String} (day name)
      */
-    getDayName: function getDayName(day, short, min) {
+    getDayName: function getDayName(day, shortForm, min) {
       var options = this.options;
       var days = options.days;
 
@@ -376,17 +376,17 @@
         day = Number(day);
       } else {
         if (isUndefined(min)) {
-          min = short;
+          min = shortForm;
         }
 
-        if (isUndefined(short)) {
-          short = day;
+        if (isUndefined(shortForm)) {
+          shortForm = day;
         }
       }
 
       if (min) {
         days = options.daysMin;
-      } else if (short) {
+      } else if (shortForm) {
         days = options.daysShort;
       }
 
@@ -421,7 +421,7 @@
       if (isDate(date) || isString(date)) {
         date = this.parseDate(date);
 
-        if ($.isFunction(filter) && filter.call(this.$element, date) === false) {
+        if ($.isFunction(filter) && filter.call(this.$element, date, 'day') === false) {
           return;
         }
 
@@ -632,6 +632,7 @@
             this.showView(VIEWS.MONTHS);
           } else {
             $target.addClass(options.pickedClass).siblings().removeClass(options.pickedClass);
+            this.renderYears();
             this.hideView();
           }
 
@@ -681,6 +682,7 @@
             this.showView(VIEWS.DAYS);
           } else {
             $target.addClass(options.pickedClass).siblings().removeClass(options.pickedClass);
+            this.renderMonths();
             this.hideView();
           }
 
@@ -816,7 +818,7 @@
         }
 
         if (!disabled && filter) {
-          disabled = filter.call(this.$element, date) === false;
+          disabled = filter.call(this.$element, date, 'year') === false;
         }
 
         var picked = viewYear + i === year;
@@ -871,7 +873,7 @@
         }
 
         if (!disabled && filter) {
-          disabled = filter.call(this.$element, date) === false;
+          disabled = filter.call(this.$element, date, 'month') === false;
         }
 
         var picked = viewYear === year && i === month;
@@ -961,7 +963,7 @@
         }
 
         if (!disabled && filter) {
-          disabled = filter.call($element, prevViewDate) === false;
+          disabled = filter.call($element, prevViewDate, 'day') === false;
         }
 
         prevItems.push(this.createItem({
@@ -1012,7 +1014,7 @@
         }
 
         if (!_disabled && filter) {
-          _disabled = filter.call($element, date) === false;
+          _disabled = filter.call($element, date, 'day') === false;
         }
 
         nextItems.push(this.createItem({
@@ -1043,7 +1045,7 @@
         }
 
         if (!_disabled2 && filter) {
-          _disabled2 = filter.call($element, _date) === false;
+          _disabled2 = filter.call($element, _date, 'day') === false;
         }
 
         var _picked = viewYear === year && viewMonth === month && i === day;
@@ -1087,7 +1089,7 @@
 
       this.$element = $(element);
       this.element = element;
-      this.options = $.extend({}, DEFAULTS, LANGUAGES[options.language], options);
+      this.options = $.extend({}, DEFAULTS, LANGUAGES[options.language], $.isPlainObject(options) && options);
       this.built = false;
       this.shown = false;
       this.isInput = false;
@@ -1461,7 +1463,7 @@
       value: function setDefaults() {
         var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-        $.extend(DEFAULTS, LANGUAGES[options.language], options);
+        $.extend(DEFAULTS, LANGUAGES[options.language], $.isPlainObject(options) && options);
       }
     }]);
 
