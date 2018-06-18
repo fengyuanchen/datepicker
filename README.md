@@ -133,6 +133,9 @@ A element for triggering the datepicker.
 
 The ISO language code. If not set, will use the built-in language (en-US) by default.
 
+> You should define the language and include it first. Check out the [i18n](i18n) folder for more information.
+
+
 ```js
 $().datepicker({
   language: 'en-GB'
@@ -358,10 +361,10 @@ The CSS `z-index` style for the datepicker.
 - Default: `null`
 
 Filter each date item. If return a `false` value, the related date will be disabled.
-The function gets two parameters - the actual date that is to be filtered or not and 
-the context where this filtering is being applied. The context is a string with one 
+The function gets two parameters - the actual date that is to be filtered or not and
+the context where this filtering is being applied. The context is a string with one
 of the values - `day`, `month` or `year`. If for example the function is being called
-to determine whether a month should be enabled or not, the date will be the first day 
+to determine whether a month should be enabled or not, the date will be the first day
 of the month and the context will be `month`.
 
 ```js
@@ -645,6 +648,6 @@ Maintained under the [Semantic Versioning guidelines](http://semver.org/).
 
 ## License
 
-[MIT](http://opensource.org/licenses/MIT) © [Chen Fengyuan](http://chenfengyuan.com)
+[MIT](https://opensource.org/licenses/MIT) © [Chen Fengyuan](https://chenfengyuan.com)
 
 [⬆ back to top](#table-of-contents)
