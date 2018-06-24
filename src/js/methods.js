@@ -223,30 +223,34 @@ export default {
   /**
    * Set the start view date with a new date
    *
-   * @param {Date} date
+   * @param {Date|string|null} date
    */
   setStartDate(date) {
     if (isDate(date) || isString(date)) {
       this.startDate = this.parseDate(date);
+    } else {
+      this.startDate = null;
+    }
 
-      if (this.built) {
-        this.render();
-      }
+    if (this.built) {
+      this.render();
     }
   },
 
   /**
    * Set the end view date with a new date
    *
-   * @param {Date} date
+   * @param {Date|string|null} date
    */
   setEndDate(date) {
     if (isDate(date) || isString(date)) {
       this.endDate = this.parseDate(date);
+    } else {
+      this.endDate = null;
+    }
 
-      if (this.built) {
-        this.render();
-      }
+    if (this.built) {
+      this.render();
     }
   },
 
