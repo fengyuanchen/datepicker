@@ -223,9 +223,9 @@ export default {
       prevItems.push(this.createItem({
         disabled,
         highlighted: (
-          prevViewYear === thisYear &&
-          prevViewMonth === thisMonth &&
-          prevViewDate.getDate() === thisDay
+          prevViewYear === thisYear
+          && prevViewMonth === thisMonth
+          && prevViewDate.getDate() === thisDay
         ),
         muted: true,
         picked: prevViewYear === year && prevViewMonth === month && i === day,
@@ -279,9 +279,9 @@ export default {
         disabled,
         picked,
         highlighted: (
-          nextViewYear === thisYear &&
-          nextViewMonth === thisMonth &&
-          date.getDate() === thisDay
+          nextViewYear === thisYear
+          && nextViewMonth === thisMonth
+          && date.getDate() === thisDay
         ),
         muted: true,
         text: i,
@@ -317,9 +317,9 @@ export default {
         disabled,
         picked,
         highlighted: (
-          viewYear === thisYear &&
-          viewMonth === thisMonth &&
-          date.getDate() === thisDay
+          viewYear === thisYear
+          && viewMonth === thisMonth
+          && date.getDate() === thisDay
         ),
         text: i,
         view: disabled ? 'day disabled' : view,
@@ -333,9 +333,9 @@ export default {
     this.$monthNext.toggleClass(disabledClass, nextDisabled);
     this.$monthCurrent
       .toggleClass(disabledClass, prevDisabled && nextDisabled)
-      .html(options.yearFirst ?
-        `${viewYear + yearSuffix} ${monthsShort[viewMonth]}` :
-        `${monthsShort[viewMonth]} ${viewYear}${yearSuffix}`);
+      .html(options.yearFirst
+        ? `${viewYear + yearSuffix} ${monthsShort[viewMonth]}`
+        : `${monthsShort[viewMonth]} ${viewYear}${yearSuffix}`);
     this.$days.html(prevItems.join('') + items.join('') + nextItems.join(''));
   },
 };
