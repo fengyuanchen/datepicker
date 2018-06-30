@@ -5,7 +5,7 @@
 }(this, (function ($) {
   'use strict';
 
-  $.fn.datepicker.languages['fr-FR'] = {
+  $.fn.datepicker.languages['oc-FR'] = {
     format: 'dd/mm/yyyy',
     days: ['Dimenge', 'Diluns', 'Dimars', 'Dimècres', 'Dijòus', 'Divendres', 'Dissabte'],
     daysShort: ['Dg', 'Dl', 'Dm', 'Dc', 'Dj', 'Dv', 'Ds'],
