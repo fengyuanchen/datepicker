@@ -1,6 +1,6 @@
 # Datepicker
 
-[![Build Status](https://travis-ci.org/fengyuanchen/datepicker.svg)](https://travis-ci.org/fengyuanchen/datepicker) [![Downloads](https://img.shields.io/npm/dm/@fengyuanchen/datepicker.svg)](https://www.npmjs.com/package/@fengyuanchen/datepicker) [![Version](https://img.shields.io/npm/v/@fengyuanchen/datepicker.svg)](https://www.npmjs.com/package/@fengyuanchen/datepicker)
+[![Build Status](https://travis-ci.org/fengyuanchen/datepicker.svg)](https://travis-ci.org/fengyuanchen/datepicker) [![Downloads](https://img.shields.io/npm/dm/@chenfengyuan/datepicker.svg)](https://www.npmjs.com/package/@chenfengyuan/datepicker) [![Version](https://img.shields.io/npm/v/@chenfengyuan/datepicker.svg)](https://www.npmjs.com/package/@chenfengyuan/datepicker)
 
 > A simple jQuery datepicker plugin.
 
@@ -47,7 +47,7 @@ dist/
 ### Install
 
 ```shell
-npm install @fengyuanchen/datepicker
+npm install @chenfengyuan/datepicker
 ```
 
 Include files:
@@ -359,20 +359,18 @@ The CSS `z-index` style for the datepicker.
 
 - Type: `Function`
 - Default: `null`
+- Syntax: `filter(date, view)`
+  - `date`: the date for checking.
+  - `view`: the the current view, one of `day`, `month` or `year`.
 
 Filter each date item. If return a `false` value, the related date will be disabled.
-The function gets two parameters - the actual date that is to be filtered or not and
-the context where this filtering is being applied. The context is a string with one
-of the values - `day`, `month` or `year`. If for example the function is being called
-to determine whether a month should be enabled or not, the date will be the first day
-of the month and the context will be `month`.
 
 ```js
 var now = Date.now();
 
 $().datepicker({
-  filter: function(date, ctx) {
-    if (date.getDay() === 0 && ctx === 'day') {
+  filter: function(date, view) {
+    if (date.getDay() === 0 && view === 'day') {
       return false; // Disable all Sundays, but still leave months/years, whose first day is a Sunday, enabled.
     }
   }
@@ -515,14 +513,14 @@ $().datepicker('setDate', '02/14/2014');
 ### setStartDate(date)
 
 - **date**:
-  - Type: `Date` or `String`
+  - Type: `Date` or `String` or `null`
 
 Set the start view date with a new date.
 
 ### setEndDate(date)
 
 - **date**:
-  - Type: `Date` or `String`
+  - Type: `Date` or `String` or `null`
 
 Set the end view date with a new date.
 

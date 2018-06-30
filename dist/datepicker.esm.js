@@ -1,3 +1,13 @@
+/*!
+ * Datepicker v1.0.0-beta
+ * https://fengyuanchen.github.io/datepicker
+ *
+ * Copyright 2014-present Chen Fengyuan
+ * Released under the MIT license
+ *
+ * Date: 2018-06-30T09:15:49.717Z
+ */
+
 import $ from 'jquery';
 
 var DEFAULTS = {
@@ -320,10 +330,10 @@ var methods = {
    * Get the month name with given argument or the current date
    *
    * @param {Number} month (optional)
-   * @param {Boolean} short (optional)
+   * @param {Boolean} shortForm (optional)
    * @return {String} (month name)
    */
-  getMonthName: function getMonthName(month, short) {
+  getMonthName: function getMonthName(month, shortForm) {
     var options = this.options;
     var monthsShort = options.monthsShort;
     var months = options.months;
@@ -331,11 +341,11 @@ var methods = {
 
     if ($.isNumeric(month)) {
       month = Number(month);
-    } else if (isUndefined(short)) {
-      short = month;
+    } else if (isUndefined(shortForm)) {
+      shortForm = month;
     }
 
-    if (short === true) {
+    if (shortForm === true) {
       months = monthsShort;
     }
 
@@ -347,11 +357,11 @@ var methods = {
    * Get the day name with given argument or the current date
    *
    * @param {Number} day (optional)
-   * @param {Boolean} short (optional)
+   * @param {Boolean} shortForm (optional)
    * @param {Boolean} min (optional)
    * @return {String} (day name)
    */
-  getDayName: function getDayName(day, short, min) {
+  getDayName: function getDayName(day, shortForm, min) {
     var options = this.options;
     var days = options.days;
 
@@ -360,17 +370,17 @@ var methods = {
       day = Number(day);
     } else {
       if (isUndefined(min)) {
-        min = short;
+        min = shortForm;
       }
 
-      if (isUndefined(short)) {
-        short = day;
+      if (isUndefined(shortForm)) {
+        shortForm = day;
       }
     }
 
     if (min) {
       days = options.daysMin;
-    } else if (short) {
+    } else if (shortForm) {
       days = options.daysShort;
     }
 
@@ -405,7 +415,7 @@ var methods = {
     if (isDate(date) || isString(date)) {
       date = this.parseDate(date);
 
-      if ($.isFunction(filter) && filter.call(this.$element, date) === false) {
+      if ($.isFunction(filter) && filter.call(this.$element, date, 'day') === false) {
         return;
       }
 
@@ -426,15 +436,17 @@ var methods = {
   /**
    * Set the start view date with a new date
    *
-   * @param {Date} date
+   * @param {Date|string|null} date
    */
   setStartDate: function setStartDate(date) {
     if (isDate(date) || isString(date)) {
       this.startDate = this.parseDate(date);
+    } else {
+      this.startDate = null;
+    }
 
-      if (this.built) {
-        this.render();
-      }
+    if (this.built) {
+      this.render();
     }
   },
 
@@ -442,15 +454,17 @@ var methods = {
   /**
    * Set the end view date with a new date
    *
-   * @param {Date} date
+   * @param {Date|string|null} date
    */
   setEndDate: function setEndDate(date) {
     if (isDate(date) || isString(date)) {
       this.endDate = this.parseDate(date);
+    } else {
+      this.endDate = null;
+    }
 
-      if (this.built) {
-        this.render();
-      }
+    if (this.built) {
+      this.render();
     }
   },
 
@@ -468,7 +482,7 @@ var methods = {
 
     if (isDate(date)) {
       return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    } else if (isString(date)) {
+    }if (isString(date)) {
       parts = date.match(REGEXP_DIGITS) || [];
     }
 
@@ -616,6 +630,7 @@ var handlers = {
           this.showView(VIEWS.MONTHS);
         } else {
           $target.addClass(options.pickedClass).siblings().removeClass(options.pickedClass);
+          this.renderYears();
           this.hideView();
         }
 
@@ -665,6 +680,7 @@ var handlers = {
           this.showView(VIEWS.DAYS);
         } else {
           $target.addClass(options.pickedClass).siblings().removeClass(options.pickedClass);
+          this.renderMonths();
           this.hideView();
         }
 
@@ -800,7 +816,7 @@ var render = {
       }
 
       if (!disabled && filter) {
-        disabled = filter.call(this.$element, date) === false;
+        disabled = filter.call(this.$element, date, 'year') === false;
       }
 
       var picked = viewYear + i === year;
@@ -855,7 +871,7 @@ var render = {
       }
 
       if (!disabled && filter) {
-        disabled = filter.call(this.$element, date) === false;
+        disabled = filter.call(this.$element, date, 'month') === false;
       }
 
       var picked = viewYear === year && i === month;
@@ -945,7 +961,7 @@ var render = {
       }
 
       if (!disabled && filter) {
-        disabled = filter.call($element, prevViewDate) === false;
+        disabled = filter.call($element, prevViewDate, 'day') === false;
       }
 
       prevItems.push(this.createItem({
@@ -996,7 +1012,7 @@ var render = {
       }
 
       if (!_disabled && filter) {
-        _disabled = filter.call($element, date) === false;
+        _disabled = filter.call($element, date, 'day') === false;
       }
 
       nextItems.push(this.createItem({
@@ -1027,7 +1043,7 @@ var render = {
       }
 
       if (!_disabled2 && filter) {
-        _disabled2 = filter.call($element, _date) === false;
+        _disabled2 = filter.call($element, _date, 'day') === false;
       }
 
       var _picked = viewYear === year && viewMonth === month && i === day;
@@ -1071,7 +1087,7 @@ var Datepicker = function () {
 
     this.$element = $(element);
     this.element = element;
-    this.options = $.extend({}, DEFAULTS, LANGUAGES[options.language], options);
+    this.options = $.extend({}, DEFAULTS, LANGUAGES[options.language], $.isPlainObject(options) && options);
     this.built = false;
     this.shown = false;
     this.isInput = false;
@@ -1445,7 +1461,7 @@ var Datepicker = function () {
     value: function setDefaults() {
       var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-      $.extend(DEFAULTS, LANGUAGES[options.language], options);
+      $.extend(DEFAULTS, LANGUAGES[options.language], $.isPlainObject(options) && options);
     }
   }]);
 

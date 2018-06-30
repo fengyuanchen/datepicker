@@ -5,7 +5,7 @@
  * Copyright 2014-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2018-06-18T13:33:29.894Z
+ * Date: 2018-06-30T09:15:49.717Z
  */
 
 (function (global, factory) {
@@ -442,15 +442,17 @@
     /**
      * Set the start view date with a new date
      *
-     * @param {Date} date
+     * @param {Date|string|null} date
      */
     setStartDate: function setStartDate(date) {
       if (isDate(date) || isString(date)) {
         this.startDate = this.parseDate(date);
+      } else {
+        this.startDate = null;
+      }
 
-        if (this.built) {
-          this.render();
-        }
+      if (this.built) {
+        this.render();
       }
     },
 
@@ -458,15 +460,17 @@
     /**
      * Set the end view date with a new date
      *
-     * @param {Date} date
+     * @param {Date|string|null} date
      */
     setEndDate: function setEndDate(date) {
       if (isDate(date) || isString(date)) {
         this.endDate = this.parseDate(date);
+      } else {
+        this.endDate = null;
+      }
 
-        if (this.built) {
-          this.render();
-        }
+      if (this.built) {
+        this.render();
       }
     },
 
@@ -484,7 +488,7 @@
 
       if (isDate(date)) {
         return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-      } else if (isString(date)) {
+      }if (isString(date)) {
         parts = date.match(REGEXP_DIGITS) || [];
       }
 
