@@ -281,7 +281,7 @@ export default {
 
     if (parts.length === length) {
       $.each(parts, (i, part) => {
-        const value = parseInt(part, 10) || 1;
+        const value = parseInt(part, 10);
 
         switch (format.parts[i]) {
           case 'dd':
