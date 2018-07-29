@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { getDaysInMonth } from './utilities';
+import { getDaysInMonth, isString } from './utilities';
 
 export default {
   render() {
@@ -157,6 +157,7 @@ export default {
     const {
       disabledClass,
       filter,
+      months,
       monthsShort,
       weekStart,
       yearSuffix,
@@ -328,14 +329,17 @@ export default {
 
     // Render days picker
     // -----------------------------------------------------------------------
+    
+    let headerMonth = (isString(options.headerMonthName) && 
+      options.headerMonthName === 'full')  ? months : monthsShort;
 
     this.$monthPrev.toggleClass(disabledClass, prevDisabled);
     this.$monthNext.toggleClass(disabledClass, nextDisabled);
     this.$monthCurrent
       .toggleClass(disabledClass, prevDisabled && nextDisabled)
       .html(options.yearFirst
-        ? `${viewYear + yearSuffix} ${monthsShort[viewMonth]}`
-        : `${monthsShort[viewMonth]} ${viewYear}${yearSuffix}`);
+        ? `${viewYear + yearSuffix} ${headerMonth[viewMonth]}`
+        : `${headerMonth[viewMonth]} ${viewYear}${yearSuffix}`);
     this.$days.html(prevItems.join('') + items.join('') + nextItems.join(''));
   },
 };
