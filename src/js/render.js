@@ -337,9 +337,9 @@ export default {
     this.$monthNext.toggleClass(disabledClass, nextDisabled);
     this.$monthCurrent
       .toggleClass(disabledClass, prevDisabled && nextDisabled)
-      .html(options.yearFirst ?
-        `${viewYear + yearSuffix} ${headerMonth[viewMonth]}` :
-        `${headerMonth[viewMonth]} ${viewYear}${yearSuffix}`);
+      .html(options.yearFirst
+        ? `${viewYear + yearSuffix} ${headerMonth[viewMonth]}`
+        : `${headerMonth[viewMonth]} ${viewYear}${yearSuffix}`);
     this.$days.html(prevItems.join('') + items.join('') + nextItems.join(''));
   },
 };
