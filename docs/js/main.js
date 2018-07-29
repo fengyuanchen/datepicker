@@ -1,5 +1,4 @@
 $(function () {
-
   'use strict';
 
   var $date = $('.docs-date');

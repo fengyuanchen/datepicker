@@ -3,7 +3,6 @@
   typeof define === 'function' && define.amd ? define(['jquery'], factory) :
   (factory(global.jQuery));
 }(this, (function ($) {
-
   'use strict';
 
   $.fn.datepicker.languages['sk-SK'] = {

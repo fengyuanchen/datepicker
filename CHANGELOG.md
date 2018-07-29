@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.0-beta (Jun 30, 2018)
+
+- Fix the issue of years and months view rendering problem (#113).
+- Add a second parameter to the `filter` function option (#116, #151).
+- Enhance the `setStartDate` and `setEndDate` methods, supports `null` as argument (#157).
+- Change NPM package name scope from `@fengyuanchen` to `@chenfengyuan`.
+
 ## 0.6.5 (Mar 31, 2018)
 
 - Remove added data when destroy.

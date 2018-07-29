@@ -1,6 +1,6 @@
 # Datepicker
 
-[![Build Status](https://travis-ci.org/fengyuanchen/datepicker.svg)](https://travis-ci.org/fengyuanchen/datepicker) [![Downloads](https://img.shields.io/npm/dm/@fengyuanchen/datepicker.svg)](https://www.npmjs.com/package/@fengyuanchen/datepicker) [![Version](https://img.shields.io/npm/v/@fengyuanchen/datepicker.svg)](https://www.npmjs.com/package/@fengyuanchen/datepicker)
+[![Build Status](https://travis-ci.org/fengyuanchen/datepicker.svg)](https://travis-ci.org/fengyuanchen/datepicker) [![Downloads](https://img.shields.io/npm/dm/@chenfengyuan/datepicker.svg)](https://www.npmjs.com/package/@chenfengyuan/datepicker) [![Version](https://img.shields.io/npm/v/@chenfengyuan/datepicker.svg)](https://www.npmjs.com/package/@chenfengyuan/datepicker)
 
 > A simple jQuery datepicker plugin.
 
@@ -47,7 +47,7 @@ dist/
 ### Install
 
 ```shell
-npm install @fengyuanchen/datepicker
+npm install @chenfengyuan/datepicker
 ```
 
 Include files:
@@ -132,6 +132,9 @@ A element for triggering the datepicker.
 - Default: `''`
 
 The ISO language code. If not set, will use the built-in language (en-US) by default.
+
+> You should define the language and include it first. Check out the [i18n](i18n) folder for more information.
+
 
 ```js
 $().datepicker({
@@ -366,6 +369,9 @@ The CSS `z-index` style for the datepicker.
 
 - Type: `Function`
 - Default: `null`
+- Syntax: `filter(date, view)`
+  - `date`: the date for checking.
+  - `view`: the the current view, one of `day`, `month` or `year`.
 
 Filter each date item. If return a `false` value, the related date will be disabled.
 
@@ -373,9 +379,9 @@ Filter each date item. If return a `false` value, the related date will be disab
 var now = Date.now();
 
 $().datepicker({
-  filter: function(date) {
-    if (date.getDay() === 0) {
-      return false; // Disable all Sundays
+  filter: function(date, view) {
+    if (date.getDay() === 0 && view === 'day') {
+      return false; // Disable all Sundays, but still leave months/years, whose first day is a Sunday, enabled.
     }
   }
 });
@@ -517,14 +523,14 @@ $().datepicker('setDate', '02/14/2014');
 ### setStartDate(date)
 
 - **date**:
-  - Type: `Date` or `String`
+  - Type: `Date` or `String` or `null`
 
 Set the start view date with a new date.
 
 ### setEndDate(date)
 
 - **date**:
-  - Type: `Date` or `String`
+  - Type: `Date` or `String` or `null`
 
 Set the end view date with a new date.
 
@@ -635,21 +641,19 @@ If you have to use other plugin with the same namespace, just call the `$.fn.dat
 
 ## Browser support
 
-- Chrome (latest 2)
-- Firefox (latest 2)
-- Internet Explorer 8+
-- Edge (latest 2)
-- Opera (latest 2)
-- Safari (latest 2)
-
-As a jQuery plugin, you also need to see the [jQuery Browser Support](http://jquery.com/browser-support/).
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Opera (latest)
+- Edge (latest)
+- Internet Explorer 9+
 
 ## Versioning
 
-Maintained under the [Semantic Versioning guidelines](http://semver.org/).
+Maintained under the [Semantic Versioning guidelines](https://semver.org/).
 
 ## License
 
-[MIT](http://opensource.org/licenses/MIT) © [Chen Fengyuan](http://chenfengyuan.com)
+[MIT](https://opensource.org/licenses/MIT) © [Chen Fengyuan](https://chenfengyuan.com)
 
 [⬆ back to top](#table-of-contents)

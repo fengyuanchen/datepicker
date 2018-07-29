@@ -1,46 +1,43 @@
 const babel = require('rollup-plugin-babel');
 const commonjs = require('rollup-plugin-commonjs');
+const createBanner = require('create-banner');
 const nodeResolve = require('rollup-plugin-node-resolve');
 const pkg = require('./package');
 
-const now = new Date();
-const banner = `/*!
- * Datepicker v${pkg.version}
- * https://github.com/${pkg.repository}
- *
- * Copyright (c) 2014-${now.getFullYear()} ${pkg.author.name}
- * Released under the ${pkg.license} license
- *
- * Date: ${now.toISOString()}
- */
-`;
+pkg.name = pkg.name.replace(/^.+\//, '');
+
+const banner = createBanner({
+  case: 'PascalCase',
+  data: {
+    year: '2014-present',
+  },
+});
 
 module.exports = {
-  input: 'src/js/index.js',
+  input: 'src/index.js',
   output: [
     {
       banner,
-      file: 'dist/datepicker.js',
+      file: `dist/${pkg.name}.js`,
       format: 'umd',
-      name: 'datepicker',
       globals: {
         jquery: 'jQuery',
       },
     },
     {
       banner,
-      file: 'dist/datepicker.common.js',
+      file: `dist/${pkg.name}.common.js`,
       format: 'cjs',
     },
     {
-      file: 'dist/datepicker.esm.js',
-      format: 'es',
+      banner,
+      file: `dist/${pkg.name}.esm.js`,
+      format: 'esm',
     },
     {
       banner,
-      file: 'docs/js/datepicker.js',
+      file: `docs/js/${pkg.name}.js`,
       format: 'umd',
-      name: 'datepicker',
       globals: {
         jquery: 'jQuery',
       },
@@ -50,8 +47,6 @@ module.exports = {
   plugins: [
     nodeResolve(),
     commonjs(),
-    babel({
-      exclude: 'node_modules/**',
-    }),
+    babel(),
   ],
 };

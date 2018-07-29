@@ -125,21 +125,21 @@ export default {
    * Get the month name with given argument or the current date
    *
    * @param {Number} month (optional)
-   * @param {Boolean} short (optional)
+   * @param {Boolean} shortForm (optional)
    * @return {String} (month name)
    */
-  getMonthName(month, short) {
+  getMonthName(month, shortForm) {
     const { options } = this;
     const { monthsShort } = options;
     let { months } = options;
 
     if ($.isNumeric(month)) {
       month = Number(month);
-    } else if (isUndefined(short)) {
-      short = month;
+    } else if (isUndefined(shortForm)) {
+      shortForm = month;
     }
 
-    if (short === true) {
+    if (shortForm === true) {
       months = monthsShort;
     }
 
@@ -150,11 +150,11 @@ export default {
    * Get the day name with given argument or the current date
    *
    * @param {Number} day (optional)
-   * @param {Boolean} short (optional)
+   * @param {Boolean} shortForm (optional)
    * @param {Boolean} min (optional)
    * @return {String} (day name)
    */
-  getDayName(day, short, min) {
+  getDayName(day, shortForm, min) {
     const { options } = this;
     let { days } = options;
 
@@ -162,17 +162,17 @@ export default {
       day = Number(day);
     } else {
       if (isUndefined(min)) {
-        min = short;
+        min = shortForm;
       }
 
-      if (isUndefined(short)) {
-        short = day;
+      if (isUndefined(shortForm)) {
+        shortForm = day;
       }
     }
 
     if (min) {
       days = options.daysMin;
-    } else if (short) {
+    } else if (shortForm) {
       days = options.daysShort;
     }
 
@@ -203,7 +203,7 @@ export default {
     if (isDate(date) || isString(date)) {
       date = this.parseDate(date);
 
-      if ($.isFunction(filter) && filter.call(this.$element, date) === false) {
+      if ($.isFunction(filter) && filter.call(this.$element, date, 'day') === false) {
         return;
       }
 
@@ -223,30 +223,34 @@ export default {
   /**
    * Set the start view date with a new date
    *
-   * @param {Date} date
+   * @param {Date|string|null} date
    */
   setStartDate(date) {
     if (isDate(date) || isString(date)) {
       this.startDate = this.parseDate(date);
+    } else {
+      this.startDate = null;
+    }
 
-      if (this.built) {
-        this.render();
-      }
+    if (this.built) {
+      this.render();
     }
   },
 
   /**
    * Set the end view date with a new date
    *
-   * @param {Date} date
+   * @param {Date|string|null} date
    */
   setEndDate(date) {
     if (isDate(date) || isString(date)) {
       this.endDate = this.parseDate(date);
+    } else {
+      this.endDate = null;
+    }
 
-      if (this.built) {
-        this.render();
-      }
+    if (this.built) {
+      this.render();
     }
   },
 
@@ -262,7 +266,9 @@ export default {
 
     if (isDate(date)) {
       return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    } else if (isString(date)) {
+    }
+
+    if (isString(date)) {
       parts = date.match(REGEXP_DIGITS) || [];
     }
 
@@ -275,7 +281,7 @@ export default {
 
     if (parts.length === length) {
       $.each(parts, (i, part) => {
-        const value = parseInt(part, 10) || 1;
+        const value = parseInt(part, 10);
 
         switch (format.parts[i]) {
           case 'dd':

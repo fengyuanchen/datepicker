@@ -1,7 +1,3 @@
-:root {
-  --brand-color: #39f;
-}
-
 .datepicker-container {
   background-color: #fff;
   direction: ltr;
@@ -42,7 +38,7 @@
 
 .datepicker-top-left,
 .datepicker-top-right {
-  border-top-color: var(--brand-color);
+  border-top-color: #39f;
 
   &::before,
   &::after {
@@ -52,7 +48,7 @@
   }
 
   &::before {
-    border-bottom-color: var(--brand-color);
+    border-bottom-color: #39f;
   }
 
   &::after {
@@ -63,7 +59,7 @@
 
 .datepicker-bottom-left,
 .datepicker-bottom-right {
-  border-bottom-color: var(--brand-color);
+  border-bottom-color: #39f;
 
   &::before,
   &::after {
@@ -73,7 +69,7 @@
   }
 
   &::before {
-    border-top-color: var(--brand-color);
+    border-top-color: #39f;
   }
 
   &::after {
@@ -119,7 +115,7 @@
       width: 30px;
 
       &:hover {
-        background-color: color(var(--brand-color) lightness(95%));
+        background-color: rgb(229, 242, 255);
       }
 
       &.muted,
@@ -128,16 +124,16 @@
       }
 
       &.highlighted {
-        background-color: color(var(--brand-color) lightness(95%));
+        background-color: rgb(229, 242, 255);
 
         &:hover {
-          background-color: color(var(--brand-color) lightness(90%));
+          background-color: rgb(204, 229, 255);
         }
       }
 
       &.picked,
       &.picked:hover {
-        color: var(--brand-color);
+        color: #39f;
       }
 
       &.disabled,
@@ -147,7 +143,7 @@
         cursor: default;
 
         &.highlighted {
-          background-color: color(var(--brand-color) lightness(95%));
+          background-color: rgb(229, 242, 255);
         }
       }
 
