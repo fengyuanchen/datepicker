@@ -1,11 +1,11 @@
 /*!
- * Datepicker v1.0.0-beta
+ * Datepicker v1.0.0
  * https://fengyuanchen.github.io/datepicker
  *
  * Copyright 2014-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2018-06-30T09:15:49.717Z
+ * Date: 2018-08-05T03:02:19.812Z
  */
 
 import $ from 'jquery';
@@ -482,7 +482,9 @@ var methods = {
 
     if (isDate(date)) {
       return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    }if (isString(date)) {
+    }
+
+    if (isString(date)) {
       parts = date.match(REGEXP_DIGITS) || [];
     }
 
@@ -496,7 +498,7 @@ var methods = {
 
     if (parts.length === length) {
       $.each(parts, function (i, part) {
-        var value = parseInt(part, 10) || 1;
+        var value = parseInt(part, 10);
 
         switch (format.parts[i]) {
           case 'dd':
@@ -901,7 +903,7 @@ var render = {
         currentDate = this.date;
     var disabledClass = options.disabledClass,
         filter = options.filter,
-        monthsShort = options.monthsShort,
+        months = options.months,
         weekStart = options.weekStart,
         yearSuffix = options.yearSuffix;
 
@@ -1063,7 +1065,7 @@ var render = {
 
     this.$monthPrev.toggleClass(disabledClass, prevDisabled);
     this.$monthNext.toggleClass(disabledClass, nextDisabled);
-    this.$monthCurrent.toggleClass(disabledClass, prevDisabled && nextDisabled).html(options.yearFirst ? viewYear + yearSuffix + ' ' + monthsShort[viewMonth] : monthsShort[viewMonth] + ' ' + viewYear + yearSuffix);
+    this.$monthCurrent.toggleClass(disabledClass, prevDisabled && nextDisabled).html(options.yearFirst ? viewYear + yearSuffix + ' ' + months[viewMonth] : months[viewMonth] + ' ' + viewYear + yearSuffix);
     this.$days.html(prevItems.join('') + items.join('') + nextItems.join(''));
   }
 };

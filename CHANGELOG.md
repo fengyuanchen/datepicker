@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.0 (Aug 5, 2018)
+
+- Show full month name in date picker header (#133).
+- Fix the issue of converting `0` to `1` (#168).
+
 ## 1.0.0-beta (Jun 30, 2018)
 
 - Fix the issue of years and months view rendering problem (#113).
