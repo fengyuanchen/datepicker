@@ -157,7 +157,7 @@ export default {
     const {
       disabledClass,
       filter,
-      monthsShort,
+      months,
       weekStart,
       yearSuffix,
     } = options;
@@ -334,8 +334,8 @@ export default {
     this.$monthCurrent
       .toggleClass(disabledClass, prevDisabled && nextDisabled)
       .html(options.yearFirst
-        ? `${viewYear + yearSuffix} ${monthsShort[viewMonth]}`
-        : `${monthsShort[viewMonth]} ${viewYear}${yearSuffix}`);
+        ? `${viewYear + yearSuffix} ${months[viewMonth]}`
+        : `${months[viewMonth]} ${viewYear}${yearSuffix}`);
     this.$days.html(prevItems.join('') + items.join('') + nextItems.join(''));
   },
 };
