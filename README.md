@@ -131,10 +131,9 @@ A element for triggering the datepicker.
 - Type: `String`
 - Default: `''`
 
-The ISO language code. If not set, will use the built-in language (en-US) by default.
+The ISO language code. If not set, will use the built-in language (`en-US`) by default.
 
-> You should define the language and include it first. Check out the [i18n](i18n) folder for more information.
-
+> You should define the language first. View the [I18n](#i18n) section for more information or check out the [`i18n`](i18n) folder for available languages.
 
 ```js
 $().datepicker({
