@@ -1,7 +1,7 @@
 {
   "name": "@chenfengyuan/datepicker",
   "description": "A simple jQuery datepicker plugin.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/datepicker.common.js",
   "module": "dist/datepicker.esm.js",
   "unpkg": "dist/datepicker.js",
@@ -49,8 +49,8 @@
     "watch:js": "rollup -c -m -w"
   },
   "devDependencies": {
-    "@babel/core": "^7.1.5",
-    "@babel/preset-env": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
     "@commitlint/cli": "^7.2.1",
     "@commitlint/config-conventional": "^7.1.2",
     "autoprefixer": "^9.3.1",

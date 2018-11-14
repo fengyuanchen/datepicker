@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1 (Nov 14, 2018)
+
+- Fix position problem in scrollable modal (#121).
+- Fix the issue of the datepicker is replaced after picked a day (#128).
+
 ## 1.0.0 (Aug 5, 2018)
 
 - Show full month name in date picker header (#133).
