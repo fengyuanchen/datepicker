@@ -83,3 +83,27 @@ export function parseFormat(format) {
 
   return format;
 }
+
+export function getScrollParent(element, includeHidden = false) {
+  const $element = $(element);
+  const position = $element.css('position');
+  const excludeStaticParent = position === 'absolute';
+  const overflowRegex = includeHidden ? /auto|scroll|hidden/ : /auto|scroll/;
+  const scrollParent = $element.parents()
+    .filter((index, parent) => {
+      const $parent = $(parent);
+
+      if (excludeStaticParent && $parent.css('position') === 'static') {
+        return false;
+      }
+
+      return overflowRegex.test(
+        $parent.css('overflow') + $parent.css('overflow-y') + $parent.css('overflow-x'),
+      );
+    })
+    .eq(0);
+
+  return position === 'fixed' || !scrollParent.length
+    ? $(element.ownerDocument || document)
+    : scrollParent;
+}

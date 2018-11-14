@@ -6,6 +6,7 @@ export const EVENT_HIDE = `hide.${NAMESPACE}`;
 export const EVENT_KEYUP = `keyup.${NAMESPACE}`;
 export const EVENT_PICK = `pick.${NAMESPACE}`;
 export const EVENT_RESIZE = `resize.${NAMESPACE}`;
+export const EVENT_SCROLL = `scroll.${NAMESPACE}`;
 export const EVENT_SHOW = `show.${NAMESPACE}`;
 export const CLASS_HIDE = `${NAMESPACE}-hide`;
 export const LANGUAGES = {};

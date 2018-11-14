@@ -6,6 +6,7 @@ import {
   EVENT_KEYUP,
   EVENT_PICK,
   EVENT_RESIZE,
+  EVENT_SCROLL,
   EVENT_SHOW,
   NAMESPACE,
 } from './constants';
@@ -39,6 +40,7 @@ export default {
     this.showView(this.options.startView);
 
     if (!this.inline) {
+      this.$scrollParent.on(EVENT_SCROLL, $.proxy(this.place, this));
       $(window).on(EVENT_RESIZE, (this.onResize = proxy(this.place, this)));
       $(document).on(EVENT_CLICK, (this.onGlobalClick = proxy(this.globalClick, this)));
       $(document).on(EVENT_KEYUP, (this.onGlobalKeyup = proxy(this.globalKeyup, this)));
@@ -60,6 +62,7 @@ export default {
     this.$picker.addClass(CLASS_HIDE).off(EVENT_CLICK, this.click);
 
     if (!this.inline) {
+      this.$scrollParent.off(EVENT_SCROLL, this.place);
       $(window).off(EVENT_RESIZE, this.onResize);
       $(document).off(EVENT_CLICK, this.onGlobalClick);
       $(document).off(EVENT_KEYUP, this.onGlobalKeyup);
