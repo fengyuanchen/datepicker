@@ -373,7 +373,7 @@ class Datepicker {
 
     if (this.isInput) {
       $this.val(value);
-    } else {
+    } else if (!this.inline || this.options.container) {
       $this.text(value);
     }
   }
