@@ -11,6 +11,7 @@ import {
   NAMESPACE,
 } from './constants';
 import {
+  addLeadingZero,
   isDate,
   isNumber,
   isString,
@@ -275,34 +276,30 @@ export default {
       parts = date.match(REGEXP_DIGITS) || [];
     }
 
-    date = new Date();
+    const parsedDate = new Date(date);
 
-    const { length } = format.parts;
-    let year = date.getFullYear();
-    let day = date.getDate();
-    let month = date.getMonth();
-
-    if (parts.length === length) {
+    if (parts.length === format.parts.length) {
       $.each(parts, (i, part) => {
         const value = parseInt(part, 10);
 
         switch (format.parts[i]) {
           case 'dd':
           case 'd':
-            day = value;
+            parsedDate.setDate(value);
             break;
 
           case 'mm':
           case 'm':
-            month = value - 1;
+            parsedDate.setMonth(value - 1);
             break;
 
           case 'yy':
-            year = 2000 + value;
+            parsedDate.setFullYear(2000 + value);
             break;
 
           case 'yyyy':
-            year = value;
+            // Converts 2-digit year to 2000+
+            parsedDate.setFullYear(part.length === 2 ? 2000 + value : value);
             break;
 
           default:
@@ -310,7 +307,7 @@ export default {
       });
     }
 
-    return new Date(year, month, day);
+    return parsedDate;
   },
 
   /**
@@ -325,15 +322,17 @@ export default {
 
     if (isDate(date)) {
       const year = date.getFullYear();
+      const month = date.getMonth();
+      const day = date.getDate();
       const values = {
-        d: date.getDate(),
-        m: date.getMonth() + 1,
-        yy: year.toString().substring(2),
-        yyyy: year,
+        d: day,
+        dd: addLeadingZero(day, 2),
+        m: month + 1,
+        mm: addLeadingZero(month + 1, 2),
+        yy: String(year).substring(2),
+        yyyy: addLeadingZero(year, 4),
       };
 
-      values.dd = (values.d < 10 ? '0' : '') + values.d;
-      values.mm = (values.m < 10 ? '0' : '') + values.m;
       formatted = format.source;
       $.each(format.parts, (i, part) => {
         formatted = formatted.replace(part, values[part]);

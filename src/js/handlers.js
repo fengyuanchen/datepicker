@@ -5,7 +5,12 @@ import { getMinDay } from './utilities';
 export default {
   click(e) {
     const $target = $(e.target);
-    const { options, viewDate, format } = this;
+    const {
+      options,
+      date,
+      viewDate,
+      format,
+    } = this;
 
     e.stopPropagation();
     e.preventDefault();
@@ -23,7 +28,8 @@ export default {
       case 'years prev':
       case 'years next': {
         viewYear = view === 'years prev' ? viewYear - 10 : viewYear + 10;
-        this.viewDate = new Date(viewYear, viewMonth, getMinDay(viewYear, viewMonth, viewDay));
+        viewDate.setFullYear(viewYear);
+        viewDate.setDate(getMinDay(viewYear, viewMonth, viewDay));
         this.renderYears();
         break;
       }
@@ -31,7 +37,8 @@ export default {
       case 'year prev':
       case 'year next':
         viewYear = view === 'year prev' ? viewYear - 1 : viewYear + 1;
-        this.viewDate = new Date(viewYear, viewMonth, getMinDay(viewYear, viewMonth, viewDay));
+        viewDate.setFullYear(viewYear);
+        viewDate.setDate(getMinDay(viewYear, viewMonth, viewDay));
         this.renderMonths();
         break;
 
@@ -57,10 +64,12 @@ export default {
 
       case 'year':
         viewYear = parseInt($target.text(), 10);
-        this.date = new Date(viewYear, viewMonth, getMinDay(viewYear, viewMonth, viewDay));
+        date.setFullYear(viewYear);
+        date.setDate(getMinDay(viewYear, viewMonth, viewDay));
+        viewDate.setFullYear(viewYear);
+        viewDate.setDate(getMinDay(viewYear, viewMonth, viewDay));
 
         if (format.hasMonth) {
-          this.viewDate = new Date(this.date);
           this.showView(VIEWS.MONTHS);
         } else {
           $target.addClass(options.pickedClass)
@@ -85,7 +94,9 @@ export default {
           viewMonth -= 12;
         }
 
-        this.viewDate = new Date(viewYear, viewMonth, getMinDay(viewYear, viewMonth, viewDay));
+        viewDate.setFullYear(viewYear);
+        viewDate.setMonth(viewMonth);
+        viewDate.setDate(getMinDay(viewYear, viewMonth, viewDay));
         this.renderDays();
         break;
 
@@ -111,10 +122,12 @@ export default {
 
       case 'month':
         viewMonth = $.inArray($target.text(), options.monthsShort);
-        this.date = new Date(viewYear, viewMonth, getMinDay(viewYear, viewMonth, viewDay));
+        date.setMonth(viewMonth);
+        date.setDate(getMinDay(viewYear, viewMonth, viewDay));
+        viewDate.setMonth(viewMonth);
+        viewDate.setDate(getMinDay(viewYear, viewMonth, viewDay));
 
         if (format.hasDay) {
-          this.viewDate = new Date(viewYear, viewMonth, getMinDay(viewYear, viewMonth, viewDay));
           this.showView(VIEWS.DAYS);
         } else {
           $target.addClass(options.pickedClass)
@@ -137,8 +150,10 @@ export default {
         }
 
         viewDay = parseInt($target.text(), 10);
-        this.date = new Date(viewYear, viewMonth, viewDay);
-        this.viewDate = new Date(viewYear, viewMonth, viewDay);
+        date.setMonth(viewMonth);
+        date.setDate(viewDay);
+        viewDate.setMonth(viewMonth);
+        viewDate.setDate(viewDay);
         this.renderDays();
 
         if (view === 'day') {

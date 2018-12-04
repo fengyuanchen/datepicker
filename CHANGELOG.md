@@ -1,5 +1,9 @@
 # Changelog
 
+## next
+
+- Convert 2-digit year to 2000+ (#186).
+
 ## 1.0.1 (Nov 14, 2018)
 
 - Fix position problem in scrollable modal (#121).
