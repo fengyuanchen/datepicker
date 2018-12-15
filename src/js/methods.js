@@ -276,7 +276,11 @@ export default {
       parts = date.match(REGEXP_DIGITS) || [];
     }
 
-    const parsedDate = new Date(date);
+    let parsedDate = date ? new Date(date) : new Date();
+
+    if (!isDate(parsedDate)) {
+      parsedDate = new Date();
+    }
 
     if (parts.length === format.parts.length) {
       $.each(parts, (i, part) => {

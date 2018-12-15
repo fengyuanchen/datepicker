@@ -22,7 +22,7 @@ export function isUndefined(value) {
 }
 
 export function isDate(value) {
-  return typeOf(value) === 'date';
+  return typeOf(value) === 'date' && !isNaN(value.getTime());
 }
 
 export function proxy(fn, context, ...args) {
