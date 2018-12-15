@@ -3,9 +3,9 @@
 }
 
 .carbonads {
-  border-radius: .25rem;
   border: 1px solid #ccc;
-  font-size: .875rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
   overflow: hidden;
   padding: 1rem;
 }
@@ -50,7 +50,7 @@
 }
 
 .footer {
-  font-size: .875rem;
+  font-size: 0.875rem;
 }
 
 .heart {
@@ -83,8 +83,8 @@
 .heart::after {
   background-color: #fff;
   content: "♥";
-  padding-left: .5rem;
-  padding-right: .5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   position: relative;
   z-index: 1;
 }
@@ -97,7 +97,7 @@
   position: relative;
 }
 
-.docs-datepicker-container:before {
+.docs-datepicker-container::before {
   color: #ccc;
   content: 'Container for inline datepicker';
   font-size: 12px;

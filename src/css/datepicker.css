@@ -5,13 +5,13 @@
   left: 0;
   line-height: 30px;
   position: fixed;
+  -webkit-tap-highlight-color: transparent;
   top: 0;
   touch-action: none;
+  -webkit-touch-callout: none;
   user-select: none;
   width: 210px;
   z-index: -1;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
 
   &::before,
   &::after {
