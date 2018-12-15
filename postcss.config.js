@@ -12,7 +12,8 @@ module.exports = {
     'postcss-header': {
       header: rollupConfig.output[0].banner,
     },
-    autoprefixer: {},
-    stylefmt: {},
+    stylelint: {
+      fix: true,
+    },
   },
 };
