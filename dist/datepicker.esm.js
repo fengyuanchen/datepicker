@@ -1,11 +1,11 @@
 /*!
- * Datepicker v1.0.1
+ * Datepicker v1.0.2
  * https://fengyuanchen.github.io/datepicker
  *
  * Copyright 2014-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2018-11-14T13:59:48.051Z
+ * Date: 2018-12-15T03:52:10.525Z
  */
 
 import $ from 'jquery';
@@ -133,7 +133,7 @@ function isUndefined(value) {
   return typeof value === 'undefined';
 }
 function isDate(value) {
-  return typeOf(value) === 'date';
+  return typeOf(value) === 'date' && !isNaN(value.getTime());
 }
 function proxy(fn, context) {
   for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
@@ -211,6 +211,30 @@ function getScrollParent(element) {
     return overflowRegex.test($parent.css('overflow') + $parent.css('overflow-y') + $parent.css('overflow-x'));
   }).eq(0);
   return position === 'fixed' || !scrollParent.length ? $(element.ownerDocument || document) : scrollParent;
+}
+/**
+ * Add leading zeroes to the given value
+ * @param {number} value - The value to add.
+ * @param {number} [length=1] - The expected value length.
+ * @returns {string} Returns converted value.
+ */
+
+function addLeadingZero(value) {
+  var length = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+  var str = String(Math.abs(value));
+  var i = str.length;
+  var result = '';
+
+  if (value < 0) {
+    result += '-';
+  }
+
+  while (i < length) {
+    i += 1;
+    result += '0';
+  }
+
+  return result + str;
 }
 
 var REGEXP_DIGITS = /\d+/g;
@@ -464,33 +488,34 @@ var methods = {
       parts = date.match(REGEXP_DIGITS) || [];
     }
 
-    date = new Date();
-    var length = format.parts.length;
-    var year = date.getFullYear();
-    var day = date.getDate();
-    var month = date.getMonth();
+    var parsedDate = date ? new Date(date) : new Date();
 
-    if (parts.length === length) {
+    if (!isDate(parsedDate)) {
+      parsedDate = new Date();
+    }
+
+    if (parts.length === format.parts.length) {
       $.each(parts, function (i, part) {
         var value = parseInt(part, 10);
 
         switch (format.parts[i]) {
           case 'dd':
           case 'd':
-            day = value;
+            parsedDate.setDate(value);
             break;
 
           case 'mm':
           case 'm':
-            month = value - 1;
+            parsedDate.setMonth(value - 1);
             break;
 
           case 'yy':
-            year = 2000 + value;
+            parsedDate.setFullYear(2000 + value);
             break;
 
           case 'yyyy':
-            year = value;
+            // Converts 2-digit year to 2000+
+            parsedDate.setFullYear(part.length === 2 ? 2000 + value : value);
             break;
 
           default:
@@ -498,7 +523,7 @@ var methods = {
       });
     }
 
-    return new Date(year, month, day);
+    return parsedDate;
   },
 
   /**
@@ -513,14 +538,16 @@ var methods = {
 
     if (isDate(date)) {
       var year = date.getFullYear();
+      var month = date.getMonth();
+      var day = date.getDate();
       var values = {
-        d: date.getDate(),
-        m: date.getMonth() + 1,
-        yy: year.toString().substring(2),
-        yyyy: year
+        d: day,
+        dd: addLeadingZero(day, 2),
+        m: month + 1,
+        mm: addLeadingZero(month + 1, 2),
+        yy: String(year).substring(2),
+        yyyy: addLeadingZero(year, 4)
       };
-      values.dd = (values.d < 10 ? '0' : '') + values.d;
-      values.mm = (values.m < 10 ? '0' : '') + values.m;
       formatted = format.source;
       $.each(format.parts, function (i, part) {
         formatted = formatted.replace(part, values[part]);
@@ -541,6 +568,7 @@ var handlers = {
   click: function click(e) {
     var $target = $(e.target);
     var options = this.options,
+        date = this.date,
         viewDate = this.viewDate,
         format = this.format;
     e.stopPropagation();
@@ -560,7 +588,8 @@ var handlers = {
       case 'years next':
         {
           viewYear = view === 'years prev' ? viewYear - 10 : viewYear + 10;
-          this.viewDate = new Date(viewYear, viewMonth, getMinDay(viewYear, viewMonth, viewDay));
+          viewDate.setFullYear(viewYear);
+          viewDate.setDate(getMinDay(viewYear, viewMonth, viewDay));
           this.renderYears();
           break;
         }
@@ -568,7 +597,8 @@ var handlers = {
       case 'year prev':
       case 'year next':
         viewYear = view === 'year prev' ? viewYear - 1 : viewYear + 1;
-        this.viewDate = new Date(viewYear, viewMonth, getMinDay(viewYear, viewMonth, viewDay));
+        viewDate.setFullYear(viewYear);
+        viewDate.setDate(getMinDay(viewYear, viewMonth, viewDay));
         this.renderMonths();
         break;
 
@@ -592,10 +622,12 @@ var handlers = {
 
       case 'year':
         viewYear = parseInt($target.text(), 10);
-        this.date = new Date(viewYear, viewMonth, getMinDay(viewYear, viewMonth, viewDay));
+        date.setFullYear(viewYear);
+        date.setDate(getMinDay(viewYear, viewMonth, viewDay));
+        viewDate.setFullYear(viewYear);
+        viewDate.setDate(getMinDay(viewYear, viewMonth, viewDay));
 
         if (format.hasMonth) {
-          this.viewDate = new Date(this.date);
           this.showView(VIEWS.MONTHS);
         } else {
           $target.addClass(options.pickedClass).siblings().removeClass(options.pickedClass);
@@ -618,7 +650,9 @@ var handlers = {
           viewMonth -= 12;
         }
 
-        this.viewDate = new Date(viewYear, viewMonth, getMinDay(viewYear, viewMonth, viewDay));
+        viewDate.setFullYear(viewYear);
+        viewDate.setMonth(viewMonth);
+        viewDate.setDate(getMinDay(viewYear, viewMonth, viewDay));
         this.renderDays();
         break;
 
@@ -642,10 +676,12 @@ var handlers = {
 
       case 'month':
         viewMonth = $.inArray($target.text(), options.monthsShort);
-        this.date = new Date(viewYear, viewMonth, getMinDay(viewYear, viewMonth, viewDay));
+        date.setMonth(viewMonth);
+        date.setDate(getMinDay(viewYear, viewMonth, viewDay));
+        viewDate.setMonth(viewMonth);
+        viewDate.setDate(getMinDay(viewYear, viewMonth, viewDay));
 
         if (format.hasDay) {
-          this.viewDate = new Date(viewYear, viewMonth, getMinDay(viewYear, viewMonth, viewDay));
           this.showView(VIEWS.DAYS);
         } else {
           $target.addClass(options.pickedClass).siblings().removeClass(options.pickedClass);
@@ -666,8 +702,10 @@ var handlers = {
         }
 
         viewDay = parseInt($target.text(), 10);
-        this.date = new Date(viewYear, viewMonth, viewDay);
-        this.viewDate = new Date(viewYear, viewMonth, viewDay);
+        date.setMonth(viewMonth);
+        date.setDate(viewDay);
+        viewDate.setMonth(viewMonth);
+        viewDate.setDate(viewDay);
         this.renderDays();
 
         if (view === 'day') {

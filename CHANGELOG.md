@@ -1,6 +1,6 @@
 # Changelog
 
-## next
+## 1.0.2 (Dec 15, 2018)
 
 - Convert 2-digit year to 2000+ (#186).
 
