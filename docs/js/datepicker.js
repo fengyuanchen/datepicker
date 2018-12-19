@@ -5,7 +5,7 @@
  * Copyright 2014-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2018-12-15T03:52:10.525Z
+ * Date: 2018-12-19T16:18:01.347Z
  */
 
 (function (global, factory) {
@@ -708,8 +708,10 @@
           }
 
           viewDay = parseInt($target.text(), 10);
+          date.setYear(viewYear);
           date.setMonth(viewMonth);
           date.setDate(viewDay);
+          viewDate.setYear(viewYear);
           viewDate.setMonth(viewMonth);
           viewDate.setDate(viewDay);
           this.renderDays();

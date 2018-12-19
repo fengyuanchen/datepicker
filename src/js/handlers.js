@@ -150,8 +150,10 @@ export default {
         }
 
         viewDay = parseInt($target.text(), 10);
+        date.setYear(viewYear);
         date.setMonth(viewMonth);
         date.setDate(viewDay);
+        viewDate.setYear(viewYear);
         viewDate.setMonth(viewMonth);
         viewDate.setDate(viewDay);
         this.renderDays();
