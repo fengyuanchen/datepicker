@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.3 (Dec 20, 2018)
+
+- Ignore hours, minutes, seconds and milliseconds of parsed date to avoid side effect (#192)
+- Fix day view when the selected day is not in the current year (#194).
+
 ## 1.0.2 (Dec 15, 2018)
 
 - Convert 2-digit year to 2000+ (#186).

@@ -1,11 +1,11 @@
 /*!
- * Datepicker v1.0.2
+ * Datepicker v1.0.3
  * https://fengyuanchen.github.io/datepicker
  *
  * Copyright 2014-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2018-12-15T03:52:10.525Z
+ * Date: 2018-12-20T12:51:42.329Z
  */
 
 'use strict';
@@ -484,50 +484,49 @@ var methods = {
     var format = this.format;
     var parts = [];
 
-    if (isDate(date)) {
-      return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    }
+    if (!isDate(date)) {
+      if (isString(date)) {
+        parts = date.match(REGEXP_DIGITS) || [];
+      }
 
-    if (isString(date)) {
-      parts = date.match(REGEXP_DIGITS) || [];
-    }
+      date = date ? new Date(date) : new Date();
 
-    var parsedDate = date ? new Date(date) : new Date();
+      if (!isDate(date)) {
+        date = new Date();
+      }
 
-    if (!isDate(parsedDate)) {
-      parsedDate = new Date();
-    }
+      if (parts.length === format.parts.length) {
+        $.each(parts, function (i, part) {
+          var value = parseInt(part, 10);
 
-    if (parts.length === format.parts.length) {
-      $.each(parts, function (i, part) {
-        var value = parseInt(part, 10);
+          switch (format.parts[i]) {
+            case 'dd':
+            case 'd':
+              date.setDate(value);
+              break;
 
-        switch (format.parts[i]) {
-          case 'dd':
-          case 'd':
-            parsedDate.setDate(value);
-            break;
+            case 'mm':
+            case 'm':
+              date.setMonth(value - 1);
+              break;
 
-          case 'mm':
-          case 'm':
-            parsedDate.setMonth(value - 1);
-            break;
+            case 'yy':
+              date.setFullYear(2000 + value);
+              break;
 
-          case 'yy':
-            parsedDate.setFullYear(2000 + value);
-            break;
+            case 'yyyy':
+              // Converts 2-digit year to 2000+
+              date.setFullYear(part.length === 2 ? 2000 + value : value);
+              break;
 
-          case 'yyyy':
-            // Converts 2-digit year to 2000+
-            parsedDate.setFullYear(part.length === 2 ? 2000 + value : value);
-            break;
+            default:
+          }
+        });
+      }
+    } // Ignore hours, minutes, seconds and milliseconds to avoid side effect (#192)
 
-          default:
-        }
-      });
-    }
 
-    return parsedDate;
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   },
 
   /**
@@ -706,8 +705,10 @@ var handlers = {
         }
 
         viewDay = parseInt($target.text(), 10);
+        date.setFullYear(viewYear);
         date.setMonth(viewMonth);
         date.setDate(viewDay);
+        viewDate.setFullYear(viewYear);
         viewDate.setMonth(viewMonth);
         viewDate.setDate(viewDay);
         this.renderDays();
