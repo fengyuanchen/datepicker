@@ -268,50 +268,49 @@ export default {
     const { format } = this;
     let parts = [];
 
-    if (isDate(date)) {
-      return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    if (!isDate(date)) {
+      if (isString(date)) {
+        parts = date.match(REGEXP_DIGITS) || [];
+      }
+
+      date = date ? new Date(date) : new Date();
+
+      if (!isDate(date)) {
+        date = new Date();
+      }
+
+      if (parts.length === format.parts.length) {
+        $.each(parts, (i, part) => {
+          const value = parseInt(part, 10);
+
+          switch (format.parts[i]) {
+            case 'dd':
+            case 'd':
+              date.setDate(value);
+              break;
+
+            case 'mm':
+            case 'm':
+              date.setMonth(value - 1);
+              break;
+
+            case 'yy':
+              date.setFullYear(2000 + value);
+              break;
+
+            case 'yyyy':
+              // Converts 2-digit year to 2000+
+              date.setFullYear(part.length === 2 ? 2000 + value : value);
+              break;
+
+            default:
+          }
+        });
+      }
     }
 
-    if (isString(date)) {
-      parts = date.match(REGEXP_DIGITS) || [];
-    }
-
-    let parsedDate = date ? new Date(date) : new Date();
-
-    if (!isDate(parsedDate)) {
-      parsedDate = new Date();
-    }
-
-    if (parts.length === format.parts.length) {
-      $.each(parts, (i, part) => {
-        const value = parseInt(part, 10);
-
-        switch (format.parts[i]) {
-          case 'dd':
-          case 'd':
-            parsedDate.setDate(value);
-            break;
-
-          case 'mm':
-          case 'm':
-            parsedDate.setMonth(value - 1);
-            break;
-
-          case 'yy':
-            parsedDate.setFullYear(2000 + value);
-            break;
-
-          case 'yyyy':
-            // Converts 2-digit year to 2000+
-            parsedDate.setFullYear(part.length === 2 ? 2000 + value : value);
-            break;
-
-          default:
-        }
-      });
-    }
-
-    return parsedDate;
+    // Ignore hours, minutes, seconds and milliseconds to avoid side effect (#192)
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   },
 
   /**
