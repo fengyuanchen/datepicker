@@ -75,7 +75,6 @@ export default {
           $target.addClass(options.pickedClass)
             .siblings()
             .removeClass(options.pickedClass);
-          this.renderYears();
           this.hideView();
         }
 
@@ -122,8 +121,10 @@ export default {
 
       case 'month':
         viewMonth = $.inArray($target.text(), options.monthsShort);
+        date.setFullYear(viewYear);
         date.setMonth(viewMonth);
         date.setDate(getMinDay(viewYear, viewMonth, viewDay));
+        viewDate.setFullYear(viewYear);
         viewDate.setMonth(viewMonth);
         viewDate.setDate(getMinDay(viewYear, viewMonth, viewDay));
 
@@ -133,7 +134,6 @@ export default {
           $target.addClass(options.pickedClass)
             .siblings()
             .removeClass(options.pickedClass);
-          this.renderMonths();
           this.hideView();
         }
 

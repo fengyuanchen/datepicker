@@ -1,5 +1,9 @@
 # Changelog
 
+## next
+
+- Fix month picking issue when the format only contains `YYYY` and `MM` (#193).
+
 ## 1.0.3 (Dec 20, 2018)
 
 - Ignore hours, minutes, seconds and milliseconds of parsed date to avoid side effect (#192)
