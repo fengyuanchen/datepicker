@@ -2,6 +2,7 @@
 
 ## next
 
+- Fix wrong future month selection when today is 31 (#195).
 - Fix month picking issue when the format only contains `YYYY` and `MM` (#193).
 
 ## 1.0.3 (Dec 20, 2018)

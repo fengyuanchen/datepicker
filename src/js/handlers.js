@@ -94,8 +94,8 @@ export default {
         }
 
         viewDate.setFullYear(viewYear);
-        viewDate.setMonth(viewMonth);
         viewDate.setDate(getMinDay(viewYear, viewMonth, viewDay));
+        viewDate.setMonth(viewMonth);
         this.renderDays();
         break;
 
@@ -122,11 +122,13 @@ export default {
       case 'month':
         viewMonth = $.inArray($target.text(), options.monthsShort);
         date.setFullYear(viewYear);
-        date.setMonth(viewMonth);
+
+        // Set date before month to avoid month changing (#195)
         date.setDate(getMinDay(viewYear, viewMonth, viewDay));
+        date.setMonth(viewMonth);
         viewDate.setFullYear(viewYear);
-        viewDate.setMonth(viewMonth);
         viewDate.setDate(getMinDay(viewYear, viewMonth, viewDay));
+        viewDate.setMonth(viewMonth);
 
         if (format.hasDay) {
           this.showView(VIEWS.DAYS);
