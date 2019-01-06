@@ -1,11 +1,11 @@
 /*!
- * Datepicker v1.0.3
+ * Datepicker v1.0.4
  * https://fengyuanchen.github.io/datepicker
  *
  * Copyright 2014-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2018-12-20T12:51:42.329Z
+ * Date: 2019-01-06T02:42:36.188Z
  */
 
 import $ from 'jquery';
@@ -630,7 +630,6 @@ var handlers = {
           this.showView(VIEWS.MONTHS);
         } else {
           $target.addClass(options.pickedClass).siblings().removeClass(options.pickedClass);
-          this.renderYears();
           this.hideView();
         }
 
@@ -650,8 +649,8 @@ var handlers = {
         }
 
         viewDate.setFullYear(viewYear);
-        viewDate.setMonth(viewMonth);
         viewDate.setDate(getMinDay(viewYear, viewMonth, viewDay));
+        viewDate.setMonth(viewMonth);
         this.renderDays();
         break;
 
@@ -675,16 +674,18 @@ var handlers = {
 
       case 'month':
         viewMonth = $.inArray($target.text(), options.monthsShort);
-        date.setMonth(viewMonth);
+        date.setFullYear(viewYear); // Set date before month to avoid month changing (#195)
+
         date.setDate(getMinDay(viewYear, viewMonth, viewDay));
-        viewDate.setMonth(viewMonth);
+        date.setMonth(viewMonth);
+        viewDate.setFullYear(viewYear);
         viewDate.setDate(getMinDay(viewYear, viewMonth, viewDay));
+        viewDate.setMonth(viewMonth);
 
         if (format.hasDay) {
           this.showView(VIEWS.DAYS);
         } else {
           $target.addClass(options.pickedClass).siblings().removeClass(options.pickedClass);
-          this.renderMonths();
           this.hideView();
         }
 

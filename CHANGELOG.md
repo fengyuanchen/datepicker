@@ -1,6 +1,6 @@
 # Changelog
 
-## next
+## 1.0.4 (Jan 6, 2019)
 
 - Fix wrong future month selection when today is 31 (#195).
 - Fix month picking issue when the format only contains `YYYY` and `MM` (#193).
