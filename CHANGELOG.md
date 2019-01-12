@@ -1,5 +1,9 @@
 # Changelog
 
+# next
+
+- Emulate click in touch devices to support hiding the picker automatically (#197).
+
 ## 1.0.4 (Jan 6, 2019)
 
 - Fix wrong future month selection when today is 31 (#195).

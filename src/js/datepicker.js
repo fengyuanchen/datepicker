@@ -11,6 +11,8 @@ import {
   EVENT_KEYUP,
   EVENT_PICK,
   EVENT_SHOW,
+  EVENT_TOUCH_START,
+  IS_TOUCH_DEVICE,
   LANGUAGES,
   NAMESPACE,
   VIEWS,
@@ -191,6 +193,10 @@ class Datepicker {
       } else {
         $this.on(EVENT_CLICK, $.proxy(this.show, this));
       }
+
+      if (IS_TOUCH_DEVICE) {
+        $(document).on(EVENT_TOUCH_START, $.proxy(this.touchstart, this));
+      }
     }
   }
 
@@ -220,6 +226,10 @@ class Datepicker {
         $this.off(EVENT_FOCUS, this.show);
       } else {
         $this.off(EVENT_CLICK, this.show);
+      }
+
+      if (IS_TOUCH_DEVICE) {
+        $(document).off(EVENT_TOUCH_START, this.touchstart);
       }
     }
   }

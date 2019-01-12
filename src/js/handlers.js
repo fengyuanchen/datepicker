@@ -204,4 +204,12 @@ export default {
       this.hide();
     }
   },
+
+  touchstart({ target }) {
+    // Emulate click in touch devices to support hiding the picker automatically (#197).
+    if (this.isInput && target !== this.element && !$.contains(this.$picker, target)) {
+      this.hide();
+      this.element.blur();
+    }
+  },
 };
