@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.6 (Jan 19, 2019)
+
+- Fix wrong parameter for the `$.contains` function.
+
 ## 1.0.5 (Jan 19, 2019)
 
 - Emulate click in touch devices to support hiding the picker automatically (#197).

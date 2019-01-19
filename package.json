@@ -1,7 +1,7 @@
 {
   "name": "@chenfengyuan/datepicker",
   "description": "A simple jQuery datepicker plugin.",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "dist/datepicker.common.js",
   "module": "dist/datepicker.esm.js",
   "unpkg": "dist/datepicker.js",

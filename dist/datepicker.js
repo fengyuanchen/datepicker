@@ -1,11 +1,11 @@
 /*!
- * Datepicker v1.0.5
+ * Datepicker v1.0.6
  * https://fengyuanchen.github.io/datepicker
  *
  * Copyright 2014-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2019-01-19T07:06:03.574Z
+ * Date: 2019-01-19T09:15:49.236Z
  */
 
 (function (global, factory) {
@@ -271,6 +271,11 @@
         $(window).on(EVENT_RESIZE, this.onResize = proxy(this.place, this));
         $(document).on(EVENT_CLICK, this.onGlobalClick = proxy(this.globalClick, this));
         $(document).on(EVENT_KEYUP, this.onGlobalKeyup = proxy(this.globalKeyup, this));
+
+        if (IS_TOUCH_DEVICE) {
+          $(document).on(EVENT_TOUCH_START, this.onTouchStart = proxy(this.touchstart, this));
+        }
+
         this.place();
       }
     },
@@ -292,6 +297,10 @@
         $(window).off(EVENT_RESIZE, this.onResize);
         $(document).off(EVENT_CLICK, this.onGlobalClick);
         $(document).off(EVENT_KEYUP, this.onGlobalKeyup);
+
+        if (IS_TOUCH_DEVICE) {
+          $(document).off(EVENT_TOUCH_START, this.onTouchStart);
+        }
       }
     },
     toggle: function toggle() {
@@ -770,7 +779,7 @@
       var target = _ref3.target;
 
       // Emulate click in touch devices to support hiding the picker automatically (#197).
-      if (this.isInput && target !== this.element && !$.contains(this.$picker, target)) {
+      if (this.isInput && target !== this.element && !$.contains(this.$picker[0], target)) {
         this.hide();
         this.element.blur();
       }
@@ -1243,10 +1252,6 @@
           } else {
             $this.on(EVENT_CLICK, $.proxy(this.show, this));
           }
-
-          if (IS_TOUCH_DEVICE) {
-            $(document).on(EVENT_TOUCH_START, $.proxy(this.touchstart, this));
-          }
         }
       }
     }, {
@@ -1278,10 +1283,6 @@
             $this.off(EVENT_FOCUS, this.show);
           } else {
             $this.off(EVENT_CLICK, this.show);
-          }
-
-          if (IS_TOUCH_DEVICE) {
-            $(document).off(EVENT_TOUCH_START, this.touchstart);
           }
         }
       }
