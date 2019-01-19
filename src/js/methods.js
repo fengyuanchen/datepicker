@@ -8,6 +8,8 @@ import {
   EVENT_RESIZE,
   EVENT_SCROLL,
   EVENT_SHOW,
+  EVENT_TOUCH_START,
+  IS_TOUCH_DEVICE,
   NAMESPACE,
 } from './constants';
 import {
@@ -45,6 +47,11 @@ export default {
       $(window).on(EVENT_RESIZE, (this.onResize = proxy(this.place, this)));
       $(document).on(EVENT_CLICK, (this.onGlobalClick = proxy(this.globalClick, this)));
       $(document).on(EVENT_KEYUP, (this.onGlobalKeyup = proxy(this.globalKeyup, this)));
+
+      if (IS_TOUCH_DEVICE) {
+        $(document).on(EVENT_TOUCH_START, (this.onTouchStart = proxy(this.touchstart, this)));
+      }
+
       this.place();
     }
   },
@@ -67,6 +74,10 @@ export default {
       $(window).off(EVENT_RESIZE, this.onResize);
       $(document).off(EVENT_CLICK, this.onGlobalClick);
       $(document).off(EVENT_KEYUP, this.onGlobalKeyup);
+
+      if (IS_TOUCH_DEVICE) {
+        $(document).off(EVENT_TOUCH_START, this.onTouchStart);
+      }
     }
   },
 
