@@ -1,6 +1,6 @@
 # Changelog
 
-# next
+## 1.0.5 (Jan 19, 2019)
 
 - Emulate click in touch devices to support hiding the picker automatically (#197).
 

@@ -1,11 +1,11 @@
 /*!
- * Datepicker v1.0.4
+ * Datepicker v1.0.5
  * https://fengyuanchen.github.io/datepicker
  *
  * Copyright 2014-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2019-01-06T02:42:36.188Z
+ * Date: 2019-01-19T07:06:03.574Z
  */
 
 (function (global, factory) {
@@ -106,7 +106,9 @@
     pick: null
   };
 
-  var WINDOW = typeof window !== 'undefined' ? window : {};
+  var IS_BROWSER = typeof window !== 'undefined';
+  var WINDOW = IS_BROWSER ? window : {};
+  var IS_TOUCH_DEVICE = IS_BROWSER ? 'ontouchstart' in WINDOW.document.documentElement : false;
   var NAMESPACE = 'datepicker';
   var EVENT_CLICK = "click.".concat(NAMESPACE);
   var EVENT_FOCUS = "focus.".concat(NAMESPACE);
@@ -116,6 +118,7 @@
   var EVENT_RESIZE = "resize.".concat(NAMESPACE);
   var EVENT_SCROLL = "scroll.".concat(NAMESPACE);
   var EVENT_SHOW = "show.".concat(NAMESPACE);
+  var EVENT_TOUCH_START = "touchstart.".concat(NAMESPACE);
   var CLASS_HIDE = "".concat(NAMESPACE, "-hide");
   var LANGUAGES = {};
   var VIEWS = {
@@ -762,6 +765,15 @@
       if (this.isInput && target !== this.element && this.shown && (key === 'Tab' || keyCode === 9)) {
         this.hide();
       }
+    },
+    touchstart: function touchstart(_ref3) {
+      var target = _ref3.target;
+
+      // Emulate click in touch devices to support hiding the picker automatically (#197).
+      if (this.isInput && target !== this.element && !$.contains(this.$picker, target)) {
+        this.hide();
+        this.element.blur();
+      }
     }
   };
 
@@ -1231,6 +1243,10 @@
           } else {
             $this.on(EVENT_CLICK, $.proxy(this.show, this));
           }
+
+          if (IS_TOUCH_DEVICE) {
+            $(document).on(EVENT_TOUCH_START, $.proxy(this.touchstart, this));
+          }
         }
       }
     }, {
@@ -1262,6 +1278,10 @@
             $this.off(EVENT_FOCUS, this.show);
           } else {
             $this.off(EVENT_CLICK, this.show);
+          }
+
+          if (IS_TOUCH_DEVICE) {
+            $(document).off(EVENT_TOUCH_START, this.touchstart);
           }
         }
       }
