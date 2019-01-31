@@ -1,11 +1,11 @@
 /*!
- * Datepicker v1.0.6
+ * Datepicker v1.0.7
  * https://fengyuanchen.github.io/datepicker
  *
  * Copyright 2014-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2019-01-19T09:15:49.236Z
+ * Date: 2019-01-31T13:37:54.955Z
  */
 
 import $ from 'jquery';
@@ -632,11 +632,12 @@ var handlers = {
         break;
 
       case 'year':
-        viewYear = parseInt($target.text(), 10);
-        date.setFullYear(viewYear);
+        viewYear = parseInt($target.text(), 10); // Set date first to avoid month changing (#195)
+
         date.setDate(getMinDay(viewYear, viewMonth, viewDay));
-        viewDate.setFullYear(viewYear);
+        date.setFullYear(viewYear);
         viewDate.setDate(getMinDay(viewYear, viewMonth, viewDay));
+        viewDate.setFullYear(viewYear);
 
         if (format.hasMonth) {
           this.showView(VIEWS.MONTHS);
@@ -713,10 +714,13 @@ var handlers = {
           viewMonth += 1;
         }
 
-        viewDay = parseInt($target.text(), 10);
+        viewDay = parseInt($target.text(), 10); // Set date to 1 to avoid month changing (#195)
+
+        date.setDate(1);
         date.setFullYear(viewYear);
         date.setMonth(viewMonth);
         date.setDate(viewDay);
+        viewDate.setDate(1);
         viewDate.setFullYear(viewYear);
         viewDate.setMonth(viewMonth);
         viewDate.setDate(viewDay);
