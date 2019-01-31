@@ -64,10 +64,11 @@ export default {
 
       case 'year':
         viewYear = parseInt($target.text(), 10);
-        date.setFullYear(viewYear);
+        // Set date first to avoid month changing (#195)
         date.setDate(getMinDay(viewYear, viewMonth, viewDay));
-        viewDate.setFullYear(viewYear);
+        date.setFullYear(viewYear);
         viewDate.setDate(getMinDay(viewYear, viewMonth, viewDay));
+        viewDate.setFullYear(viewYear);
 
         if (format.hasMonth) {
           this.showView(VIEWS.MONTHS);
@@ -152,9 +153,13 @@ export default {
         }
 
         viewDay = parseInt($target.text(), 10);
+
+        // Set date to 1 to avoid month changing (#195)
+        date.setDate(1);
         date.setFullYear(viewYear);
         date.setMonth(viewMonth);
         date.setDate(viewDay);
+        viewDate.setDate(1);
         viewDate.setFullYear(viewYear);
         viewDate.setMonth(viewMonth);
         viewDate.setDate(viewDay);
