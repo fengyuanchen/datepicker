@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.7 (Feb 19, 2019)
+
+- Fix unexpected month changing (#198).
+
 ## 1.0.6 (Jan 19, 2019)
 
 - Fix wrong parameter for the `$.contains` function.
