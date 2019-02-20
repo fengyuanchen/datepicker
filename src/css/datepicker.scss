@@ -1,4 +1,7 @@
 .datepicker {
+  & div{
+    display: inherit
+  }
   &-container {
     background-color: #fff;
     direction: ltr;
