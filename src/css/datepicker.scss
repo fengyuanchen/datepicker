@@ -1,3 +1,5 @@
+@import "variables";
+
 .datepicker {
   & div{
     display: inherit
@@ -42,7 +44,7 @@
 
   &-top-left,
   &-top-right {
-    border-top-color: #39f;
+    border-top-color: $main-color;
 
     &::before,
     &::after {
@@ -52,7 +54,7 @@
     }
 
     &::before {
-      border-bottom-color: #39f;
+      border-bottom-color: $main-color;
     }
 
     &::after {
@@ -63,7 +65,7 @@
 
   &-bottom-left,
   &-bottom-right {
-    border-bottom-color: #39f;
+    border-bottom-color: $main-color;
 
     &::before,
     &::after {
@@ -73,7 +75,7 @@
     }
 
     &::before {
-      border-top-color: #39f;
+      border-top-color: $main-color;
     }
 
     &::after {
@@ -119,7 +121,7 @@
         width: 30px;
 
         &:hover {
-          background-color: rgb(229, 242, 255);
+          background-color: $secondary-color;
         }
 
         &.muted,
@@ -128,7 +130,7 @@
         }
 
         &.highlighted {
-          background-color: rgb(229, 242, 255);
+          background-color: $secondary-color;
 
           &:hover {
             background-color: rgb(204, 229, 255);
@@ -137,7 +139,7 @@
 
         &.picked,
         &.picked:hover {
-          color: #39f;
+          color: $main-color;
         }
 
         &.disabled,
@@ -147,7 +149,7 @@
           cursor: default;
 
           &.highlighted {
-            background-color: rgb(229, 242, 255);
+            background-color: $secondary-color;
           }
         }
 
