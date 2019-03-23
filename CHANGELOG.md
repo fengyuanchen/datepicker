@@ -1,5 +1,9 @@
 # Changelog
 
+## next
+
+- Fix the issue of unable to pick the current month or year again (#203).
+
 ## 1.0.7 (Feb 19, 2019)
 
 - Fix unexpected month changing (#198).

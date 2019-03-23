@@ -53,9 +53,9 @@ export default {
         if (format.hasMonth) {
           this.showView(VIEWS.MONTHS);
         } else {
-          $target.addClass(options.pickedClass)
-            .siblings()
-            .removeClass(options.pickedClass);
+          $target.siblings(`.${options.pickedClass}`)
+            .removeClass(options.pickedClass)
+            .data('view', 'year');
           this.hideView();
         }
 
@@ -74,8 +74,10 @@ export default {
           this.showView(VIEWS.MONTHS);
         } else {
           $target.addClass(options.pickedClass)
-            .siblings()
-            .removeClass(options.pickedClass);
+            .data('view', 'year picked')
+            .siblings(`.${options.pickedClass}`)
+            .removeClass(options.pickedClass)
+            .data('view', 'year');
           this.hideView();
         }
 
@@ -111,9 +113,9 @@ export default {
         if (format.hasDay) {
           this.showView(VIEWS.DAYS);
         } else {
-          $target.addClass(options.pickedClass)
-            .siblings()
-            .removeClass(options.pickedClass);
+          $target.siblings(`.${options.pickedClass}`)
+            .removeClass(options.pickedClass)
+            .data('view', 'month');
           this.hideView();
         }
 
@@ -135,8 +137,10 @@ export default {
           this.showView(VIEWS.DAYS);
         } else {
           $target.addClass(options.pickedClass)
-            .siblings()
-            .removeClass(options.pickedClass);
+            .data('view', 'month picked')
+            .siblings(`.${options.pickedClass}`)
+            .removeClass(options.pickedClass)
+            .data('view', 'month');
           this.hideView();
         }
 
