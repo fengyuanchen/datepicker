@@ -120,4 +120,5 @@ export default {
   show: null,
   hide: null,
   pick: null,
+  placement: null,
 };

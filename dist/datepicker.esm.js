@@ -5,7 +5,7 @@
  * Copyright 2014-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2019-02-19T12:18:04.827Z
+ * Date: 2019-04-03T06:35:44.837Z
  */
 
 import $ from 'jquery';
@@ -97,7 +97,8 @@ var DEFAULTS = {
   // Event shortcuts
   show: null,
   hide: null,
-  pick: null
+  pick: null,
+  placement: null
 };
 
 var IS_BROWSER = typeof window !== 'undefined';
@@ -624,7 +625,7 @@ var handlers = {
         if (format.hasMonth) {
           this.showView(VIEWS.MONTHS);
         } else {
-          $target.addClass(options.pickedClass).siblings().removeClass(options.pickedClass);
+          $target.siblings(".".concat(options.pickedClass)).removeClass(options.pickedClass).data('view', 'year');
           this.hideView();
         }
 
@@ -642,7 +643,7 @@ var handlers = {
         if (format.hasMonth) {
           this.showView(VIEWS.MONTHS);
         } else {
-          $target.addClass(options.pickedClass).siblings().removeClass(options.pickedClass);
+          $target.addClass(options.pickedClass).data('view', 'year picked').siblings(".".concat(options.pickedClass)).removeClass(options.pickedClass).data('view', 'year');
           this.hideView();
         }
 
@@ -678,7 +679,7 @@ var handlers = {
         if (format.hasDay) {
           this.showView(VIEWS.DAYS);
         } else {
-          $target.addClass(options.pickedClass).siblings().removeClass(options.pickedClass);
+          $target.siblings(".".concat(options.pickedClass)).removeClass(options.pickedClass).data('view', 'month');
           this.hideView();
         }
 
@@ -698,7 +699,7 @@ var handlers = {
         if (format.hasDay) {
           this.showView(VIEWS.DAYS);
         } else {
-          $target.addClass(options.pickedClass).siblings().removeClass(options.pickedClass);
+          $target.addClass(options.pickedClass).data('view', 'month picked').siblings(".".concat(options.pickedClass)).removeClass(options.pickedClass).data('view', 'month');
           this.hideView();
         }
 
@@ -1084,10 +1085,16 @@ var render = {
   }
 };
 
-var CLASS_TOP_LEFT = "".concat(NAMESPACE, "-top-left");
-var CLASS_TOP_RIGHT = "".concat(NAMESPACE, "-top-right");
-var CLASS_BOTTOM_LEFT = "".concat(NAMESPACE, "-bottom-left");
-var CLASS_BOTTOM_RIGHT = "".concat(NAMESPACE, "-bottom-right");
+var PLACEMENT_TOP_LEFT = 'top-left';
+var PLACEMENT_TOP_RIGHT = 'top-right';
+var PLACEMENT_BOTTOM_LEFT = 'bottom-left';
+var PLACEMENT_BOTTOM_RIGHT = 'bottom-right';
+var PLACEMENTS = [PLACEMENT_TOP_LEFT, PLACEMENT_TOP_RIGHT, PLACEMENT_BOTTOM_LEFT, PLACEMENT_BOTTOM_RIGHT]; // Classes
+
+var CLASS_TOP_LEFT = "".concat(NAMESPACE, "-").concat(PLACEMENT_TOP_LEFT);
+var CLASS_TOP_RIGHT = "".concat(NAMESPACE, "-").concat(PLACEMENT_TOP_RIGHT);
+var CLASS_BOTTOM_LEFT = "".concat(NAMESPACE, "-").concat(PLACEMENT_BOTTOM_LEFT);
+var CLASS_BOTTOM_RIGHT = "".concat(NAMESPACE, "-").concat(PLACEMENT_BOTTOM_RIGHT);
 var CLASS_PLACEMENTS = [CLASS_TOP_LEFT, CLASS_TOP_RIGHT, CLASS_BOTTOM_LEFT, CLASS_BOTTOM_RIGHT].join(' ');
 
 var Datepicker =
@@ -1367,28 +1374,49 @@ function () {
           top = _$this$offset.top;
 
       var offset = parseFloat(options.offset);
-      var placement = CLASS_TOP_LEFT;
+      var placementClass;
 
       if (isNaN(offset)) {
         offset = 10;
       }
 
-      if (top > height && top + elementHeight + height > containerHeight) {
-        top -= height + offset;
-        placement = CLASS_BOTTOM_LEFT;
+      if (this.optionHasValidPlacement()) {
+        placementClass = "".concat(NAMESPACE, "-").concat(this.options.placement);
+
+        if (this.options.placement === PLACEMENT_TOP_LEFT || this.options.placement === PLACEMENT_TOP_RIGHT) {
+          top += elementHeight + offset;
+        } else {
+          top -= height + offset;
+        }
+
+        if (this.options.placement === PLACEMENT_TOP_RIGHT || this.options.placement === PLACEMENT_BOTTOM_RIGHT) {
+          left += elementWidth - width;
+        }
       } else {
-        top += elementHeight + offset;
+        placementClass = CLASS_TOP_LEFT;
+
+        if (top > height && top + elementHeight + height > containerHeight) {
+          top -= height + offset;
+          placementClass = CLASS_BOTTOM_LEFT;
+        } else {
+          top += elementHeight + offset;
+        }
+
+        if (left + width > containerWidth) {
+          left += elementWidth - width;
+          placementClass = placementClass.replace('left', 'right');
+        }
       }
 
-      if (left + width > containerWidth) {
-        left += elementWidth - width;
-        placement = placement.replace('left', 'right');
-      }
-
-      $picker.removeClass(CLASS_PLACEMENTS).addClass(placement).css({
+      $picker.removeClass(CLASS_PLACEMENTS).addClass(placementClass).css({
         top: top,
         left: left
       });
+    }
+  }, {
+    key: "optionHasValidPlacement",
+    value: function optionHasValidPlacement() {
+      return this.options.placement && PLACEMENTS.indexOf(this.options.placement) !== -1;
     } // A shortcut for triggering custom events
 
   }, {
