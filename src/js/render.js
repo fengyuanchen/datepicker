@@ -160,6 +160,7 @@ export default {
       months,
       weekStart,
       yearSuffix,
+      afterCalendarUpdate,
     } = options;
     const viewYear = viewDate.getFullYear();
     const viewMonth = viewDate.getMonth();
@@ -231,6 +232,7 @@ export default {
         picked: prevViewYear === year && prevViewMonth === month && i === day,
         text: i,
         view: 'day prev',
+        date: prevViewDate,
       }));
     }
 
@@ -286,6 +288,7 @@ export default {
         muted: true,
         text: i,
         view: 'day next',
+        date,
       }));
     }
 
@@ -323,6 +326,7 @@ export default {
         ),
         text: i,
         view: disabled ? 'day disabled' : view,
+        date,
       }));
     }
 
@@ -337,5 +341,7 @@ export default {
         ? `${viewYear + yearSuffix} ${months[viewMonth]}`
         : `${months[viewMonth]} ${viewYear}${yearSuffix}`);
     this.$days.html(prevItems.join('') + items.join('') + nextItems.join(''));
+
+    afterCalendarUpdate();
   },
 };

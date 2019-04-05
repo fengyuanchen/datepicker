@@ -333,7 +333,7 @@ class Datepicker {
 
   createItem(data) {
     const { options } = this;
-    const { itemTag } = options;
+    const { itemTag, beforeDayInitialize } = options;
     const item = {
       text: '',
       view: '',
@@ -343,6 +343,7 @@ class Datepicker {
       highlighted: false,
     };
     const classes = [];
+    const additionalData = [];
 
     $.extend(item, data);
 
@@ -362,7 +363,13 @@ class Datepicker {
       classes.push(options.disabledClass);
     }
 
-    return (`<${itemTag} class="${classes.join(' ')}" data-view="${item.view}">${item.text}</${itemTag}>`);
+    if (item.view.includes('day') && beforeDayInitialize) {
+      beforeDayInitialize.call(this, item.date, additionalData);
+    }
+
+    const additionalDataString = additionalData.map(dataItem => `data-${dataItem.name}="${dataItem.value}"`);
+
+    return (`<${itemTag} class="${classes.join(' ')}" ${additionalDataString.join(' ')} data-view="${item.view}">${item.text}</${itemTag}>`); // monkey (commented line)
   }
 
   getValue() {

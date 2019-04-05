@@ -5,7 +5,7 @@
  * Copyright 2014-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2019-02-19T12:18:04.827Z
+ * Date: 2019-04-05T13:57:45.393Z
  */
 
 'use strict';
@@ -933,7 +933,8 @@ var render = {
         filter = options.filter,
         months = options.months,
         weekStart = options.weekStart,
-        yearSuffix = options.yearSuffix;
+        yearSuffix = options.yearSuffix,
+        afterCalendarUpdate = options.afterCalendarUpdate;
     var viewYear = viewDate.getFullYear();
     var viewMonth = viewDate.getMonth();
     var now = new Date();
@@ -994,7 +995,8 @@ var render = {
         muted: true,
         picked: prevViewYear === year && prevViewMonth === month && i === day,
         text: i,
-        view: 'day prev'
+        view: 'day prev',
+        date: prevViewDate
       }));
     } // Days of next month
     // -----------------------------------------------------------------------
@@ -1042,7 +1044,8 @@ var render = {
         highlighted: nextViewYear === thisYear && nextViewMonth === thisMonth && date.getDate() === thisDay,
         muted: true,
         text: i,
-        view: 'day next'
+        view: 'day next',
+        date: date
       }));
     } // Days of current month
     // -----------------------------------------------------------------------
@@ -1075,7 +1078,8 @@ var render = {
         picked: _picked,
         highlighted: viewYear === thisYear && viewMonth === thisMonth && _date.getDate() === thisDay,
         text: i,
-        view: _disabled2 ? 'day disabled' : view
+        view: _disabled2 ? 'day disabled' : view,
+        date: _date
       }));
     } // Render days picker
     // -----------------------------------------------------------------------
@@ -1085,6 +1089,7 @@ var render = {
     this.$monthNext.toggleClass(disabledClass, nextDisabled);
     this.$monthCurrent.toggleClass(disabledClass, prevDisabled && nextDisabled).html(options.yearFirst ? "".concat(viewYear + yearSuffix, " ").concat(months[viewMonth]) : "".concat(months[viewMonth], " ").concat(viewYear).concat(yearSuffix));
     this.$days.html(prevItems.join('') + items.join('') + nextItems.join(''));
+    afterCalendarUpdate();
   }
 };
 
@@ -1406,7 +1411,8 @@ function () {
     key: "createItem",
     value: function createItem(data) {
       var options = this.options;
-      var itemTag = options.itemTag;
+      var itemTag = options.itemTag,
+          beforeDayInitialize = options.beforeDayInitialize;
       var item = {
         text: '',
         view: '',
@@ -1416,6 +1422,7 @@ function () {
         highlighted: false
       };
       var classes = [];
+      var additionalData = [];
       $.extend(item, data);
 
       if (item.muted) {
@@ -1434,7 +1441,14 @@ function () {
         classes.push(options.disabledClass);
       }
 
-      return "<".concat(itemTag, " class=\"").concat(classes.join(' '), "\" data-view=\"").concat(item.view, "\">").concat(item.text, "</").concat(itemTag, ">");
+      if (item.view.includes('day') && beforeDayInitialize) {
+        beforeDayInitialize.call(this, item.date, additionalData);
+      }
+
+      var additionalDataString = additionalData.map(function (dataItem) {
+        return "data-".concat(dataItem.name, "=\"").concat(dataItem.value, "\"");
+      });
+      return "<".concat(itemTag, " class=\"").concat(classes.join(' '), "\" ").concat(additionalDataString.join(' '), " data-view=\"").concat(item.view, "\">").concat(item.text, "</").concat(itemTag, ">"); // monkey (commented line)
     }
   }, {
     key: "getValue",

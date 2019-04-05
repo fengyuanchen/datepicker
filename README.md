@@ -397,6 +397,38 @@ A shortcut of the "hide.datepicker" event.
 
 A shortcut of the "pick.datepicker" event.
 
+### beforeDayInitialize
+
+- Type: `Function`
+- Default: `null`
+- Syntax: `beforeDayInitialize(date, additionalData)`
+  - `date`: the date for checking.
+  - `additionalData`: the additional data which will be added to item.
+
+Map each date item, and adds additional data to it (ex. `<li data-title="Tooltip Title" data-toggle="tooltip"/>`)
+
+```js
+$().datepicker({
+  beforeDayInitialize: function(date, additionalData) {
+    if (date.toString() === Date.now().toString()) {
+      additionalData.push(
+        { name: 'title', value: 'Tooltip Title' },
+        { name: 'toggle', value: 'tooltip' }
+      );
+    }
+  }
+});
+```
+
+
+### afterCalendarUpdate
+
+- Type: `Function`
+- Default: `null`
+- Syntax: `afterCalendarUpdate()`
+
+This event fires when calendar did update (year/month/day change).
+
 [⬆ back to top](#table-of-contents)
 
 ## Methods
