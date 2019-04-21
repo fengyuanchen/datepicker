@@ -5,7 +5,7 @@
  * Copyright 2014-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2019-02-19T12:18:04.827Z
+ * Date: 2019-04-21T23:43:11.033Z
  */
 
 import $ from 'jquery';
@@ -163,9 +163,9 @@ function getDaysInMonth(year, month) {
 function getMinDay(year, month, day) {
   return Math.min(day, getDaysInMonth(year, month));
 }
-var formatParts = /(y|m|d)+/g;
+var formatParts = /(y|m|M|d)+/g;
 function parseFormat(format) {
-  var source = String(format).toLowerCase();
+  var source = String(format);
   var parts = source.match(formatParts);
 
   if (!parts || parts.length === 0) {
@@ -177,7 +177,7 @@ function parseFormat(format) {
     parts: parts
   };
   $.each(parts, function (i, part) {
-    switch (part) {
+    switch (part.toLowerCase()) {
       case 'dd':
       case 'd':
         format.hasDay = true;
@@ -545,6 +545,7 @@ var methods = {
    */
   formatDate: function formatDate(date) {
     var format = this.format;
+    var options = this.options;
     var formatted = '';
 
     if (isDate(date)) {
@@ -556,6 +557,8 @@ var methods = {
         dd: addLeadingZero(day, 2),
         m: month + 1,
         mm: addLeadingZero(month + 1, 2),
+        M: options.monthsShort[month],
+        MM: options.months[month],
         yy: String(year).substring(2),
         yyyy: addLeadingZero(year, 4)
       };
@@ -624,7 +627,7 @@ var handlers = {
         if (format.hasMonth) {
           this.showView(VIEWS.MONTHS);
         } else {
-          $target.addClass(options.pickedClass).siblings().removeClass(options.pickedClass);
+          $target.siblings(".".concat(options.pickedClass)).removeClass(options.pickedClass).data('view', 'year');
           this.hideView();
         }
 
@@ -642,7 +645,7 @@ var handlers = {
         if (format.hasMonth) {
           this.showView(VIEWS.MONTHS);
         } else {
-          $target.addClass(options.pickedClass).siblings().removeClass(options.pickedClass);
+          $target.addClass(options.pickedClass).data('view', 'year picked').siblings(".".concat(options.pickedClass)).removeClass(options.pickedClass).data('view', 'year');
           this.hideView();
         }
 
@@ -678,7 +681,7 @@ var handlers = {
         if (format.hasDay) {
           this.showView(VIEWS.DAYS);
         } else {
-          $target.addClass(options.pickedClass).siblings().removeClass(options.pickedClass);
+          $target.siblings(".".concat(options.pickedClass)).removeClass(options.pickedClass).data('view', 'month');
           this.hideView();
         }
 
@@ -698,7 +701,7 @@ var handlers = {
         if (format.hasDay) {
           this.showView(VIEWS.DAYS);
         } else {
-          $target.addClass(options.pickedClass).siblings().removeClass(options.pickedClass);
+          $target.addClass(options.pickedClass).data('view', 'month picked').siblings(".".concat(options.pickedClass)).removeClass(options.pickedClass).data('view', 'month');
           this.hideView();
         }
 

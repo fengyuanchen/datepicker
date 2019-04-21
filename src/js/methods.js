@@ -332,6 +332,7 @@ export default {
    */
   formatDate(date) {
     const { format } = this;
+    const { options } = this;
     let formatted = '';
 
     if (isDate(date)) {
@@ -343,6 +344,8 @@ export default {
         dd: addLeadingZero(day, 2),
         m: month + 1,
         mm: addLeadingZero(month + 1, 2),
+        M: options.monthsShort[month],
+        MM: options.months[month],
         yy: String(year).substring(2),
         yyyy: addLeadingZero(year, 4),
       };

@@ -147,7 +147,7 @@ $().datepicker({
 - Default: `'mm/dd/yyyy'`
 - Available date placeholders:
   - Year: `yyyy`, `yy`
-  - Month: `mm`, `m`
+  - Month: `mm`, `m`, `MM`, `M`
   - Day: `dd`, `d`
 
 The date string format.

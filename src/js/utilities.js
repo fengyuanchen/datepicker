@@ -45,10 +45,10 @@ export function getMinDay(year, month, day) {
   return Math.min(day, getDaysInMonth(year, month));
 }
 
-const formatParts = /(y|m|d)+/g;
+const formatParts = /(y|m|M|d)+/g;
 
 export function parseFormat(format) {
-  const source = String(format).toLowerCase();
+  const source = String(format);
   const parts = source.match(formatParts);
 
   if (!parts || parts.length === 0) {
@@ -61,7 +61,7 @@ export function parseFormat(format) {
   };
 
   $.each(parts, (i, part) => {
-    switch (part) {
+    switch (part.toLowerCase()) {
       case 'dd':
       case 'd':
         format.hasDay = true;
