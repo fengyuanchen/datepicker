@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Datepicker</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/datepicker.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Date range</h1>
+
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Date range</span>
+      </div>
+      <input type="text" placeholder="Start date" aria-label="First name" class="form-control start-date">
+      <input type="text" placeholder="End date" aria-label="Last name" class="form-control end-date">
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/datepicker.js"></script>
+  <script>
+    $(function() {
+      var $startDate = $('.start-date');
+      var $endDate = $('.end-date');
+
+      $startDate.datepicker({
+        autoHide: true,
+      });
+      $endDate.datepicker({
+        autoHide: true,
+        startDate: $startDate.datepicker('getDate'),
+      });
+
+      $startDate.on('change', function () {
+        $endDate.datepicker('setStartDate', $startDate.datepicker('getDate'));
+      });
+    });
+  </script>
+</body>
+</html>
