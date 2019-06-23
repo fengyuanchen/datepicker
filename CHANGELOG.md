@@ -1,6 +1,6 @@
 # Changelog
 
-## next
+## 1.0.8 (Jun 23, 2019)
 
 - Fix the issue of unable to pick the current month or year again (#203).
 
