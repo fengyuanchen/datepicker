@@ -1,11 +1,11 @@
 /*!
- * Datepicker v1.0.8
+ * Datepicker v1.0.9
  * https://fengyuanchen.github.io/datepicker
  *
  * Copyright 2014-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2019-06-23T08:07:40.545Z
+ * Date: 2019-09-21T06:57:34.100Z
  */
 
 (function (global, factory) {
@@ -510,20 +510,11 @@
         }
 
         if (parts.length === format.parts.length) {
+          // Set year and month first
           $.each(parts, function (i, part) {
             var value = parseInt(part, 10);
 
             switch (format.parts[i]) {
-              case 'dd':
-              case 'd':
-                date.setDate(value);
-                break;
-
-              case 'mm':
-              case 'm':
-                date.setMonth(value - 1);
-                break;
-
               case 'yy':
                 date.setFullYear(2000 + value);
                 break;
@@ -531,6 +522,24 @@
               case 'yyyy':
                 // Converts 2-digit year to 2000+
                 date.setFullYear(part.length === 2 ? 2000 + value : value);
+                break;
+
+              case 'mm':
+              case 'm':
+                date.setMonth(value - 1);
+                break;
+
+              default:
+            }
+          }); // Set day in the last to avoid converting `31/10/2019` to `01/10/2019`
+
+          $.each(parts, function (i, part) {
+            var value = parseInt(part, 10);
+
+            switch (format.parts[i]) {
+              case 'dd':
+              case 'd':
+                date.setDate(value);
                 break;
 
               default:
