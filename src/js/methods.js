@@ -291,20 +291,11 @@ export default {
       }
 
       if (parts.length === format.parts.length) {
+        // Set year and month first
         $.each(parts, (i, part) => {
           const value = parseInt(part, 10);
 
           switch (format.parts[i]) {
-            case 'dd':
-            case 'd':
-              date.setDate(value);
-              break;
-
-            case 'mm':
-            case 'm':
-              date.setMonth(value - 1);
-              break;
-
             case 'yy':
               date.setFullYear(2000 + value);
               break;
@@ -312,6 +303,25 @@ export default {
             case 'yyyy':
               // Converts 2-digit year to 2000+
               date.setFullYear(part.length === 2 ? 2000 + value : value);
+              break;
+
+            case 'mm':
+            case 'm':
+              date.setMonth(value - 1);
+              break;
+
+            default:
+          }
+        });
+
+        // Set day in the last to avoid converting `31/10/2019` to `01/10/2019`
+        $.each(parts, (i, part) => {
+          const value = parseInt(part, 10);
+
+          switch (format.parts[i]) {
+            case 'dd':
+            case 'd':
+              date.setDate(value);
               break;
 
             default:

@@ -1,5 +1,9 @@
 # Changelog
 
+## next
+
+- Fix the issue of converting `31/10/2019` to `01/10/2019` when the current month only has 30 days (#222).
+
 ## 1.0.8 (Jun 23, 2019)
 
 - Fix the issue of unable to pick the current month or year again (#203).
