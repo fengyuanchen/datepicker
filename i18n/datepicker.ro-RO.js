@@ -8,7 +8,7 @@
   $.fn.datepicker.languages['ro-RO'] = {
     format: 'dd.mm.yyyy',
     days: ['Duminică', 'Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri', 'Sâmbată'],
-    daysShort: ['Dum', 'Lun', 'Mar', 'Mir', 'Joi', 'Vin', 'Sâm'],
+    daysShort: ['Dum', 'Lun', 'Mar', 'Mie', 'Joi', 'Vin', 'Sâm'],
     daysMin: ['Du', 'Lu', 'Ma', 'Mi', 'Jo', 'Vi', 'Sâ'],
     weekStart: 1,
     months: ['Ianuarie', 'Februarie', 'Martie', 'Aprilie', 'Mai', 'Iunie', 'Iulie', 'August', 'Septembrie', 'Octombrie', 'Noiembrie', 'Decembrie'],
