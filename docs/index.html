@@ -7,8 +7,8 @@
   <meta name="description" content="A simple jQuery datepicker plugin.">
   <meta name="author" content="Chen Fengyuan">
   <title>Datepicker</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.1/css/all.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/datepicker.css">
   <link rel="stylesheet" href="css/main.css">
 </head>
@@ -40,6 +40,7 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <a class="dropdown-item" href="examples/datepicker-in-modal.html">Datepicker in a Bootstrap modal</a>
+              <a class="dropdown-item" href="examples/date-range.html">Date range</a>
             </div>
           </li>
           <li class="nav-item dropdown">
@@ -61,7 +62,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md">
-        <h1>Datepicker <small class="h6">v1.0.7</small></h1>
+        <h1>Datepicker <small class="h6">v1.0.9</small></h1>
         <p class="lead">A simple jQuery datepicker plugin.</p>
         </div>
         <div class="col-md">
@@ -81,7 +82,7 @@
         <h3 class="page-header">Demo</h3>
         <div class="docs-datepicker">
           <div class="input-group">
-            <input type="text" class="form-control docs-date" name="date" placeholder="Pick a date">
+            <input type="text" class="form-control docs-date" name="date" placeholder="Pick a date" autocomplete="off">
             <div class="input-group-append">
               <button type="button" class="btn btn-outline-secondary docs-datepicker-trigger" disabled>
                 <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -123,6 +124,7 @@
               <span class="input-group-text" id="option-language">language</span>
             </div>
             <select class="form-control" id="option-language" name="language">
+              <option value="ar-IQ">ar-IQ</option>
               <option value="ca-ES">ca-ES</option>
               <option value="cs-CZ">cs-CZ</option>
               <option value="da-DK">da-DK</option>
@@ -147,8 +149,10 @@
               <option value="pl-PL">pl-PL</option>
               <option value="pt-BR">pt-BR</option>
               <option value="ru-RU">ru-RU</option>
+              <option value="si-LK">si-LK</option>
               <option value="sk-SK">sk-SK</option>
               <option value="sv-SE">sv-SE</option>
+              <option value="ta-TA">ta-TA</option>
               <option value="th-TH">th-TH</option>
               <option value="tr-TR">tr-TR</option>
               <option value="ug-CN">ug-CN</option>
@@ -319,10 +323,11 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
   <script src="https://fengyuanchen.github.io/shared/google-analytics.js"></script>
   <script src="js/datepicker.js"></script>
+  <script src="js/datepicker.ar-IQ.js"></script>
   <script src="js/datepicker.ca-ES.js"></script>
   <script src="js/datepicker.cs-CZ.js"></script>
   <script src="js/datepicker.da-DK.js"></script>
@@ -347,8 +352,10 @@
   <script src="js/datepicker.pl-PL.js"></script>
   <script src="js/datepicker.pt-BR.js"></script>
   <script src="js/datepicker.ru-RU.js"></script>
+  <script src="js/datepicker.si-LK.js"></script>
   <script src="js/datepicker.sk-SK.js"></script>
   <script src="js/datepicker.sv-SE.js"></script>
+  <script src="js/datepicker.ta-TA.js"></script>
   <script src="js/datepicker.th-TH.js"></script>
   <script src="js/datepicker.tr-TR.js"></script>
   <script src="js/datepicker.ug-CN.js"></script>
