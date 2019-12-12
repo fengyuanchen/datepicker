@@ -22,22 +22,11 @@ import {
   selectorOf,
 } from './utilities';
 
-const PLACEMENT_TOP_LEFT = 'top-left';
-const PLACEMENT_TOP_RIGHT = 'top-right';
-const PLACEMENT_BOTTOM_LEFT = 'bottom-left';
-const PLACEMENT_BOTTOM_RIGHT = 'bottom-right';
-const PLACEMENTS = [
-  PLACEMENT_TOP_LEFT,
-  PLACEMENT_TOP_RIGHT,
-  PLACEMENT_BOTTOM_LEFT,
-  PLACEMENT_BOTTOM_RIGHT,
-];
-
 // Classes
-const CLASS_TOP_LEFT = `${NAMESPACE}-${PLACEMENT_TOP_LEFT}`;
-const CLASS_TOP_RIGHT = `${NAMESPACE}-${PLACEMENT_TOP_RIGHT}`;
-const CLASS_BOTTOM_LEFT = `${NAMESPACE}-${PLACEMENT_BOTTOM_LEFT}`;
-const CLASS_BOTTOM_RIGHT = `${NAMESPACE}-${PLACEMENT_BOTTOM_RIGHT}`;
+const CLASS_TOP_LEFT = `${NAMESPACE}-top-left`;
+const CLASS_TOP_RIGHT = `${NAMESPACE}-top-right`;
+const CLASS_BOTTOM_LEFT = `${NAMESPACE}-bottom-left`;
+const CLASS_BOTTOM_RIGHT = `${NAMESPACE}-bottom-right`;
 const CLASS_PLACEMENTS = [
   CLASS_TOP_LEFT,
   CLASS_TOP_RIGHT,
@@ -309,45 +298,28 @@ class Datepicker {
     const height = $picker.height();
     let { left, top } = $this.offset();
     let offset = parseFloat(options.offset);
-    let placementClass;
+    let placement = CLASS_TOP_LEFT;
+
     if (isNaN(offset)) {
       offset = 10;
     }
 
-    if (this.optionHasValidPlacement()) {
-      placementClass = `${NAMESPACE}-${this.options.placement}`;
-      if (this.options.placement === PLACEMENT_TOP_LEFT
-        || this.options.placement === PLACEMENT_TOP_RIGHT) {
-        top += elementHeight + offset;
-      } else {
-        top -= height + offset;
-      }
-      if (this.options.placement === PLACEMENT_TOP_RIGHT
-        || this.options.placement === PLACEMENT_BOTTOM_RIGHT) {
-        left += elementWidth - width;
-      }
+    if (top > height && top + elementHeight + height > containerHeight) {
+      top -= height + offset;
+      placement = CLASS_BOTTOM_LEFT;
     } else {
-      placementClass = CLASS_TOP_LEFT;
-      if (top > height && top + elementHeight + height > containerHeight) {
-        top -= height + offset;
-        placementClass = CLASS_BOTTOM_LEFT;
-      } else {
-        top += elementHeight + offset;
-      }
-
-      if (left + width > containerWidth) {
-        left += elementWidth - width;
-        placementClass = placementClass.replace('left', 'right');
-      }
+      top += elementHeight + offset;
     }
-    $picker.removeClass(CLASS_PLACEMENTS).addClass(placementClass).css({
+
+    if (left + width > containerWidth) {
+      left += elementWidth - width;
+      placement = placement.replace('left', 'right');
+    }
+
+    $picker.removeClass(CLASS_PLACEMENTS).addClass(placement).css({
       top,
       left,
     });
-  }
-
-  optionHasValidPlacement() {
-    return this.options.placement && PLACEMENTS.indexOf(this.options.placement) !== -1;
   }
 
   // A shortcut for triggering custom events
