@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.0 (Dec 26, 2019)
+
+- Added `special` function and associated CSS
+
+### Methods
+
+- Added 1 new method: `special`
+
 ## 1.0.9 (Sep 21, 2019)
 
 - Fix the issue of converting `31/10/2019` to `01/10/2019` when the current month only has 30 days (#222).
