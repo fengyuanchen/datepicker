@@ -387,7 +387,7 @@ $().datepicker({
 
 - Type: `Function`
 - Default: `null`
-- Syntax: `filter(date, view)`
+- Syntax: `special(date, view)`
   - `date`: the date for checking.
   - `view`: the the current view, one of `day`, `month` or `year`.
 
