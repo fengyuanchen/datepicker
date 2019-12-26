@@ -301,6 +301,13 @@ A class (CSS) for disabled item.
 
 A class (CSS) for highlight date item.
 
+### specialClass
+
+- Type: `String`
+- Default: `special`
+
+A class (CSS) for the specialClass date item.
+
 ### template
 
 - Type: `String`
@@ -371,6 +378,28 @@ $().datepicker({
   filter: function(date, view) {
     if (date.getDay() === 0 && view === 'day') {
       return false; // Disable all Sundays, but still leave months/years, whose first day is a Sunday, enabled.
+    }
+  }
+});
+```
+
+### special
+
+- Type: `Function`
+- Default: `null`
+- Syntax: `filter(date, view)`
+  - `date`: the date for checking.
+  - `view`: the the current view, one of `day`, `month` or `year`.
+
+Add `specialClass` class to date item. If return a `true` value, the `specialClass` class will be added to the item. The default style is a 5px by 5px black dot under the date text item.
+
+```js
+var now = Date.now();
+
+$().datepicker({
+  special: function(date, view) {
+    if (date.getDay() === 0 && view === 'day') {
+      return true; // Add "specialClass" class to all sundays for the "day" calendar view
     }
   }
 });
