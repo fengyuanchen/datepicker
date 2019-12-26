@@ -5,7 +5,7 @@
  * Copyright 2014-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2019-12-26T010:47:30.334Z
+ * Date: 2019-12-26T011:12:30.334Z
  */
 
 (function (global, factory) {
@@ -931,7 +931,7 @@
           disabled: disabled,
           picked: picked,
           highlighted: viewYear === thisYear && date.getMonth() === thisMonth,
-          specialClass: special.call(this.$element, date, 'month') === false ? specialClass : '',
+          specialClass: special.call(this.$element, date, 'month') === true ? specialClass : '',
           index: i,
           text: months[i],
           view: disabled ? 'month disabled' : view
@@ -1014,7 +1014,7 @@
         prevItems.push(this.createItem({
           disabled: disabled,
           highlighted: prevViewYear === thisYear && prevViewMonth === thisMonth && prevViewDate.getDate() === thisDay,
-          specialClass: special.call(this.$element, date, 'day') === false ? specialClass : '',
+          specialClass: special.call(this.$element, prevViewDate, 'day') === true ? specialClass : '',
           muted: true,
           picked: prevViewYear === year && prevViewMonth === month && i === day,
           text: i,
@@ -1064,7 +1064,7 @@
           disabled: _disabled,
           picked: picked,
           highlighted: nextViewYear === thisYear && nextViewMonth === thisMonth && date.getDate() === thisDay,
-          specialClass: special.call(this.$element, date, 'day') === false ? specialClass : '',
+          specialClass: special.call(this.$element, date, 'day') === true ? specialClass : '',
           muted: true,
           text: i,
           view: 'day next'
@@ -1099,7 +1099,7 @@
           disabled: _disabled2,
           picked: _picked,
           highlighted: viewYear === thisYear && viewMonth === thisMonth && _date.getDate() === thisDay,
-          specialClass: special.call(this.$element, date, 'day') === false ? specialClass : '',
+          specialClass: special.call(this.$element, _date, 'day') === true ? specialClass : '',
           text: i,
           view: _disabled2 ? 'day disabled' : view
         }));
@@ -1439,7 +1439,8 @@
           muted: false,
           picked: false,
           disabled: false,
-          highlighted: false
+          highlighted: false,
+          specialClass: ''
         };
         var classes = [];
         $.extend(item, data);
@@ -1450,6 +1451,10 @@
 
         if (item.highlighted) {
           classes.push(options.highlightedClass);
+        }
+
+        if (item.specialClass) {
+           classes.push(item.specialClass)
         }
 
         if (item.picked) {
