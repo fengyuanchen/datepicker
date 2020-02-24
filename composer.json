@@ -1,0 +1,10 @@
+{
+  "name": "fengyuanchen/datepicker",
+  "license": "MIT",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/fengyuanchen/datepicker"
+    }
+  ]
+}
