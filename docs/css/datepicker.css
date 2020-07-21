@@ -1,11 +1,11 @@
 /*!
- * Datepicker v1.0.9
+ * Datepicker v1.1.0
  * https://fengyuanchen.github.io/datepicker
  *
  * Copyright 2014-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2019-09-21T06:57:30.334Z
+ * Date: 2019-12-26T010:47:30.334Z
  */
 
 .datepicker-container {
@@ -153,6 +153,22 @@
 
 .datepicker-panel > ul > li.highlighted:hover {
   background-color: rgb(204, 229, 255);
+}
+
+.datepicker-panel>ul>li.special {
+  position: relative;
+}
+
+.datepicker-panel>ul>li.special::after {
+  position: absolute;
+  content: " ";
+  width: 5px;
+  height: 5px;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #282828;
+  border-radius: 50%;
 }
 
 .datepicker-panel > ul > li.picked,

@@ -1,11 +1,11 @@
 /*!
- * Datepicker v1.0.9
+ * Datepicker v1.1.0
  * https://fengyuanchen.github.io/datepicker
  *
  * Copyright 2014-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2019-09-21T06:57:34.100Z
+ * Date: 2019-12-26T011:12:30.334Z
  */
 
 (function (global, factory) {
@@ -92,6 +92,8 @@
     disabledClass: 'disabled',
     // A class (CSS) for highlight date item
     highlightedClass: 'highlighted',
+    // a class (CSS) for special date item
+    specialClass: 'special',
     // The template of the datepicker
     template: '<div class="datepicker-container">' + '<div class="datepicker-panel" data-view="years picker">' + '<ul>' + '<li data-view="years prev">&lsaquo;</li>' + '<li data-view="years current"></li>' + '<li data-view="years next">&rsaquo;</li>' + '</ul>' + '<ul data-view="years"></ul>' + '</div>' + '<div class="datepicker-panel" data-view="months picker">' + '<ul>' + '<li data-view="year prev">&lsaquo;</li>' + '<li data-view="year current"></li>' + '<li data-view="year next">&rsaquo;</li>' + '</ul>' + '<ul data-view="months"></ul>' + '</div>' + '<div class="datepicker-panel" data-view="days picker">' + '<ul>' + '<li data-view="month prev">&lsaquo;</li>' + '<li data-view="month current"></li>' + '<li data-view="month next">&rsaquo;</li>' + '</ul>' + '<ul data-view="week"></ul>' + '<ul data-view="days"></ul>' + '</div>' + '</div>',
     // The offset top or bottom of the datepicker from the element
@@ -100,6 +102,8 @@
     zIndex: 1000,
     // Filter each date item (return `false` to disable a date item)
     filter: null,
+    // Add specialClass to item (return true to add class)
+    special: null,
     // Event shortcuts
     show: null,
     hide: null,
@@ -828,6 +832,8 @@
       var disabledClass = options.disabledClass,
           filter = options.filter,
           yearSuffix = options.yearSuffix;
+      var specialClass = options.specialClass,
+          special = options.special;
       var viewYear = this.viewDate.getFullYear();
       var now = new Date();
       var thisYear = now.getFullYear();
@@ -870,7 +876,8 @@
           disabled: disabled,
           text: viewYear + i,
           view: disabled ? 'year disabled' : view,
-          highlighted: date.getFullYear() === thisYear
+          highlighted: date.getFullYear() === thisYear,
+          specialClass: (typeof(special) === "function" && special.call(this.$element, date, 'year') === true ? (specialClass || '') : '')
         }));
       }
 
@@ -885,8 +892,10 @@
           endDate = this.endDate,
           viewDate = this.viewDate;
       var disabledClass = options.disabledClass || '';
+      var specialClass = options.specialClass || '';
       var months = options.monthsShort;
       var filter = $.isFunction(options.filter) && options.filter;
+      var special = $.isFunction(options.special) ? options.special : function() {};
       var viewYear = viewDate.getFullYear();
       var now = new Date();
       var thisYear = now.getFullYear();
@@ -922,6 +931,7 @@
           disabled: disabled,
           picked: picked,
           highlighted: viewYear === thisYear && date.getMonth() === thisMonth,
+          specialClass: special.call(this.$element, date, 'month') === true ? specialClass : '',
           index: i,
           text: months[i],
           view: disabled ? 'month disabled' : view
@@ -945,6 +955,8 @@
           months = options.months,
           weekStart = options.weekStart,
           yearSuffix = options.yearSuffix;
+      var specialClass = options.specialClass || "",
+          special = $.isFunction(options.special) ? options.special : function() {};
       var viewYear = viewDate.getFullYear();
       var viewMonth = viewDate.getMonth();
       var now = new Date();
@@ -1002,6 +1014,7 @@
         prevItems.push(this.createItem({
           disabled: disabled,
           highlighted: prevViewYear === thisYear && prevViewMonth === thisMonth && prevViewDate.getDate() === thisDay,
+          specialClass: special.call(this.$element, prevViewDate, 'day') === true ? specialClass : '',
           muted: true,
           picked: prevViewYear === year && prevViewMonth === month && i === day,
           text: i,
@@ -1051,6 +1064,7 @@
           disabled: _disabled,
           picked: picked,
           highlighted: nextViewYear === thisYear && nextViewMonth === thisMonth && date.getDate() === thisDay,
+          specialClass: special.call(this.$element, date, 'day') === true ? specialClass : '',
           muted: true,
           text: i,
           view: 'day next'
@@ -1085,6 +1099,7 @@
           disabled: _disabled2,
           picked: _picked,
           highlighted: viewYear === thisYear && viewMonth === thisMonth && _date.getDate() === thisDay,
+          specialClass: special.call(this.$element, _date, 'day') === true ? specialClass : '',
           text: i,
           view: _disabled2 ? 'day disabled' : view
         }));
@@ -1424,7 +1439,8 @@
           muted: false,
           picked: false,
           disabled: false,
-          highlighted: false
+          highlighted: false,
+          specialClass: ''
         };
         var classes = [];
         $.extend(item, data);
@@ -1435,6 +1451,10 @@
 
         if (item.highlighted) {
           classes.push(options.highlightedClass);
+        }
+
+        if (item.specialClass) {
+           classes.push(item.specialClass)
         }
 
         if (item.picked) {
