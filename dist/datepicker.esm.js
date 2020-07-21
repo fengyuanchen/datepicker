@@ -5,7 +5,7 @@
  * Copyright 2014-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2019-09-21T06:57:34.100Z
+ * Date: 2019-12-12T10:28:48.063Z
  */
 
 import $ from 'jquery';
@@ -97,7 +97,8 @@ var DEFAULTS = {
   // Event shortcuts
   show: null,
   hide: null,
-  pick: null
+  pick: null,
+  placement: null
 };
 
 var IS_BROWSER = typeof window !== 'undefined';
