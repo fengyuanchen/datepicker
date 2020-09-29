@@ -1,18 +1,18 @@
 /*!
- * Datepicker v1.0.9
+ * Datepicker v1.0.10
  * https://fengyuanchen.github.io/datepicker
  *
  * Copyright 2014-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2019-09-21T06:57:34.100Z
+ * Date: 2020-09-29T14:46:10.983Z
  */
 
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jquery')) :
   typeof define === 'function' && define.amd ? define(['jquery'], factory) :
-  (global = global || self, factory(global.jQuery));
-}(this, function ($) { 'use strict';
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.jQuery));
+}(this, (function ($) { 'use strict';
 
   $ = $ && $.hasOwnProperty('default') ? $['default'] : $;
 
@@ -198,8 +198,6 @@
         case 'yy':
           format.hasYear = true;
           break;
-
-        default:
       }
     });
     return format;
@@ -528,8 +526,6 @@
               case 'm':
                 date.setMonth(value - 1);
                 break;
-
-              default:
             }
           }); // Set day in the last to avoid converting `31/10/2019` to `01/10/2019`
 
@@ -541,8 +537,6 @@
               case 'd':
                 date.setDate(value);
                 break;
-
-              default:
             }
           });
         }
@@ -752,8 +746,6 @@
           this.hideView();
           this.pick('day');
           break;
-
-        default:
       }
     },
     globalClick: function globalClick(_ref) {
@@ -1105,9 +1097,7 @@
   var CLASS_BOTTOM_RIGHT = "".concat(NAMESPACE, "-bottom-right");
   var CLASS_PLACEMENTS = [CLASS_TOP_LEFT, CLASS_TOP_RIGHT, CLASS_BOTTOM_LEFT, CLASS_BOTTOM_RIGHT].join(' ');
 
-  var Datepicker =
-  /*#__PURE__*/
-  function () {
+  var Datepicker = /*#__PURE__*/function () {
     function Datepicker(element) {
       var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
@@ -1529,4 +1519,4 @@
     };
   }
 
-}));
+})));

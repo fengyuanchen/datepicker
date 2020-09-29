@@ -71,18 +71,6 @@ Initialize with `$.fn.datepicker` method.
 ```js
 $('[data-toggle="datepicker"]').datepicker();
 ```
-## Use as Inline
-```html
-<div id="inline-datepicker"></div>
-```
-```js
-    $(document).ready(function(){
-       $('#inline-datepicker').datepicker({
-        // language: 'ar-AE',
-        inline: true,
-      });
-    });
-```
 
 [⬆ back to top](#table-of-contents)
 

@@ -1,11 +1,11 @@
 /*!
- * Datepicker v1.0.9
+ * Datepicker v1.0.10
  * https://fengyuanchen.github.io/datepicker
  *
  * Copyright 2014-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2019-09-21T06:57:34.100Z
+ * Date: 2020-09-29T14:46:10.983Z
  */
 
 import $ from 'jquery';
@@ -192,8 +192,6 @@ function parseFormat(format) {
       case 'yy':
         format.hasYear = true;
         break;
-
-      default:
     }
   });
   return format;
@@ -522,8 +520,6 @@ var methods = {
             case 'm':
               date.setMonth(value - 1);
               break;
-
-            default:
           }
         }); // Set day in the last to avoid converting `31/10/2019` to `01/10/2019`
 
@@ -535,8 +531,6 @@ var methods = {
             case 'd':
               date.setDate(value);
               break;
-
-            default:
           }
         });
       }
@@ -746,8 +740,6 @@ var handlers = {
         this.hideView();
         this.pick('day');
         break;
-
-      default:
     }
   },
   globalClick: function globalClick(_ref) {
@@ -1099,9 +1091,7 @@ var CLASS_BOTTOM_LEFT = "".concat(NAMESPACE, "-bottom-left");
 var CLASS_BOTTOM_RIGHT = "".concat(NAMESPACE, "-bottom-right");
 var CLASS_PLACEMENTS = [CLASS_TOP_LEFT, CLASS_TOP_RIGHT, CLASS_BOTTOM_LEFT, CLASS_BOTTOM_RIGHT].join(' ');
 
-var Datepicker =
-/*#__PURE__*/
-function () {
+var Datepicker = /*#__PURE__*/function () {
   function Datepicker(element) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 

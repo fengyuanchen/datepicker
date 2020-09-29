@@ -1,18 +1,20 @@
 /*!
- * Datepicker v1.0.9
+ * Datepicker v1.0.10
  * https://fengyuanchen.github.io/datepicker
  *
  * Copyright 2014-present Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2019-09-21T06:57:34.100Z
+ * Date: 2020-09-29T14:46:10.983Z
  */
 
 'use strict';
 
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+var $ = require('jquery');
 
-var $ = _interopDefault(require('jquery'));
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+var $__default = /*#__PURE__*/_interopDefaultLegacy($);
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -180,7 +182,7 @@ function parseFormat(format) {
     source: source,
     parts: parts
   };
-  $.each(parts, function (i, part) {
+  $__default['default'].each(parts, function (i, part) {
     switch (part) {
       case 'dd':
       case 'd':
@@ -196,20 +198,18 @@ function parseFormat(format) {
       case 'yy':
         format.hasYear = true;
         break;
-
-      default:
     }
   });
   return format;
 }
 function getScrollParent(element) {
   var includeHidden = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-  var $element = $(element);
+  var $element = $__default['default'](element);
   var position = $element.css('position');
   var excludeStaticParent = position === 'absolute';
   var overflowRegex = includeHidden ? /auto|scroll|hidden/ : /auto|scroll/;
   var scrollParent = $element.parents().filter(function (index, parent) {
-    var $parent = $(parent);
+    var $parent = $__default['default'](parent);
 
     if (excludeStaticParent && $parent.css('position') === 'static') {
       return false;
@@ -217,7 +217,7 @@ function getScrollParent(element) {
 
     return overflowRegex.test($parent.css('overflow') + $parent.css('overflow-y') + $parent.css('overflow-x'));
   }).eq(0);
-  return position === 'fixed' || !scrollParent.length ? $(element.ownerDocument || document) : scrollParent;
+  return position === 'fixed' || !scrollParent.length ? $__default['default'](element.ownerDocument || document) : scrollParent;
 }
 /**
  * Add leading zeroes to the given value
@@ -261,17 +261,17 @@ var methods = {
     }
 
     this.shown = true;
-    this.$picker.removeClass(CLASS_HIDE).on(EVENT_CLICK, $.proxy(this.click, this));
+    this.$picker.removeClass(CLASS_HIDE).on(EVENT_CLICK, $__default['default'].proxy(this.click, this));
     this.showView(this.options.startView);
 
     if (!this.inline) {
-      this.$scrollParent.on(EVENT_SCROLL, $.proxy(this.place, this));
-      $(window).on(EVENT_RESIZE, this.onResize = proxy(this.place, this));
-      $(document).on(EVENT_CLICK, this.onGlobalClick = proxy(this.globalClick, this));
-      $(document).on(EVENT_KEYUP, this.onGlobalKeyup = proxy(this.globalKeyup, this));
+      this.$scrollParent.on(EVENT_SCROLL, $__default['default'].proxy(this.place, this));
+      $__default['default'](window).on(EVENT_RESIZE, this.onResize = proxy(this.place, this));
+      $__default['default'](document).on(EVENT_CLICK, this.onGlobalClick = proxy(this.globalClick, this));
+      $__default['default'](document).on(EVENT_KEYUP, this.onGlobalKeyup = proxy(this.globalKeyup, this));
 
       if (IS_TOUCH_DEVICE) {
-        $(document).on(EVENT_TOUCH_START, this.onTouchStart = proxy(this.touchstart, this));
+        $__default['default'](document).on(EVENT_TOUCH_START, this.onTouchStart = proxy(this.touchstart, this));
       }
 
       this.place();
@@ -292,12 +292,12 @@ var methods = {
 
     if (!this.inline) {
       this.$scrollParent.off(EVENT_SCROLL, this.place);
-      $(window).off(EVENT_RESIZE, this.onResize);
-      $(document).off(EVENT_CLICK, this.onGlobalClick);
-      $(document).off(EVENT_KEYUP, this.onGlobalKeyup);
+      $__default['default'](window).off(EVENT_RESIZE, this.onResize);
+      $__default['default'](document).off(EVENT_CLICK, this.onGlobalClick);
+      $__default['default'](document).off(EVENT_KEYUP, this.onGlobalKeyup);
 
       if (IS_TOUCH_DEVICE) {
-        $(document).off(EVENT_TOUCH_START, this.onTouchStart);
+        $__default['default'](document).off(EVENT_TOUCH_START, this.onTouchStart);
       }
     }
   },
@@ -366,7 +366,7 @@ var methods = {
     var monthsShort = options.monthsShort;
     var months = options.months;
 
-    if ($.isNumeric(month)) {
+    if ($__default['default'].isNumeric(month)) {
       month = Number(month);
     } else if (isUndefined(shortForm)) {
       shortForm = month;
@@ -391,7 +391,7 @@ var methods = {
     var options = this.options;
     var days = options.days;
 
-    if ($.isNumeric(day)) {
+    if ($__default['default'].isNumeric(day)) {
       day = Number(day);
     } else {
       if (isUndefined(min)) {
@@ -435,7 +435,7 @@ var methods = {
     if (isDate(date) || isString(date)) {
       date = this.parseDate(date);
 
-      if ($.isFunction(filter) && filter.call(this.$element, date, 'day') === false) {
+      if ($__default['default'].isFunction(filter) && filter.call(this.$element, date, 'day') === false) {
         return;
       }
 
@@ -509,7 +509,7 @@ var methods = {
 
       if (parts.length === format.parts.length) {
         // Set year and month first
-        $.each(parts, function (i, part) {
+        $__default['default'].each(parts, function (i, part) {
           var value = parseInt(part, 10);
 
           switch (format.parts[i]) {
@@ -526,12 +526,10 @@ var methods = {
             case 'm':
               date.setMonth(value - 1);
               break;
-
-            default:
           }
         }); // Set day in the last to avoid converting `31/10/2019` to `01/10/2019`
 
-        $.each(parts, function (i, part) {
+        $__default['default'].each(parts, function (i, part) {
           var value = parseInt(part, 10);
 
           switch (format.parts[i]) {
@@ -539,8 +537,6 @@ var methods = {
             case 'd':
               date.setDate(value);
               break;
-
-            default:
           }
         });
       }
@@ -573,7 +569,7 @@ var methods = {
         yyyy: addLeadingZero(year, 4)
       };
       formatted = format.source;
-      $.each(format.parts, function (i, part) {
+      $__default['default'].each(format.parts, function (i, part) {
         formatted = formatted.replace(part, values[part]);
       });
     }
@@ -590,7 +586,7 @@ var methods = {
 
 var handlers = {
   click: function click(e) {
-    var $target = $(e.target);
+    var $target = $__default['default'](e.target);
     var options = this.options,
         date = this.date,
         viewDate = this.viewDate,
@@ -699,7 +695,7 @@ var handlers = {
         break;
 
       case 'month':
-        viewMonth = $.inArray($target.text(), options.monthsShort);
+        viewMonth = $__default['default'].inArray($target.text(), options.monthsShort);
         date.setFullYear(viewYear); // Set date before month to avoid month changing (#195)
 
         date.setDate(getMinDay(viewYear, viewMonth, viewDay));
@@ -750,8 +746,6 @@ var handlers = {
         this.hideView();
         this.pick('day');
         break;
-
-      default:
     }
   },
   globalClick: function globalClick(_ref) {
@@ -790,7 +784,7 @@ var handlers = {
     var target = _ref3.target;
 
     // Emulate click in touch devices to support hiding the picker automatically (#197).
-    if (this.isInput && target !== this.element && !$.contains(this.$picker[0], target)) {
+    if (this.isInput && target !== this.element && !$__default['default'].contains(this.$picker[0], target)) {
       this.hide();
       this.element.blur();
     }
@@ -812,7 +806,7 @@ var render = {
         daysMin = _this$options.daysMin;
     weekStart = parseInt(weekStart, 10) % 7;
     daysMin = daysMin.slice(weekStart).concat(daysMin.slice(0, weekStart));
-    $.each(daysMin, function (i, day) {
+    $__default['default'].each(daysMin, function (i, day) {
       items.push(_this.createItem({
         text: day
       }));
@@ -884,7 +878,7 @@ var render = {
         viewDate = this.viewDate;
     var disabledClass = options.disabledClass || '';
     var months = options.monthsShort;
-    var filter = $.isFunction(options.filter) && options.filter;
+    var filter = $__default['default'].isFunction(options.filter) && options.filter;
     var viewYear = viewDate.getFullYear();
     var now = new Date();
     var thisYear = now.getFullYear();
@@ -1103,17 +1097,15 @@ var CLASS_BOTTOM_LEFT = "".concat(NAMESPACE, "-bottom-left");
 var CLASS_BOTTOM_RIGHT = "".concat(NAMESPACE, "-bottom-right");
 var CLASS_PLACEMENTS = [CLASS_TOP_LEFT, CLASS_TOP_RIGHT, CLASS_BOTTOM_LEFT, CLASS_BOTTOM_RIGHT].join(' ');
 
-var Datepicker =
-/*#__PURE__*/
-function () {
+var Datepicker = /*#__PURE__*/function () {
   function Datepicker(element) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
     _classCallCheck(this, Datepicker);
 
-    this.$element = $(element);
+    this.$element = $__default['default'](element);
     this.element = element;
-    this.options = $.extend({}, DEFAULTS, LANGUAGES[options.language], $.isPlainObject(options) && options);
+    this.options = $__default['default'].extend({}, DEFAULTS, LANGUAGES[options.language], $__default['default'].isPlainObject(options) && options);
     this.$scrollParent = getScrollParent(element, true);
     this.built = false;
     this.shown = false;
@@ -1134,7 +1126,7 @@ function () {
       var startDate = options.startDate,
           endDate = options.endDate,
           date = options.date;
-      this.$trigger = $(options.trigger);
+      this.$trigger = $__default['default'](options.trigger);
       this.isInput = $this.is('input') || $this.is('textarea');
       this.inline = options.inline && (options.container || !this.isInput);
       this.format = parseFormat(options.format);
@@ -1190,7 +1182,7 @@ function () {
       this.built = true;
       var $this = this.$element,
           options = this.options;
-      var $picker = $(options.template);
+      var $picker = $__default['default'](options.template);
       this.$picker = $picker;
       this.$week = $picker.find(selectorOf('week')); // Years view
 
@@ -1213,9 +1205,9 @@ function () {
       this.$days = $picker.find(selectorOf('days'));
 
       if (this.inline) {
-        $(options.container || $this).append($picker.addClass("".concat(NAMESPACE, "-inline")));
+        $__default['default'](options.container || $this).append($picker.addClass("".concat(NAMESPACE, "-inline")));
       } else {
-        $(document.body).append($picker.addClass("".concat(NAMESPACE, "-dropdown")));
+        $__default['default'](document.body).append($picker.addClass("".concat(NAMESPACE, "-dropdown")));
         $picker.addClass(CLASS_HIDE).css({
           zIndex: parseInt(options.zIndex, 10)
         });
@@ -1239,29 +1231,29 @@ function () {
       var options = this.options,
           $this = this.$element;
 
-      if ($.isFunction(options.show)) {
+      if ($__default['default'].isFunction(options.show)) {
         $this.on(EVENT_SHOW, options.show);
       }
 
-      if ($.isFunction(options.hide)) {
+      if ($__default['default'].isFunction(options.hide)) {
         $this.on(EVENT_HIDE, options.hide);
       }
 
-      if ($.isFunction(options.pick)) {
+      if ($__default['default'].isFunction(options.pick)) {
         $this.on(EVENT_PICK, options.pick);
       }
 
       if (this.isInput) {
-        $this.on(EVENT_KEYUP, $.proxy(this.keyup, this));
+        $this.on(EVENT_KEYUP, $__default['default'].proxy(this.keyup, this));
       }
 
       if (!this.inline) {
         if (options.trigger) {
-          this.$trigger.on(EVENT_CLICK, $.proxy(this.toggle, this));
+          this.$trigger.on(EVENT_CLICK, $__default['default'].proxy(this.toggle, this));
         } else if (this.isInput) {
-          $this.on(EVENT_FOCUS, $.proxy(this.show, this));
+          $this.on(EVENT_FOCUS, $__default['default'].proxy(this.show, this));
         } else {
-          $this.on(EVENT_CLICK, $.proxy(this.show, this));
+          $this.on(EVENT_CLICK, $__default['default'].proxy(this.show, this));
         }
       }
     }
@@ -1271,15 +1263,15 @@ function () {
       var $this = this.$element,
           options = this.options;
 
-      if ($.isFunction(options.show)) {
+      if ($__default['default'].isFunction(options.show)) {
         $this.off(EVENT_SHOW, options.show);
       }
 
-      if ($.isFunction(options.hide)) {
+      if ($__default['default'].isFunction(options.hide)) {
         $this.off(EVENT_HIDE, options.hide);
       }
 
-      if ($.isFunction(options.pick)) {
+      if ($__default['default'].isFunction(options.pick)) {
         $this.off(EVENT_PICK, options.pick);
       }
 
@@ -1368,8 +1360,8 @@ function () {
       var $this = this.$element,
           options = this.options,
           $picker = this.$picker;
-      var containerWidth = $(document).outerWidth();
-      var containerHeight = $(document).outerHeight();
+      var containerWidth = $__default['default'](document).outerWidth();
+      var containerHeight = $__default['default'](document).outerHeight();
       var elementWidth = $this.outerWidth();
       var elementHeight = $this.outerHeight();
       var width = $picker.width();
@@ -1407,7 +1399,7 @@ function () {
   }, {
     key: "trigger",
     value: function trigger(type, data) {
-      var e = $.Event(type, data);
+      var e = $__default['default'].Event(type, data);
       this.$element.trigger(e);
       return e;
     }
@@ -1425,7 +1417,7 @@ function () {
         highlighted: false
       };
       var classes = [];
-      $.extend(item, data);
+      $__default['default'].extend(item, data);
 
       if (item.muted) {
         classes.push(options.mutedClass);
@@ -1467,28 +1459,28 @@ function () {
     key: "setDefaults",
     value: function setDefaults() {
       var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      $.extend(DEFAULTS, LANGUAGES[options.language], $.isPlainObject(options) && options);
+      $__default['default'].extend(DEFAULTS, LANGUAGES[options.language], $__default['default'].isPlainObject(options) && options);
     }
   }]);
 
   return Datepicker;
 }();
 
-if ($.extend) {
-  $.extend(Datepicker.prototype, render, handlers, methods);
+if ($__default['default'].extend) {
+  $__default['default'].extend(Datepicker.prototype, render, handlers, methods);
 }
 
-if ($.fn) {
-  var AnotherDatepicker = $.fn.datepicker;
+if ($__default['default'].fn) {
+  var AnotherDatepicker = $__default['default'].fn.datepicker;
 
-  $.fn.datepicker = function jQueryDatepicker(option) {
+  $__default['default'].fn.datepicker = function jQueryDatepicker(option) {
     for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
       args[_key - 1] = arguments[_key];
     }
 
     var result;
     this.each(function (i, element) {
-      var $element = $(element);
+      var $element = $__default['default'](element);
       var isDestroy = option === 'destroy';
       var datepicker = $element.data(NAMESPACE);
 
@@ -1497,7 +1489,7 @@ if ($.fn) {
           return;
         }
 
-        var options = $.extend({}, $element.data(), $.isPlainObject(option) && option);
+        var options = $__default['default'].extend({}, $element.data(), $__default['default'].isPlainObject(option) && option);
         datepicker = new Datepicker(element, options);
         $element.data(NAMESPACE, datepicker);
       }
@@ -1505,7 +1497,7 @@ if ($.fn) {
       if (isString(option)) {
         var fn = datepicker[option];
 
-        if ($.isFunction(fn)) {
+        if ($__default['default'].isFunction(fn)) {
           result = fn.apply(datepicker, args);
 
           if (isDestroy) {
@@ -1517,12 +1509,12 @@ if ($.fn) {
     return !isUndefined(result) ? result : this;
   };
 
-  $.fn.datepicker.Constructor = Datepicker;
-  $.fn.datepicker.languages = LANGUAGES;
-  $.fn.datepicker.setDefaults = Datepicker.setDefaults;
+  $__default['default'].fn.datepicker.Constructor = Datepicker;
+  $__default['default'].fn.datepicker.languages = LANGUAGES;
+  $__default['default'].fn.datepicker.setDefaults = Datepicker.setDefaults;
 
-  $.fn.datepicker.noConflict = function noConflict() {
-    $.fn.datepicker = AnotherDatepicker;
+  $__default['default'].fn.datepicker.noConflict = function noConflict() {
+    $__default['default'].fn.datepicker = AnotherDatepicker;
     return this;
   };
 }
