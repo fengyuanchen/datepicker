@@ -55,7 +55,8 @@ export default {
         } else {
           $target.siblings(`.${options.pickedClass}`)
             .removeClass(options.pickedClass)
-            .data('view', 'year');
+            .attr('data-view', 'year')
+            .removeAttr('aria-selected');
           this.hideView();
         }
 
@@ -74,10 +75,12 @@ export default {
           this.showView(VIEWS.MONTHS);
         } else {
           $target.addClass(options.pickedClass)
-            .data('view', 'year picked')
+            .attr('data-view', 'year picked')
+            .attr('aria-selected', 'true')
             .siblings(`.${options.pickedClass}`)
             .removeClass(options.pickedClass)
-            .data('view', 'year');
+            .attr('data-view', 'year')
+            .removeAttr('aria-selected');
           this.hideView();
         }
 
@@ -115,7 +118,8 @@ export default {
         } else {
           $target.siblings(`.${options.pickedClass}`)
             .removeClass(options.pickedClass)
-            .data('view', 'month');
+            .attr('data-view', 'month')
+            .removeAttr('aria-selected');
           this.hideView();
         }
 
@@ -137,10 +141,12 @@ export default {
           this.showView(VIEWS.DAYS);
         } else {
           $target.addClass(options.pickedClass)
-            .data('view', 'month picked')
+            .attr('data-view', 'month picked')
+            .attr('aria-selected', 'true')
             .siblings(`.${options.pickedClass}`)
             .removeClass(options.pickedClass)
-            .data('view', 'month');
+            .attr('data-view', 'month')
+            .removeAttr('aria-selected');
           this.hideView();
         }
 

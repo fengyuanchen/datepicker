@@ -43,6 +43,11 @@ export default {
     this.showView(this.options.startView);
 
     if (!this.inline) {
+      this.$picker
+        .removeAttr('aria-hidden')
+        .attr('role', 'dialog')
+        .attr('aria-model', 'true');
+
       this.$scrollParent.on(EVENT_SCROLL, $.proxy(this.place, this));
       $(window).on(EVENT_RESIZE, (this.onResize = proxy(this.place, this)));
       $(document).on(EVENT_CLICK, (this.onGlobalClick = proxy(this.globalClick, this)));
@@ -70,6 +75,10 @@ export default {
     this.$picker.addClass(CLASS_HIDE).off(EVENT_CLICK, this.click);
 
     if (!this.inline) {
+      this.$picker
+        .attr('aria-hidden', 'true')
+        .removeAttr('role')
+        .removeAttr('aria-model');
       this.$scrollParent.off(EVENT_SCROLL, this.place);
       $(window).off(EVENT_RESIZE, this.onResize);
       $(document).off(EVENT_CLICK, this.onGlobalClick);

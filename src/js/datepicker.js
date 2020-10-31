@@ -147,9 +147,13 @@ class Datepicker {
       $(options.container || $this).append($picker.addClass(`${NAMESPACE}-inline`));
     } else {
       $(document.body).append($picker.addClass(`${NAMESPACE}-dropdown`));
-      $picker.addClass(CLASS_HIDE).css({
-        zIndex: parseInt(options.zIndex, 10),
-      });
+      $picker
+        .addClass(CLASS_HIDE)
+        .attr('tabindex', '-1')
+        .attr('aria-hidden', 'true')
+        .css({
+          zIndex: parseInt(options.zIndex, 10),
+        });
     }
 
     this.renderWeek();
@@ -362,7 +366,8 @@ class Datepicker {
       classes.push(options.disabledClass);
     }
 
-    return (`<${itemTag} class="${classes.join(' ')}" data-view="${item.view}">${item.text}</${itemTag}>`);
+    return (`<${itemTag}${classes.length > 0 ? ` class="${classes.join(' ')}"` : ''}${item.view ? ` data-view="${item.view}"` : ''
+    }${item.title ? ` title="${item.title}"` : ''}${item.picked ? ' aria-selected="true"' : ''}>${item.text}</${itemTag}>`);
   }
 
   getValue() {

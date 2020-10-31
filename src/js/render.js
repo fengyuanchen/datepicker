@@ -10,13 +10,15 @@ export default {
 
   renderWeek() {
     const items = [];
-    let { weekStart, daysMin } = this.options;
+    let { weekStart, days, daysMin } = this.options;
 
     weekStart = parseInt(weekStart, 10) % 7;
+    days = days.slice(weekStart).concat(days.slice(0, weekStart));
     daysMin = daysMin.slice(weekStart).concat(daysMin.slice(0, weekStart));
     $.each(daysMin, (i, day) => {
       items.push(this.createItem({
         text: day,
+        title: days[i],
       }));
     });
 
